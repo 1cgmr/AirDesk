@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AirDesk</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_new__workspace">New_Workspace</string>
+    <string name="title_activity_menu">Menu</string>
+    <string name="title_activity_activity__menu">Activity_Menu</string>
+    <string name="title_activity_user__tag__list">User_Tag_List</string>
+    <string name="title_activity_user__tags__list">User_Tags_List</string>
+</resources>
