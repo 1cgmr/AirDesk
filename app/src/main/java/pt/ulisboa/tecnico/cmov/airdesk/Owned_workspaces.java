@@ -26,7 +26,7 @@ public class Owned_workspaces extends Activity implements OnItemClickListener {
     private ItemBean bean;
     User user;
     private File userDir;
-    //shdbchdsb
+    //shdb
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
