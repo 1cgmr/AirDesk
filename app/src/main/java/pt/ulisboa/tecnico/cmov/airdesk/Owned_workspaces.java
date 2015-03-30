@@ -18,7 +18,7 @@ import pt.ulisboa.tecnico.cmov.airdesk.Adapters.ListViewCustomAdapter;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
 
-public class owned_workspaces extends Activity implements OnItemClickListener {
+public class Owned_workspaces extends Activity implements OnItemClickListener {
 
     ListView lview3;
     ListViewCustomAdapter adapter;
