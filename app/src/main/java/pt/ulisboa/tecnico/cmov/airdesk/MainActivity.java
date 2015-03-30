@@ -43,6 +43,8 @@ public class MainActivity extends ActionBarActivity {
             Button btnLogin = (Button) findViewById(R.id.btnLogin);
             btnLogin.setOnClickListener(Login);
             MainActivity.context = getApplicationContext();
+
+
         }
         catch (Exception e){
             Log.e("ERROR", "ERROR IN CODE:" + e.toString());

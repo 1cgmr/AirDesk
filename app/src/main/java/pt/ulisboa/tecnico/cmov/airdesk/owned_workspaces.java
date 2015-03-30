@@ -1,67 +1,77 @@
 package pt.ulisboa.tecnico.cmov.airdesk;
 
-import android.content.Intent;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
-import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.*;
-import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.Workspace;
+import pt.ulisboa.tecnico.cmov.airdesk.Adapters.ItemBean;
+import pt.ulisboa.tecnico.cmov.airdesk.Adapters.ListViewCustomAdapter;
+import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
 
-public class owned_workspaces extends ActionBarActivity {
+public class Owned_workspaces extends Activity implements AdapterView.OnItemClickListener {
 
-    private ArrayAdapter adapter;
-    private List<Workspace> Owned_Workspaces = new ArrayList<Workspace>();
+    ListView lview3;
+    ListViewCustomAdapter adapter;
+    private ArrayList<Object> itemList;
+    private ItemBean bean;
+    User user;
+    private File userDir;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_owned_workspaces);
+        setContentView(R.layout.workspace_list);
+        user = User.getInstance();
+        Context context = this.getApplicationContext();
+        userDir = context.getDir(user.getUserName(), Context.MODE_PRIVATE);
+        Log.d("ABC", "teste");
+        prepareArrayLists();
+        lview3 = (ListView) findViewById(R.id.listView1);
+        adapter = new ListViewCustomAdapter(this, itemList);
+        lview3.setAdapter(adapter);
+        Log.d("ABC", "teste");
 
-        AirDesk globals = (AirDesk) getApplicationContext();
-        Owned_Workspaces.addAll(globals.getOwnedWorkspaces());
-
-        final ListView OwnedList = (ListView) findViewById(R.id.Owned_workspaces_list);
-        adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line, Owned_Workspaces);
-        OwnedList.setAdapter(adapter);
-
+        lview3.setOnItemClickListener(this);
+        Log.d("ABC", "teste");
 
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_owned_workspaces, menu);
-        return true;
+    public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+        // TODO Auto-generated method stub
+        ItemBean bean = (ItemBean) adapter.getItem(position);
+        Log.d("ABC", "teste");
+        Toast.makeText(this, "Title => " + bean.getTitle() + " \n Description => " + bean.getDescription(), Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    /* Method used to prepare the ArrayList,
+     * Same way, you can also do looping and adding object into the ArrayList.
+     */
+    public void prepareArrayLists()
+    {
+        itemList = new ArrayList<Object>();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        for(final File fileEntry : userDir.listFiles()){
+            Log.d("ABC", ""+ fileEntry.getName()+ ", length(): " + fileEntry.length() );
+            AddObjectToList(fileEntry.getName(), ""+fileEntry.getTotalSpace());
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
-    public void sendInvitation(View v){
-        Intent intent = new Intent(owned_workspaces.this, Send_invitation.class);
-        startActivity(intent);
+    // Add one item into the Array List
+    public void AddObjectToList(String title, String desc)
+    {
+        bean = new ItemBean();
+        bean.setDescription(desc);
+        bean.setTitle(title);
+        itemList.add(bean);
     }
-
 }

@@ -52,7 +52,7 @@ public class Activity_Menu extends ActionBarActivity {
 
     private View.OnClickListener OwnedWorkspaces=new View.OnClickListener(){
         public void onClick(View v){
-            startActivity(new Intent(Activity_Menu.this, owned_workspaces.class));
+            startActivity(new Intent(Activity_Menu.this, Owned_workspaces.class));
         }
     };
 

@@ -22,8 +22,8 @@
             android:label="@string/title_activity_new__workspace" >
         </activity>
         <activity
-            android:name=".owned_workspaces"
-            android:label="owned_workspaces" >
+            android:name=".Owned_workspaces"
+            android:label="Owned_workspaces" >
         </activity>
         <activity
             android:name=".Foreign_workspaces"
