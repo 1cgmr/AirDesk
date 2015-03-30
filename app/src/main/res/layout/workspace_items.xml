@@ -6,29 +6,60 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:padding="5dip">
 
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridLayout"
+        android:clickable="true"
+        android:focusableInTouchMode="true">
 
-        <TextView
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_height="wrap_content"
-            android:text="TextView"
+        <TableLayout
             android:layout_width="wrap_content"
-            android:id="@+id/txtViewTitle"
-            android:layout_marginLeft="2dip"
-            android:layout_centerInParent="true">
-        </TextView>
+            android:layout_height="wrap_content"
+            android:id="@+id/tableLayout"
+            android:layout_row="0"
+            android:layout_column="0">
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:text="TextView"
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:id="@+id/txtViewTitle"
+                android:layout_marginLeft="2dip"
+                android:layout_centerInParent="true">
+            </TextView>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:id="@+id/txtViewDescription"
+                android:layout_below="@+id/txtViewTitle"
+                android:layout_marginLeft="2dip"
+                android:layout_centerHorizontal="true">
+            </TextView>
+        </TableLayout>
+
+        <Button
             android:layout_width="wrap_content"
-            android:id="@+id/txtViewDescription"
-            android:layout_below="@+id/txtViewTitle"
-            android:layout_marginLeft="2dip"
-            android:layout_centerHorizontal="true">
-        </TextView>
-    </TableLayout>
+            android:layout_height="wrap_content"
+            android:text="Share"
+            android:id="@+id/button3"
+            android:layout_row="0"
+            android:layout_column="11"
+            android:focusableInTouchMode="false"
+            android:focusable="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eliminar"
+            android:id="@+id/button2"
+            android:layout_row="0"
+            android:layout_column="12"
+            android:focusableInTouchMode="false"
+            android:focusable="true" />
+    </GridLayout>
 
 </RelativeLayout>

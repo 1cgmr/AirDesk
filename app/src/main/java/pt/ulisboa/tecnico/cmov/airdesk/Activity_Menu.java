@@ -1,6 +1,5 @@
 package pt.ulisboa.tecnico.cmov.airdesk;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -11,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,7 +50,7 @@ public class Activity_Menu extends ActionBarActivity {
 
     private View.OnClickListener OwnedWorkspaces=new View.OnClickListener(){
         public void onClick(View v){
-            startActivity(new Intent(Activity_Menu.this, Owned_workspaces.class));
+            startActivity(new Intent(Activity_Menu.this, owned_workspaces.class));
         }
     };
 

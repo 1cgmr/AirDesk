@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import pt.ulisboa.tecnico.cmov.airdesk.Adapters.ListViewCustomAdapter;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
 
-public class Owned_workspaces extends Activity implements AdapterView.OnItemClickListener {
+public class owned_workspaces extends Activity implements OnItemClickListener {
 
     ListView lview3;
     ListViewCustomAdapter adapter;
@@ -49,7 +50,7 @@ public class Owned_workspaces extends Activity implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
         // TODO Auto-generated method stub
         ItemBean bean = (ItemBean) adapter.getItem(position);
-        Log.d("ABC", "teste");
+        Log.d("ABC", "onItemClick");
         Toast.makeText(this, "Title => " + bean.getTitle() + " \n Description => " + bean.getDescription(), Toast.LENGTH_SHORT).show();
     }
 
@@ -58,7 +59,7 @@ public class Owned_workspaces extends Activity implements AdapterView.OnItemClic
      */
     public void prepareArrayLists()
     {
-        itemList = new ArrayList<Object>();
+        itemList = new ArrayList<>();
 
         for(final File fileEntry : userDir.listFiles()){
             Log.d("ABC", ""+ fileEntry.getName()+ ", length(): " + fileEntry.length() );
