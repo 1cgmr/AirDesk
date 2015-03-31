@@ -29,7 +29,6 @@ public class New_Workspace extends ActionBarActivity {
         final ListView TagList= (ListView) findViewById(R.id.Tag_list);
         adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line, Tags);
         TagList.setAdapter(adapter);
-
     }
 
 
@@ -56,7 +55,6 @@ public class New_Workspace extends ActionBarActivity {
     }
 
     public void AddTag(View v){
-
         final EditText editText = (EditText) findViewById(R.id.workspace_tag);
         if(editText.getText().toString().compareTo("")!=0) {
             Tags.add(0, editText.getText().toString());

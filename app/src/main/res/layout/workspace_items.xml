@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
+
 	android:id="@+id/relativeLayout1"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:padding="5dip">
-
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/gridLayout"
-        android:clickable="true"
-        android:focusableInTouchMode="true">
-
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tableLayout"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:touchscreenBlocksFocus="false"
-            android:focusableInTouchMode="true">
+    android:orientation="vertical"
+    android:padding="5dip">
 
             <TextView
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -41,27 +27,5 @@
                 android:layout_marginLeft="2dip"
                 android:layout_centerHorizontal="true">
             </TextView>
-        </TableLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Share"
-            android:id="@+id/button3"
-            android:layout_row="0"
-            android:layout_column="11"
-            android:focusableInTouchMode="true"
-            android:focusable="false" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Eliminar"
-            android:id="@+id/button2"
-            android:layout_row="0"
-            android:layout_column="12"
-            android:focusableInTouchMode="true"
-            android:focusable="true" />
-    </GridLayout>
-
-</RelativeLayout>
+</LinearLayout>

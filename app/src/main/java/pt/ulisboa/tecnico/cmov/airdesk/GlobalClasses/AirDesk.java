@@ -19,6 +19,7 @@ public class AirDesk extends Application {
         input:
             UserName:String nome do utilizador a logar-se
      */
+    //teste
     public void logIn(String userName){
         for(User user : ReachableUsers){
             if(user.getUserName().equals(userName)){

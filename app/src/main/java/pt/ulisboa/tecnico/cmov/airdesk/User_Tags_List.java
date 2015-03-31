@@ -22,7 +22,6 @@ import pt.ulisboa.tecnico.cmov.airdesk.DataBase.User_Tag;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
 public class User_Tags_List extends ActionBarActivity {
-
     TagAdapter adapter=null;
     User_Tag helper=null;
     //NoteHelper helper=null;
@@ -40,7 +39,6 @@ public class User_Tags_List extends ActionBarActivity {
         try
         {
             setContentView(R.layout.activity_user__tags__list);
-
             ListView list=(ListView) findViewById(R.id.listTags);
             editTag = (EditText) findViewById(R.id.editTextTags);
 
@@ -97,7 +95,6 @@ public class User_Tags_List extends ActionBarActivity {
                 helper.delete_User_Tag(TagId);
                 TagId=null;
             }
-
             dataset_cursor.requery();
             editTag.setText("");
         }
@@ -157,12 +154,10 @@ public class User_Tags_List extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

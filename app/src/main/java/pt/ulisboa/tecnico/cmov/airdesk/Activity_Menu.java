@@ -32,7 +32,6 @@ public class Activity_Menu extends ActionBarActivity {
         final TextView mTextView = (TextView) findViewById(R.id.textViewUserEmail);
        mTextView.setText(g.getUserName());
 
-
         Button btnLogin = (Button) findViewById(R.id.btnListTags);
         btnLogin.setOnClickListener(ListTags);
 
@@ -45,7 +44,7 @@ public class Activity_Menu extends ActionBarActivity {
         Button btnOwnedWorkspaces= (Button) findViewById(R.id.btnOwnedWorkspaces);
         btnOwnedWorkspaces.setOnClickListener(OwnedWorkspaces);
 
-        inicializaWorkspaceFalsos(); //Para debug
+//        inicializaWorkspaceFalsos(); //Para debug
     }
 
     private View.OnClickListener OwnedWorkspaces=new View.OnClickListener(){
