@@ -51,12 +51,12 @@ public class Owned_workspaces extends Activity  {
     }
 
   //  @Override
-   public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-        // TODO Auto-generated method stub
-        ItemBean bean = (ItemBean) adapter.getItem(position);
-        Log.d("ABC", "onItemClick");
-        Toast.makeText(this, "Title => " + bean.getTitle(), Toast.LENGTH_SHORT).show();
-    }
+  // public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+  //      // TODO Auto-generated method stub
+  //      ItemBean bean = (ItemBean) adapter.getItem(position);
+  //      Log.d("ABC", "onItemClick");
+  //      Toast.makeText(this, "Title => " + bean.getTitle(), Toast.LENGTH_SHORT).show();
+  //  }
 
     /* Method used to prepare the ArrayList,
      * Same way, you can also do looping and adding object into the ArrayList.
@@ -66,8 +66,7 @@ public class Owned_workspaces extends Activity  {
         itemList = new ArrayList<>();
 
         for(final File fileEntry : userDir.listFiles()){
-            Log.d("ABC", ""+ fileEntry.getName()+ ", length(): " + fileEntry.length() );
-            AddObjectToList(fileEntry.getName(), ""+fileEntry.getTotalSpace());
+            AddObjectToList(fileEntry.getName(), "Nº Ficheiros: "+fileEntry.listFiles().length);
         }
     }
 
@@ -97,26 +96,18 @@ public class Owned_workspaces extends Activity  {
 
                     OnItemLongClickListener(itemList, item);
                     String nome = fileEntry.getName();
-                    //itemList..get(info.position);
-                   // itemList.getItemAtPosition(position).toString();
-//                    lview3.OnItemLongClickListener(this);
-
-                 //   Toast.makeText(this, "ola" + .toString(), Toast.LENGTH_LONG).show();
 
                     if(nome.equals(NomeItemClicked)){
-                        Toast.makeText(this, fileEntry.getPath(), Toast.LENGTH_LONG).show();
-                    //    userDir = context.getDir(user.getUserName(), Context.MODE_PRIVATE);
-                    //    userDir.delete();
-                    //     itemList.remove(info.position);
-                    //     adapter.notifyDataSetChanged();
-                    // Toast.makeText(this, "ola", Toast.LENGTH_LONG).show();
-                    return true;
+                        File file = new File(userDir.getPath() + "/" + nome);
+                        deleteDirectory(file);
+                        itemList.remove(info.position);
+                        adapter.notifyDataSetChanged();
+                        return true;
                         }
                        }
                      default:
                       return super.onContextItemSelected(item);
                 }
-//        return super.onContextItemSelected(item);
     }
 
     private void OnItemLongClickListener(ArrayList<Object> position, MenuItem item) {
@@ -124,7 +115,24 @@ public class Owned_workspaces extends Activity  {
 
         ItemBean bean = (ItemBean) adapter.getItem(info.position);
         NomeItemClicked = bean.getTitle();
-        Toast.makeText(this, "Title => " + bean.getTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+    public static boolean deleteDirectory(File path) {
+        if( path.exists() ) {
+            File[] files = path.listFiles();
+            if (files == null) {
+                return true;
+            }
+            for(int i=0; i<files.length; i++) {
+                if(files[i].isDirectory()) {
+                    deleteDirectory(files[i]);
+                }
+                else {
+                    files[i].delete();
+                }
+            }
+        }
+        return( path.delete() );
     }
 
 
