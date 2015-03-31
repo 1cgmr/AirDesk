@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TableLayout;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -22,6 +23,7 @@ public class Owned_workspaces extends Activity implements OnItemClickListener {
 
     ListView lview3;
     ListViewCustomAdapter adapter;
+
     private ArrayList<Object> itemList;
     private ItemBean bean;
     User user;
