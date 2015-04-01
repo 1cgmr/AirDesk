@@ -51,7 +51,7 @@ public class User {
     }
 
     public void newWorkspace(Boolean publico, String workspaceName, List<String> Tags,int max_quota,Context context){
-        Workspace workspace= new Workspace(publico, workspaceName, Tags, max_quota);
+        Workspace workspace= new Workspace(publico, workspaceName, Tags, max_quota, mydir);
         this.ownedWorkspaces.add(workspace);
     }
 

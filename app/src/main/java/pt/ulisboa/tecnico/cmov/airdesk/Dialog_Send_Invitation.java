@@ -18,10 +18,24 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
+
 
 public class Dialog_Send_Invitation extends DialogFragment {
     Button btnInvitation;
     EditText UserId;
+    AirDesk context;
+    String workspace;
+
+    public Dialog_Send_Invitation(){}
+
+    public void setGlobals(AirDesk applicationContext) {
+        this.context=applicationContext;
+    }
+
+    public void setWorkspace(String workspace){
+        this.workspace=workspace;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
@@ -41,7 +55,8 @@ public class Dialog_Send_Invitation extends DialogFragment {
 
     private View.OnClickListener Invitation=new View.OnClickListener(){
         public void onClick(View v) {
-            Toast.makeText(getActivity(), "Utilizador convidado", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Utilizador convidado", Toast.LENGTH_LONG).show();//editTextInvitation
+            context.invite(UserId.getText().toString(),workspace);
             dismiss();
         }
     };
