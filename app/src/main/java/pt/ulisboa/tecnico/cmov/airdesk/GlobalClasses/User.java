@@ -1,36 +1,47 @@
 package pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses;
 
 import android.app.Application;
+import android.content.Context;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import pt.ulisboa.tecnico.cmov.airdesk.*;
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.User_Tag;
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Users;
 
 /**
  * Created by ist168635 on 25-03-2015.
  */
 public class User {
 
+    private Users DataBase = null;
+    private User_Tag Tag_Db = null;
+    private File mydir = null;
+
     private static User instance;
     private String Username="";
 
     private List<Workspace> ownedWorkspaces= new ArrayList<Workspace>();
     private List<Workspace> RemoteWorkspaces= new ArrayList<Workspace>();
-    private List<String> Tags =  new ArrayList<String>();
 
-    private User(){}
+    public User(){}
 
-    public User(String username){
+    public User(String username, Users db, User_Tag TagDb, Context context){
         this.Username=username;
+        this.DataBase=db;
+        this.Tag_Db=TagDb;
+        db.insert_Users(username);
+        mydir = context.getDir(username, Context.MODE_PRIVATE);
     }
 
     public void addTag(String Tag){
-        Tags.add(Tag);
+        this.Tag_Db.insert_User_Tag(Tag,this.getUserName());
     }
 
     public void removeTag(String Tag){
-        Tags.remove(Tag);
+        this.Tag_Db.delete_User_Tag(Tag);
     }
 
     public void newWorkspace(Boolean publico, String workspaceName, List<String> Tags,int max_quota){
@@ -40,10 +51,6 @@ public class User {
 
     public String getUserName(){
         return this.Username;
-    }
-
-    public void setUserName(String texto){
-        this.Username=texto;
     }
 
     public static synchronized User getInstance(){

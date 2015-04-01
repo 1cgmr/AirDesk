@@ -14,7 +14,6 @@ import android.widget.EditText;
 
 import java.io.File;
 
-import pt.ulisboa.tecnico.cmov.airdesk.DataBase.DataBaseAccess;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.User_Tag;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Users;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
@@ -38,11 +37,21 @@ public class MainActivity extends ActionBarActivity {
         {
             setContentView(R.layout.activity_main);
             editUser = (EditText) findViewById(R.id.EditTextUserIdentification);
+
+            User_Tag UserTagDb = new User_Tag(this);
             Db=new Users(this);
+
+            // variaveis globais
+            AirDesk globals = (AirDesk) getApplicationContext();
+            globals.setUsersDb(Db);
+            globals.setUsersTagDb(UserTagDb);
+
 
             Button btnLogin = (Button) findViewById(R.id.btnLogin);
             btnLogin.setOnClickListener(Login);
             MainActivity.context = getApplicationContext();
+
+            globals.setContext(context);
 
 
         }
@@ -59,18 +68,16 @@ public class MainActivity extends ActionBarActivity {
     private View.OnClickListener Login=new View.OnClickListener(){
         public void onClick(View v){
             userEmail=editUser.getText().toString();
-            User g = User.getInstance();
-            g.setUserName(userEmail);
 
             // variaveis globais
             AirDesk globals = (AirDesk) getApplicationContext();
             globals.logIn(userEmail);
 
-            Cursor c=Db.getByEmailUser(userEmail);
+           /* Cursor c=Db.getByEmailUser(userEmail);
             if(!c.moveToFirst()){
                 Db.insert_Users(editUser.getText().toString());
                 mydir = context.getDir(userEmail, Context.MODE_PRIVATE);
-            }
+            }*/
             startActivity(new Intent(MainActivity.this, Activity_Menu.class));
         }
     };
