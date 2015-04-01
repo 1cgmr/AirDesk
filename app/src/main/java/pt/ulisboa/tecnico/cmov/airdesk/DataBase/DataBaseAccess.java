@@ -20,6 +20,8 @@ public class DataBaseAccess extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE Users (_id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT);");
         db.execSQL("CREATE TABLE List_Tags_Users (_id INTEGER PRIMARY KEY AUTOINCREMENT, Tag TEXT, idUser TEXT);");
+        db.execSQL("CREATE TABLE Workspace (Nome TEXT,Owner TEXT, Publico BOOL, Quota INTEGER, PRIMARY KEY(Nome, Owner));");
+        db.execSQL("CREATE TABLE List_Tags_Workspaces (Tag TEXT, idUser TEXT, PRIMARY KEY(Tag, idUser));");
     }
 
     @Override
