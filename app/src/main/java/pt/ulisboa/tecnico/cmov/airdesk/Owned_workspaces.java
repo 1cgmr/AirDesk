@@ -1,7 +1,9 @@
 package pt.ulisboa.tecnico.cmov.airdesk;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.internal.widget.AdapterViewCompat;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -32,15 +35,18 @@ public class Owned_workspaces extends Activity  {
     User user;
     private File userDir;
     private static Context context;
-    //shdb
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.workspace_list);
         user = User.getInstance();
+
         context = this.getApplicationContext();
         userDir = context.getDir(user.getUserName(), Context.MODE_PRIVATE);
+
+        Button btnSimples = (Button) findViewById(R.id.btnAddWorkspace);
+        btnSimples.setOnClickListener(AddWorkspace);
 
         prepareArrayLists();
         lview3 = (ListView) findViewById(R.id.listView1);
@@ -50,17 +56,12 @@ public class Owned_workspaces extends Activity  {
         registerForContextMenu(lview3);
     }
 
-  //  @Override
-  // public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-  //      // TODO Auto-generated method stub
-  //      ItemBean bean = (ItemBean) adapter.getItem(position);
-  //      Log.d("ABC", "onItemClick");
-  //      Toast.makeText(this, "Title => " + bean.getTitle(), Toast.LENGTH_SHORT).show();
-  //  }
+    private View.OnClickListener AddWorkspace=new View.OnClickListener(){
+        public void onClick(View v){
+            startActivity(new Intent(Owned_workspaces.this, New_Workspace.class));
+        }
+    };
 
-    /* Method used to prepare the ArrayList,
-     * Same way, you can also do looping and adding object into the ArrayList.
-     */
     public void prepareArrayLists()
     {
         itemList = new ArrayList<>();
@@ -99,15 +100,22 @@ public class Owned_workspaces extends Activity  {
 
                     if(nome.equals(NomeItemClicked)){
                         File file = new File(userDir.getPath() + "/" + nome);
+                        Toast.makeText(this, "Tamanho da folder: "+ getFolderSize(file), Toast.LENGTH_LONG).show();
                         deleteDirectory(file);
                         itemList.remove(info.position);
                         adapter.notifyDataSetChanged();
                         return true;
                         }
                        }
-                     default:
-                      return super.onContextItemSelected(item);
-                }
+            case R.id.convidar:
+                OnItemLongClickListener(itemList, item);
+                FragmentManager manager=getFragmentManager();
+                Dialog_Send_Invitation myDialog= new Dialog_Send_Invitation();
+                myDialog.show(manager, "MyDialog");
+            case R.id.tamanho_folder:
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     private void OnItemLongClickListener(ArrayList<Object> position, MenuItem item) {
@@ -133,6 +141,18 @@ public class Owned_workspaces extends Activity  {
             }
         }
         return( path.delete() );
+    }
+
+    public static long getFolderSize(File f) {
+        long size = 0;
+        if (f.isDirectory()) {
+            for (File file : f.listFiles()) {
+                size += getFolderSize(file);
+            }
+        } else {
+            size=f.length();
+        }
+        return size;
     }
 
 

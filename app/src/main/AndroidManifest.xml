@@ -45,6 +45,18 @@
             android:name=".User_Tags_List"
             android:label="@string/title_activity_user__tags__list" >
         </activity>
+        <activity
+            android:name=".Dialog_Send_Invitation"
+            android:label="@string/title_activity_dialog__send__invitation" >
+        </activity>
+        <activity
+            android:name=".Workspace_Tags_List"
+            android:label="@string/title_activity_workspace__tags__list" >
+        </activity>
+        <activity
+            android:name=".EditorFicheiros"
+            android:label="@string/title_activity_editor_ficheiros" >
+        </activity>
     </application>
 
 </manifest>

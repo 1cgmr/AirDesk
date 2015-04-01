@@ -8,4 +8,7 @@
     <string name="title_activity_activity__menu">Activity_Menu</string>
     <string name="title_activity_user__tag__list">User_Tag_List</string>
     <string name="title_activity_user__tags__list">User_Tags_List</string>
+    <string name="title_activity_dialog__send__invitation">Dialog_Send_Invitation</string>
+    <string name="title_activity_workspace__tags__list">Workspace_Tags_List</string>
+    <string name="title_activity_editor_ficheiros">EditorFicheiros</string>
 </resources>

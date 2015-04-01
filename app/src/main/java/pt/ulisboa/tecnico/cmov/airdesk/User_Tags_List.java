@@ -24,8 +24,6 @@ import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 public class User_Tags_List extends ActionBarActivity {
     TagAdapter adapter=null;
     User_Tag helper=null;
-    //NoteHelper helper=null;
-    // Objeto "Cursor" recebe os registos da Base de Dados
     Cursor dataset_cursor=null;
     EditText editTag=null;
 

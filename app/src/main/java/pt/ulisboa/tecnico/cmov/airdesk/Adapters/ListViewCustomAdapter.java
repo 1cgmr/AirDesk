@@ -51,6 +51,7 @@ public class ListViewCustomAdapter extends BaseAdapter{
         //ImageView imgViewLogo;
         TextView txtViewTitle;
         TextView txtViewDescription;
+        TextView txtViewDescription2;
     }
  
     @Override
@@ -66,7 +67,7 @@ public class ListViewCustomAdapter extends BaseAdapter{
             //holder.imgViewLogo = (ImageView) convertView.findViewById(R.id.imgViewLogo);
             holder.txtViewTitle = (TextView) convertView.findViewById(R.id.txtViewTitle);
             holder.txtViewDescription = (TextView) convertView.findViewById(R.id.txtViewDescription);
- 
+
             convertView.setTag(holder);
         }
         else
@@ -77,7 +78,7 @@ public class ListViewCustomAdapter extends BaseAdapter{
         //holder.imgViewLogo.setImageResource(bean.getImage());
         holder.txtViewTitle.setText(bean.getTitle());
         holder.txtViewDescription.setText(bean.getDescription());
- 
+
         return convertView;
     }
  

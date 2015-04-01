@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="pt.ulisboa.tecnico.cmov.airdesk.EditorFicheiros">
+
+  <EditText
+      android:id="@+id/editor"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:singleLine="false"
+      android:inputType="text"
+      android:layout_below="@+id/textView2"
+      android:layout_above="@+id/btnGravarAlteracoes" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guardar Alterações"
+        android:id="@+id/btnGravarAlteracoes"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="NOME DO FICHEIRO"
+        android:id="@+id/textViewNomeFicheiro"
+        android:layout_alignRight="@+id/btnGravarAlteracoes"
+        android:layout_alignEnd="@+id/btnGravarAlteracoes"
+        android:layout_centerHorizontal="true"
+        />
+
+</RelativeLayout>
