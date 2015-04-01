@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.User_Tag;
+import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
 public class User_Tags_List extends ActionBarActivity {
@@ -30,6 +31,8 @@ public class User_Tags_List extends ActionBarActivity {
     String TagId=null;
     User g = User.getInstance();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,10 @@ public class User_Tags_List extends ActionBarActivity {
             setContentView(R.layout.activity_user__tags__list);
             ListView list=(ListView) findViewById(R.id.listTags);
             editTag = (EditText) findViewById(R.id.editTextTags);
+
+            // variaveis globais
+            AirDesk globals = (AirDesk) getApplicationContext();
+            g=globals.getLoggedUser();
 
             //get our helper
             helper=new User_Tag(this);
@@ -71,7 +78,8 @@ public class User_Tags_List extends ActionBarActivity {
     private View.OnClickListener onSave=new View.OnClickListener(){
         public void onClick(View v){
             if (TagId==null){
-                helper.insert_User_Tag(editTag.getText().toString(), g.getUserName());
+                //helper.insert_User_Tag(editTag.getText().toString(), g.getUserName());
+                g.addTag(editTag.getText().toString());
             }
             else{
                 helper.update_User_Tag(TagId, editTag.getText().toString());
@@ -89,7 +97,8 @@ public class User_Tags_List extends ActionBarActivity {
                 return;
             }
             else{
-                helper.delete_User_Tag(TagId);
+                //helper.delete_User_Tag(TagId);
+                g.removeTag(TagId);
                 TagId=null;
             }
             dataset_cursor.requery();

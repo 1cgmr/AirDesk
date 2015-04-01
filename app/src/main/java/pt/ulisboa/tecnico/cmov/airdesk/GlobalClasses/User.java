@@ -18,6 +18,7 @@ public class User {
 
     private Users DataBase = null;
     private User_Tag Tag_Db = null;
+
     private File mydir = null;
 
     private static User instance;
@@ -33,8 +34,9 @@ public class User {
         this.DataBase=db;
         this.Tag_Db=TagDb;
         db.insert_Users(username);
-        mydir = context.getDir(username, Context.MODE_PRIVATE);
+        this.mydir = context.getDir(username, Context.MODE_PRIVATE);
     }
+
 
     public void addTag(String Tag){
         this.Tag_Db.insert_User_Tag(Tag,this.getUserName());
@@ -42,6 +44,10 @@ public class User {
 
     public void removeTag(String Tag){
         this.Tag_Db.delete_User_Tag(Tag);
+    }
+
+    public File getMydir() {
+        return mydir;
     }
 
     public void newWorkspace(Boolean publico, String workspaceName, List<String> Tags,int max_quota,Context context){

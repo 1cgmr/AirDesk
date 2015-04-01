@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import pt.ulisboa.tecnico.cmov.airdesk.Adapters.ItemBean;
 import pt.ulisboa.tecnico.cmov.airdesk.Adapters.ListViewCustomAdapter;
+import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
 
@@ -40,10 +41,12 @@ public class Owned_workspaces extends Activity  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.workspace_list);
-        user = User.getInstance();
 
-        context = this.getApplicationContext();
-        userDir = context.getDir(user.getUserName(), Context.MODE_PRIVATE);
+        // variaveis globais
+        AirDesk globals = (AirDesk) getApplicationContext();
+        user=globals.getLoggedUser();
+
+        userDir =  globals.getLoggedUser().getMydir();
 
         Button btnSimples = (Button) findViewById(R.id.btnAddWorkspace);
         btnSimples.setOnClickListener(AddWorkspace);

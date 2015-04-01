@@ -46,7 +46,6 @@ public class MainActivity extends ActionBarActivity {
             globals.setUsersDb(Db);
             globals.setUsersTagDb(UserTagDb);
 
-
             Button btnLogin = (Button) findViewById(R.id.btnLogin);
             btnLogin.setOnClickListener(Login);
             MainActivity.context = getApplicationContext();

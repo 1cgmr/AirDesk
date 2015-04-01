@@ -15,13 +15,13 @@ import java.io.File;
 import java.util.ArrayList;
 
 import pt.ulisboa.tecnico.cmov.airdesk.Adapters.GridviewAdapter;
+import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
 
 public class Workspace extends ActionBarActivity {
 
     private User user;
-    private Context context;
     private File UserDir;
     private File WorkspaceDir;
     private String WorkspaceDirName;
@@ -33,9 +33,12 @@ public class Workspace extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workspace_files);
-        user = User.getInstance();
-        context = this.getApplicationContext();
-        UserDir = context.getDir(user.getUserName(), Context.MODE_PRIVATE);
+
+        // variaveis globais
+        AirDesk globals = (AirDesk) getApplicationContext();
+        user=globals.getLoggedUser();
+
+        UserDir = globals.getLoggedUser().getMydir();
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {

@@ -28,8 +28,6 @@ public class Activity_Menu extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_menu);
 
-        g = User.getInstance();
-
         // variaveis globais
         AirDesk globals = (AirDesk) getApplicationContext();
         g=globals.getLoggedUser();
@@ -49,7 +47,7 @@ public class Activity_Menu extends ActionBarActivity {
         Button btnOwnedWorkspaces= (Button) findViewById(R.id.btnOwnedWorkspaces);
         btnOwnedWorkspaces.setOnClickListener(OwnedWorkspaces);
 
-        inicializaWorkspaceFalsos(); //Para debug
+        //inicializaWorkspaceFalsos(); //Para debug
     }
 
     private View.OnClickListener OwnedWorkspaces=new View.OnClickListener(){
