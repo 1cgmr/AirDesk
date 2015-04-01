@@ -1,19 +1,42 @@
 package pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses;
 
 import android.app.Application;
-import android.widget.Toast;
+import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.User_Tag;
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Users;
 
 /**
  * Created by ist168635 on 25-03-2015.
  */
 public class AirDesk extends Application {
+
+    private Users UserDb = null;
+    private User_Tag USerTagDb = null;
+    private Context context = null;
+
     private User LoggedUser;
     private List<User> ReachableUsers = new ArrayList<User>();
     private TextFile activeTextFile;
     private Workspace activeWorkspace;
+
+    public void setUsersTagDb(User_Tag db){
+        USerTagDb=db;
+    }
+
+    public void setUsersDb(Users db){
+        UserDb=db;
+    }
+    public void setContext(Context context){
+        this.context=context;
+    }
+
+    public User getLoggedUser(){
+        return this.LoggedUser;
+    }
 
     /** funcao para fazer o login do utilizador
         input:
@@ -28,7 +51,7 @@ public class AirDesk extends Application {
             }
         }
 
-        User newUser = new User(userName);
+        User newUser = new User(userName,UserDb,USerTagDb,context);
         ReachableUsers.add(newUser);
         LoggedUser = newUser;
     }
@@ -40,7 +63,7 @@ public class AirDesk extends Application {
             workspaceName:String nome do novo workspace
     */
     public void NewWorkspace(Boolean publico, List<String> tags,String workspaceName,int max_quota){
-        LoggedUser.newWorkspace(publico,workspaceName,tags, max_quota);
+        LoggedUser.newWorkspace(publico,workspaceName,tags, max_quota,context);
     }
 
     /** funcao para obter a lista dos workspaces do loggedUser

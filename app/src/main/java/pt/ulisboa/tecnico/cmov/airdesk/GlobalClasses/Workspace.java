@@ -13,6 +13,7 @@ public class Workspace {
     private List<String> Tags = new ArrayList<String>();
     private boolean publico = false;
     private int max_quota = 0;
+    private String Path = null;
 
     public Workspace(Boolean publico, String workspaceName, List<String> Tags, int max_quota){
         this.name=workspaceName;
