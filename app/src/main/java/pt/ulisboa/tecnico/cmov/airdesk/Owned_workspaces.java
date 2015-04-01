@@ -93,6 +93,14 @@ public class Owned_workspaces extends Activity  {
 
         switch (item.getItemId()) {
             case R.id.abrir_workspace:
+                //startActivity(new Intent(Owned_workspaces.this, Workspace.class));
+
+                OnItemLongClickListener(itemList, item);
+                Log.d("ABC", "@onContextItemSelected "+NomeItemClicked);
+                Intent i = new Intent(getApplicationContext(), Workspace.class);
+                i.putExtra("WORKSPACE_ID", NomeItemClicked);
+                startActivity(i);
+                return true;
 
             case R.id.eliminar_workspace:
                 for (final File fileEntry : userDir.listFiles()) {
@@ -114,6 +122,7 @@ public class Owned_workspaces extends Activity  {
                 FragmentManager manager=getFragmentManager();
                 Dialog_Send_Invitation myDialog= new Dialog_Send_Invitation();
                 myDialog.show(manager, "MyDialog");
+                return true;
             case R.id.tamanho_folder:
             default:
                 return super.onContextItemSelected(item);
@@ -125,6 +134,7 @@ public class Owned_workspaces extends Activity  {
 
         ItemBean bean = (ItemBean) adapter.getItem(info.position);
         NomeItemClicked = bean.getTitle();
+
     }
 
     public static boolean deleteDirectory(File path) {
