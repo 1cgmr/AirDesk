@@ -92,6 +92,8 @@ public class Owned_workspaces extends Activity  {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
+            case R.id.abrir_workspace:
+
             case R.id.eliminar_workspace:
                 for (final File fileEntry : userDir.listFiles()) {
 
