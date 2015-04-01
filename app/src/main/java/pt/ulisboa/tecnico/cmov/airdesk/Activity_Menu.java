@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
 public class Activity_Menu extends ActionBarActivity {
@@ -28,6 +29,10 @@ public class Activity_Menu extends ActionBarActivity {
         setContentView(R.layout.activity_activity_menu);
 
         g = User.getInstance();
+
+        // variaveis globais
+        AirDesk globals = (AirDesk) getApplicationContext();
+        g=globals.getLoggedUser();
 
         final TextView mTextView = (TextView) findViewById(R.id.textViewUserEmail);
         mTextView.setText(g.getUserName());

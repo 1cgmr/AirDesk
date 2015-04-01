@@ -44,7 +44,7 @@ public class User {
         this.Tag_Db.delete_User_Tag(Tag);
     }
 
-    public void newWorkspace(Boolean publico, String workspaceName, List<String> Tags,int max_quota){
+    public void newWorkspace(Boolean publico, String workspaceName, List<String> Tags,int max_quota,Context context){
         Workspace workspace= new Workspace(publico, workspaceName, Tags, max_quota);
         this.ownedWorkspaces.add(workspace);
     }

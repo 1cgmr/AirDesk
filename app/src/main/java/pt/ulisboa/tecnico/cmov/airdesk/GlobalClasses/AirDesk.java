@@ -34,6 +34,10 @@ public class AirDesk extends Application {
         this.context=context;
     }
 
+    public User getLoggedUser(){
+        return this.LoggedUser;
+    }
+
     /** funcao para fazer o login do utilizador
         input:
             UserName:String nome do utilizador a logar-se
@@ -59,7 +63,7 @@ public class AirDesk extends Application {
             workspaceName:String nome do novo workspace
     */
     public void NewWorkspace(Boolean publico, List<String> tags,String workspaceName,int max_quota){
-        LoggedUser.newWorkspace(publico,workspaceName,tags, max_quota);
+        LoggedUser.newWorkspace(publico,workspaceName,tags, max_quota,context);
     }
 
     /** funcao para obter a lista dos workspaces do loggedUser
