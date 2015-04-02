@@ -11,6 +11,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -36,6 +37,7 @@ public class Owned_workspaces extends Activity  {
     User user;
     private File userDir;
     private static Context context;
+    String nome;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,22 @@ public class Owned_workspaces extends Activity  {
         lview3.setAdapter(adapter);
 
         registerForContextMenu(lview3);
+
+        lview3.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+                                    long arg3) {
+
+
+                ItemBean bean = (ItemBean) adapter.getItem(position);
+                NomeItemClicked=bean.getTitle();
+                Intent i = new Intent(getApplicationContext(), Workspace.class);
+                i.putExtra("WORKSPACE_ID", NomeItemClicked);
+                finish();
+                startActivity(i);
+            }
+        });
     }
 
     private View.OnClickListener AddWorkspace=new View.OnClickListener(){
@@ -87,7 +105,7 @@ public class Owned_workspaces extends Activity  {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.menu_workspace, menu);
+        getMenuInflater().inflate(R.menu.menu_owned_workspaces, menu);
     }
 
     @Override
@@ -95,21 +113,11 @@ public class Owned_workspaces extends Activity  {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-            case R.id.abrir_workspace:
-                //startActivity(new Intent(Owned_workspaces.this, Workspace.class));
-
-                OnItemLongClickListener(itemList, item);
-                Log.d("ABC", "@onContextItemSelected "+NomeItemClicked);
-                Intent i = new Intent(getApplicationContext(), Workspace.class);
-                i.putExtra("WORKSPACE_ID", NomeItemClicked);
-                startActivity(i);
-                return true;
-
             case R.id.eliminar_workspace:
                 for (final File fileEntry : userDir.listFiles()) {
 
                     OnItemLongClickListener(itemList, item);
-                    String nome = fileEntry.getName();
+                    nome = fileEntry.getName();
 
                     if(nome.equals(NomeItemClicked)){
                         File file = new File(userDir.getPath() + "/" + nome);
@@ -129,6 +137,9 @@ public class Owned_workspaces extends Activity  {
                 myDialog.show(manager, "MyDialog");
                 return true;
             case R.id.tamanho_folder:
+                File file = new File(userDir.getPath() + "/" + nome);
+                Toast.makeText(this, "Tamanho da folder: "+ getFolderSize(file), Toast.LENGTH_LONG).show();
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }

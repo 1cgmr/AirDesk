@@ -2,6 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="pt.ulisboa.tecnico.cmov.airdesk.owned_workspaces">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/eliminar_workspace" android:title="Eliminar Workspace"></item>
+    <item android:id="@+id/lista_tags" android:title="Lista de Tags"></item>
+    <item android:id="@+id/convidar" android:title="Convidar"></item>
+    <item android:id="@+id/lista_users_workspace" android:title="Lista Users Workspace"></item>
+    <item android:id="@+id/tamanho_folder" android:title="Tamanho do Workspace"></item>
+
 </menu>

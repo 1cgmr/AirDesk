@@ -1,9 +1,12 @@
 package pt.ulisboa.tecnico.cmov.airdesk;
 
+import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +18,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import pt.ulisboa.tecnico.cmov.airdesk.Adapters.GridviewAdapter;
+import pt.ulisboa.tecnico.cmov.airdesk.Adapters.ItemBean;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
@@ -24,10 +28,13 @@ public class Workspace extends ActionBarActivity {
     private User user;
     private File UserDir;
     private File WorkspaceDir;
+    private ItemBean bean;
     private String WorkspaceDirName;
     private ArrayList<String> listFiles;
     private GridviewAdapter mAdapter;
     private GridView gridView;
+    String nome;
+    private String NomeItemClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,37 +68,60 @@ public class Workspace extends ActionBarActivity {
         this.gridView = (GridView) findViewById(R.id.gridView);
         gridView.setAdapter(mAdapter);
 
+        registerForContextMenu(gridView);
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long arg3) {
-                Toast.makeText(Workspace.this, mAdapter.getItem(position), Toast.LENGTH_SHORT).show();
+
+                        NomeItemClicked = mAdapter.getItem(position);
+                        Intent i = new Intent(getApplicationContext(), EditorFicheiros.class);
+                        i.putExtra("WORKSPACE_DIR", WorkspaceDir.getPath());
+                        i.putExtra("NOME_FICHEIRO", NomeItemClicked);
+                        finish();
+                        startActivity(i);
+
+              //  startActivity(new Intent(Workspace.this, EditorFicheiros.class));
+               // Toast.makeText(Workspace.this, mAdapter.getItem(position), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(R.menu.menu_workspace, menu);
-        return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        //
-        int id = item.getItemId();
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.eliminar_file:
+
+                OnItemLongClickListener(info.position);
+                for(final File fileEntry : WorkspaceDir.listFiles()){
+
+                    nome = fileEntry.getName();
+
+                    if(nome.equals(NomeItemClicked)){
+                        listFiles.remove(info.position);
+                        mAdapter.notifyDataSetChanged();
+                        fileEntry.delete();
+                        return true;
+                    }
+                }
+            default:
+                return super.onContextItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
+    private void OnItemLongClickListener(int position) {
+       NomeItemClicked = mAdapter.getItem(position);
+    }
+
 }
