@@ -67,9 +67,4 @@ public class Dialog_Send_Invitation extends DialogFragment {
         }
     };
 
-
-
-
-
-
 }

@@ -2,9 +2,12 @@ package pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses;
 
 import android.app.Application;
 import android.content.Context;
+import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Attributes;
 
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.User_Tag;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Users;

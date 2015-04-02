@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -40,6 +41,9 @@ public class Workspace extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workspace_files);
+
+        Button btnCriarFile = (Button) findViewById(R.id.btnCriarFile);
+        btnCriarFile.setOnClickListener(dialogFile);
 
         // variaveis globais
         AirDesk globals = (AirDesk) getApplicationContext();
@@ -75,16 +79,11 @@ public class Workspace extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long arg3) {
-
                         NomeItemClicked = mAdapter.getItem(position);
                         Intent i = new Intent(getApplicationContext(), EditorFicheiros.class);
                         i.putExtra("WORKSPACE_DIR", WorkspaceDir.getPath());
                         i.putExtra("NOME_FICHEIRO", NomeItemClicked);
-                        finish();
                         startActivity(i);
-
-              //  startActivity(new Intent(Workspace.this, EditorFicheiros.class));
-               // Toast.makeText(Workspace.this, mAdapter.getItem(position), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -102,7 +101,6 @@ public class Workspace extends ActionBarActivity {
 
         switch (item.getItemId()) {
             case R.id.eliminar_file:
-
                 OnItemLongClickListener(info.position);
                 for(final File fileEntry : WorkspaceDir.listFiles()){
 
@@ -123,5 +121,13 @@ public class Workspace extends ActionBarActivity {
     private void OnItemLongClickListener(int position) {
        NomeItemClicked = mAdapter.getItem(position);
     }
+
+    private View.OnClickListener dialogFile=new View.OnClickListener(){
+        public void onClick(View v){
+           FragmentManager manager=getFragmentManager();
+           Dialog_New_File myDialog= new Dialog_New_File();
+           myDialog.show(manager, "Dialog_New_File");
+        }
+    };
 
 }

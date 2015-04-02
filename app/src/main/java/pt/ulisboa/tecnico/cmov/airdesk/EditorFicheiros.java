@@ -65,7 +65,7 @@ public class EditorFicheiros extends ActionBarActivity {
 
 
 
-//
+
         //Toast.makeText(this, fileWithinMyDirs.getPath(), Toast.LENGTH_LONG).show();
     }
 
@@ -86,6 +86,7 @@ public class EditorFicheiros extends ActionBarActivity {
                 byte[] b = string.getBytes();
                 out1.write(b);
                 out1.close();
+                finish();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {

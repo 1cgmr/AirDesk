@@ -11,4 +11,5 @@
     <string name="title_activity_dialog__send__invitation">Dialog_Send_Invitation</string>
     <string name="title_activity_workspace__tags__list">Workspace_Tags_List</string>
     <string name="title_activity_editor_ficheiros">EditorFicheiros</string>
+    <string name="title_activity_dialog__new__file">Dialog_New_File</string>
 </resources>

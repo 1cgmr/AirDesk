@@ -31,8 +31,6 @@ public class User_Tags_List extends ActionBarActivity {
     String TagId=null;
     User g = User.getInstance();
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
