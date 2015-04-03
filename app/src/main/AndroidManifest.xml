@@ -61,6 +61,10 @@
             android:name=".Dialog_New_File"
             android:label="@string/title_activity_dialog__new__file" >
         </activity>
+        <activity
+            android:name=".NewFile"
+            android:label="@string/title_activity_new_file" >
+        </activity>
     </application>
 
 </manifest>

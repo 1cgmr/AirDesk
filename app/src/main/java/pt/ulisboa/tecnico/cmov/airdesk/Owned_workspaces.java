@@ -57,10 +57,7 @@ public class Owned_workspaces extends Activity  {
         Button btnSimples = (Button) findViewById(R.id.btnAddWorkspace);
         btnSimples.setOnClickListener(AddWorkspace);
 
-        prepareArrayLists();
-        lview3 = (ListView) findViewById(R.id.listView1);
-        adapter = new ListViewCustomAdapter(this, itemList);
-        lview3.setAdapter(adapter);
+        PreencherListView();
 
         registerForContextMenu(lview3);
 
@@ -79,6 +76,19 @@ public class Owned_workspaces extends Activity  {
                 startActivity(i);
             }
         });
+    }
+
+    public void PreencherListView(){
+        prepareArrayLists();
+        lview3 = (ListView) findViewById(R.id.listView1);
+        adapter = new ListViewCustomAdapter(this, itemList);
+        lview3.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        PreencherListView();
     }
 
     private View.OnClickListener AddWorkspace=new View.OnClickListener(){

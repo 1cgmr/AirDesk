@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.cmov.airdesk;
 
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -56,6 +58,25 @@ public class Workspace extends ActionBarActivity {
             WorkspaceDirName = extras.getString("WORKSPACE_ID");
         }
 
+        PreencherListView();
+
+        registerForContextMenu(gridView);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+                                    long arg3) {
+               NomeItemClicked = mAdapter.getItem(position);
+               Intent i = new Intent(getApplicationContext(), EditorFicheiros.class);
+               i.putExtra("WORKSPACE_DIR", WorkspaceDir.getPath());
+               i.putExtra("NOME_FICHEIRO", NomeItemClicked);
+               startActivity(i);
+            }
+        });
+    }
+
+    public void PreencherListView(){
         listFiles = new ArrayList<String>();
         for(final File fileEntry : UserDir.listFiles()){
             //listFiles.add(fileEntry.getName());
@@ -72,20 +93,9 @@ public class Workspace extends ActionBarActivity {
         this.gridView = (GridView) findViewById(R.id.gridView);
         gridView.setAdapter(mAdapter);
 
-        registerForContextMenu(gridView);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-                                    long arg3) {
-               NomeItemClicked = mAdapter.getItem(position);
-               Intent i = new Intent(getApplicationContext(), EditorFicheiros.class);
-               i.putExtra("WORKSPACE_DIR", WorkspaceDir.getPath());
-               i.putExtra("NOME_FICHEIRO", NomeItemClicked);
-               startActivity(i);
-            }
-        });
+        //Afectar o TextView com o nome do Workspace actualmente seleccionado;
+        TextView textViewName = (TextView) findViewById(R.id.textViewName);
+        textViewName.setText(WorkspaceDirName);
     }
 
 
@@ -124,10 +134,29 @@ public class Workspace extends ActionBarActivity {
 
     private View.OnClickListener dialogFile=new View.OnClickListener(){
         public void onClick(View v){
-           FragmentManager manager=getFragmentManager();
-           Dialog_New_File myDialog= new Dialog_New_File();
-           myDialog.show(manager, "Dialog_New_File");
+            Intent i = new Intent(getApplicationContext(), NewFile.class);
+            i.putExtra("WORKSPACE_PATH", WorkspaceDir.getPath());
+            startActivity(i);
+          // FragmentManager manager=getFragmentManager();
+         //  myDialog= new Dialog_New_File();
+         //  myDialog.setWorkspace(WorkspaceDir);
+         //  myDialog.show(manager, "Dialog_New_File");
         }
+
     };
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        PreencherListView();
+    }
+
+    //  OnItemLongClickListener(itemList, item);
+  //  FragmentManager manager=getFragmentManager();
+ //   Dialog_Send_Invitation myDialog= new Dialog_Send_Invitation();
+ //   myDialog.setGlobals((AirDesk) getApplicationContext());
+  //  myDialog.setWorkspace(NomeItemClicked);
+ //   myDialog.show(manager, "MyDialog");
+ //   return true;
 
 }

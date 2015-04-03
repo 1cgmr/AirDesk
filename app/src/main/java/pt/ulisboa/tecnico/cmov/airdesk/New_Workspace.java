@@ -84,7 +84,8 @@ public class New_Workspace extends ActionBarActivity {
 
         helper.insert_Workspace(name.getText().toString(), g.getUserName(), publico.isChecked(), Integer.parseInt(max_quota.getText().toString()));
         helper.close();
-        startActivity(new Intent(New_Workspace.this, Owned_workspaces.class));
+        finish();
+        //startActivity(new Intent(New_Workspace.this, Owned_workspaces.class));
     }
 
 

@@ -4,6 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="pt.ulisboa.tecnico.cmov.airdesk.EditorFicheiros">
 
   <EditText
@@ -11,9 +12,10 @@
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
       android:singleLine="false"
-      android:inputType="text"
       android:layout_below="@+id/textViewNomeFicheiro"
-      android:layout_above="@+id/btnGravarAlteracoes" />
+      android:layout_above="@+id/btnGravarAlteracoes"
+      android:inputType="textFilter|textMultiLine"
+      />
 
     <Button
         android:layout_width="wrap_content"
@@ -27,11 +29,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="NOME DO FICHEIRO"
+        android:text=""
+        android:textStyle="bold"
         android:id="@+id/textViewNomeFicheiro"
-        android:layout_alignRight="@+id/btnGravarAlteracoes"
-        android:layout_alignEnd="@+id/btnGravarAlteracoes"
         android:layout_centerHorizontal="true"
-        />
+
+ />
 
 </RelativeLayout>
