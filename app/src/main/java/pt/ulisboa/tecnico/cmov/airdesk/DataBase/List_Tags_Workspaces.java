@@ -22,29 +22,29 @@ public class List_Tags_Workspaces {
         dbHelper.getWritableDatabase().insert("List_Tags_Workspaces", null, cv);
     }
 
-    public void delete_User_Tag(String Tag){
-        dbHelper.getWritableDatabase().delete("List_Tags_Workspaces","Tag=?", new String[] {Tag});
+    public void delete_User_Tag(String id){
+        dbHelper.getWritableDatabase().delete("List_Tags_Workspaces","_id=?", new String[] {id});
     }
 
-    public void update_User_Tag(String Tag){
+    public void update_User_Tag(String id, String Tag){
         ContentValues cv= new ContentValues();
-        String[] args={Tag};
+        String[] args={id};
         cv.put("Tag", Tag);
-        dbHelper.getWritableDatabase().update("List_Tags_Workspaces", cv, "Tag=?", args);
+        dbHelper.getWritableDatabase().update("List_Tags_Workspaces", cv, "_id=?", args);
     }
 
     public Cursor getAll(String NomeWorkspace){
         String [] args={NomeWorkspace};
-        return (dbHelper.getReadableDatabase().rawQuery("SELECT Tag, NomeWorkspace FROM List_Tags_Workspaces WHERE NomeWorkspace=?", args));
+        return (dbHelper.getReadableDatabase().rawQuery("SELECT _id, Tag, NomeWorkspace FROM List_Tags_Workspaces WHERE NomeWorkspace=?", args));
     }
 
     public String getTag(Cursor c){
-        return(c.getString(0));
+        return(c.getString(1));
     }
 
-    public Cursor getByTag(String Tag){
-        String[] args={Tag};
-        return(dbHelper.getReadableDatabase().rawQuery("SELECT Tag, NomeWorkspace FROM List_Tags_Workspaces WHERE Tag=?", args));
+    public Cursor getById(String id){
+        String[] args={id};
+        return(dbHelper.getReadableDatabase().rawQuery("SELECT _id, Tag, NomeWorkspace FROM List_Tags_Workspaces WHERE _id=?", args));
     }
 
     public void close(){

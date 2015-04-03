@@ -37,7 +37,6 @@ public class User {
         this.mydir = context.getDir(username, Context.MODE_PRIVATE);
     }
 
-
     public void addTag(String Tag){
         this.Tag_Db.insert_User_Tag(Tag,this.getUserName());
     }

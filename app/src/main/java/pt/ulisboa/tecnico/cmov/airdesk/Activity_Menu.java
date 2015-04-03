@@ -47,7 +47,7 @@ public class Activity_Menu extends ActionBarActivity {
         Button btnOwnedWorkspaces= (Button) findViewById(R.id.btnOwnedWorkspaces);
         btnOwnedWorkspaces.setOnClickListener(OwnedWorkspaces);
 
-       //inicializaWorkspaceFalsos(); //Para debug
+       inicializaWorkspaceFalsos(); //Para debug
     }
 
     private View.OnClickListener OwnedWorkspaces=new View.OnClickListener(){

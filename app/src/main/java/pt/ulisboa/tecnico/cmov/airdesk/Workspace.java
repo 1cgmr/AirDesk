@@ -79,11 +79,11 @@ public class Workspace extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long arg3) {
-                        NomeItemClicked = mAdapter.getItem(position);
-                        Intent i = new Intent(getApplicationContext(), EditorFicheiros.class);
-                        i.putExtra("WORKSPACE_DIR", WorkspaceDir.getPath());
-                        i.putExtra("NOME_FICHEIRO", NomeItemClicked);
-                        startActivity(i);
+               NomeItemClicked = mAdapter.getItem(position);
+               Intent i = new Intent(getApplicationContext(), EditorFicheiros.class);
+               i.putExtra("WORKSPACE_DIR", WorkspaceDir.getPath());
+               i.putExtra("NOME_FICHEIRO", NomeItemClicked);
+               startActivity(i);
             }
         });
     }

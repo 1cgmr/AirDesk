@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import pt.ulisboa.tecnico.cmov.airdesk.Adapters.ItemBean;
 import pt.ulisboa.tecnico.cmov.airdesk.Adapters.ListViewCustomAdapter;
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Table_Workspace;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
@@ -38,11 +39,14 @@ public class Owned_workspaces extends Activity  {
     private File userDir;
     private static Context context;
     String nome;
+    Table_Workspace helper=null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.workspace_list);
+
+        helper=new Table_Workspace(this);
 
         // variaveis globais
         AirDesk globals = (AirDesk) getApplicationContext();
@@ -67,7 +71,7 @@ public class Owned_workspaces extends Activity  {
                                     long arg3) {
 
 
-                ItemBean bean = (ItemBean) adapter.getItem(position);
+                bean = (ItemBean) adapter.getItem(position);
                 NomeItemClicked=bean.getTitle();
                 Intent i = new Intent(getApplicationContext(), Workspace.class);
                 i.putExtra("WORKSPACE_ID", NomeItemClicked);
@@ -121,10 +125,13 @@ public class Owned_workspaces extends Activity  {
 
                     if(nome.equals(NomeItemClicked)){
                         File file = new File(userDir.getPath() + "/" + nome);
-                        Toast.makeText(this, "Tamanho da folder: "+ getFolderSize(file), Toast.LENGTH_LONG).show();
+                        //eliminar a folder do workspace
                         deleteDirectory(file);
                         itemList.remove(info.position);
                         adapter.notifyDataSetChanged();
+
+                        //eliminar o workspace da base de dados
+                        helper.delete_Workspace(NomeItemClicked, user.getUserName());
                         return true;
                         }
                        }
@@ -136,9 +143,20 @@ public class Owned_workspaces extends Activity  {
                 myDialog.setWorkspace(NomeItemClicked);
                 myDialog.show(manager, "MyDialog");
                 return true;
+
             case R.id.tamanho_folder:
-                File file = new File(userDir.getPath() + "/" + nome);
+                ItemBean bean = (ItemBean) adapter.getItem(info.position);
+                NomeItemClicked=bean.getTitle();
+                File file = new File(userDir.getPath() + "/" + NomeItemClicked);
                 Toast.makeText(this, "Tamanho da folder: "+ getFolderSize(file), Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.lista_tags:
+                bean = (ItemBean) adapter.getItem(info.position);
+                NomeItemClicked=bean.getTitle();
+                Intent i = new Intent(getApplicationContext(), Workspace_Tags_List.class);
+                i.putExtra("WORKSPACE_ID", NomeItemClicked);
+                finish();
+                startActivity(i);
                 return true;
             default:
                 return super.onContextItemSelected(item);

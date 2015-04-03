@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.cmov.airdesk;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -37,16 +38,11 @@ public class Dialog_New_File extends DialogFragment {
         NomeFicheiro = (EditText) view.findViewById(R.id.editTextNameFile);
         setCancelable(false);
         return view;
-
     }
-
 
     private View.OnClickListener sim=new View.OnClickListener(){
         public void onClick(View v) {
 
-            //criar ficheiro...
-
-            dismiss();
 
         }
     };

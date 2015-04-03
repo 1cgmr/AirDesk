@@ -118,7 +118,7 @@ public class User_Tags_List extends ActionBarActivity {
             super(User_Tags_List.this, c);
         }
 
-        public void bindView (View row, Context ctxt, Cursor c){
+        public void  bindView (View row, Context ctxt, Cursor c){
             TagHolder holder=(TagHolder)row.getTag();
             holder.populateFrom(c, helper);
         }
@@ -144,6 +144,7 @@ public class User_Tags_List extends ActionBarActivity {
             TagText.setText(helper.getTag(c));
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
