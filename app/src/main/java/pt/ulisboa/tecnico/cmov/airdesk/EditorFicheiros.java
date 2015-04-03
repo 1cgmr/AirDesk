@@ -72,7 +72,7 @@ public class EditorFicheiros extends ActionBarActivity {
             StringBuilder builder = new StringBuilder("");
 
             while((read = leitor.readLine()) !=null){
-                builder.append(read);
+                builder.append(read+"\n");
             }
 
             editor.setText(builder.toString());
