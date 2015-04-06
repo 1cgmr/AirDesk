@@ -5,6 +5,6 @@ package pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses;
  */
 public class TextFile {
     private String name;
-
+    private StringBuilder conteudo;
 
 }

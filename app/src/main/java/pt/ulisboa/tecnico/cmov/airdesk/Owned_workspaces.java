@@ -40,6 +40,7 @@ public class Owned_workspaces extends Activity  {
     private static Context context;
     String nome;
     Table_Workspace helper=null;
+    AirDesk globals;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class Owned_workspaces extends Activity  {
         helper=new Table_Workspace(this);
 
         // variaveis globais
-        AirDesk globals = (AirDesk) getApplicationContext();
+        globals = (AirDesk) getApplicationContext();
         user=globals.getLoggedUser();
 
         userDir =  globals.getLoggedUser().getMydir();
@@ -132,19 +133,19 @@ public class Owned_workspaces extends Activity  {
 
                     OnItemLongClickListener(itemList, item);
                     nome = fileEntry.getName();
-
+                    //verificar se o workspace actual é o mesmo que foi carrgado "clicked"
                     if(nome.equals(NomeItemClicked)){
                         File file = new File(userDir.getPath() + "/" + nome);
-                        //eliminar a folder do workspace
-                        deleteDirectory(file);
+                        //eliminar workspace
+                        globals.deleteDirectory(file);
+                        //eliminar o workspace do ListView
                         itemList.remove(info.position);
                         adapter.notifyDataSetChanged();
-
                         //eliminar o workspace da base de dados
                         helper.delete_Workspace(NomeItemClicked, user.getUserName());
                         return true;
-                        }
-                       }
+                    }
+                }
             case R.id.convidar:
                 OnItemLongClickListener(itemList, item);
                 FragmentManager manager=getFragmentManager();
@@ -153,12 +154,11 @@ public class Owned_workspaces extends Activity  {
                 myDialog.setWorkspace(NomeItemClicked);
                 myDialog.show(manager, "MyDialog");
                 return true;
-
             case R.id.tamanho_folder:
                 ItemBean bean = (ItemBean) adapter.getItem(info.position);
                 NomeItemClicked=bean.getTitle();
                 File file = new File(userDir.getPath() + "/" + NomeItemClicked);
-                Toast.makeText(this, "Tamanho da folder: "+ getFolderSize(file), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Tamanho da folder: "+ globals.getFolderSize(file), Toast.LENGTH_LONG).show();
                 return true;
             case R.id.lista_tags:
                 bean = (ItemBean) adapter.getItem(info.position);
@@ -173,43 +173,11 @@ public class Owned_workspaces extends Activity  {
         }
     }
 
+    //Guardar o nome do workspace que foi escolhido através do ItemLongClick da ListView.
     private void OnItemLongClickListener(ArrayList<Object> position, MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-
         ItemBean bean = (ItemBean) adapter.getItem(info.position);
         NomeItemClicked = bean.getTitle();
-
     }
-
-    public static boolean deleteDirectory(File path) {
-        if( path.exists() ) {
-            File[] files = path.listFiles();
-            if (files == null) {
-                return true;
-            }
-            for(int i=0; i<files.length; i++) {
-                if(files[i].isDirectory()) {
-                    deleteDirectory(files[i]);
-                }
-                else {
-                    files[i].delete();
-                }
-            }
-        }
-        return( path.delete() );
-    }
-
-    public static long getFolderSize(File f) {
-        long size = 0;
-        if (f.isDirectory()) {
-            for (File file : f.listFiles()) {
-                size += getFolderSize(file);
-            }
-        } else {
-            size=f.length();
-        }
-        return size;
-    }
-
 
 }

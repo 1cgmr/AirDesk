@@ -39,7 +39,6 @@ public class New_Workspace extends ActionBarActivity {
         helper=new Table_Workspace(this);
         AirDesk globals = (AirDesk) getApplicationContext();
         g=globals.getLoggedUser();
-
     }
 
 
@@ -85,7 +84,6 @@ public class New_Workspace extends ActionBarActivity {
         helper.insert_Workspace(name.getText().toString(), g.getUserName(), publico.isChecked(), Integer.parseInt(max_quota.getText().toString()));
         helper.close();
         finish();
-        //startActivity(new Intent(New_Workspace.this, Owned_workspaces.class));
     }
 
 

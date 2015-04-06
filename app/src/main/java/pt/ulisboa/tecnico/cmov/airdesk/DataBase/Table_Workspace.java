@@ -30,4 +30,15 @@ public class Table_Workspace {
     public void close(){
         dbHelper.close();
     }
+
+    public Cursor getByQuota(String Nome, String Owner){
+       // String[] args={Owner, Nome};
+       // return(dbHelper.getReadableDatabase().rawQuery("SELECT Quota FROM Table_Workspace WHERE Owner=? and Nome=?", args));
+        return (dbHelper.getReadableDatabase().rawQuery("SELECT Quota FROM Table_Workspace WHERE Nome=? and Owner=?", new String[]{Nome, Owner}));
+    }
+
+    public Integer getQuota(Cursor c){
+        return(c.getInt(0));
+    }
+
 }

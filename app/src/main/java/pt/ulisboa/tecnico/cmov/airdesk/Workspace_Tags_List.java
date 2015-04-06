@@ -32,6 +32,7 @@ public class Workspace_Tags_List extends ActionBarActivity {
 
     //this is how track which Tag we are working on
     String TagId=null;
+    // O workspace seleccionado
     String WorkspaceSeleccionado=null;
 
     @Override
@@ -43,14 +44,18 @@ public class Workspace_Tags_List extends ActionBarActivity {
             ListView list = (ListView) findViewById(R.id.listTags);
             list.setOnItemClickListener(onListClick);
 
+            //Botão para adicionar uma nova tag ao workspace seleccionado
             Button btnSimples = (Button) findViewById(R.id.btnAddTagWorkspace);
             btnSimples.setOnClickListener(onSave);
 
+            //Botão delete, para eliminar uma determinada Tag pertencente ao workspace
             Button btnDelete = (Button) findViewById(R.id.btnDeleteTagWorkspace);
             btnDelete.setOnClickListener(onDelete);
 
+            //EdiText com o valor da Tag
             editTag = (EditText) findViewById(R.id.editTextTagsWorkspace);
 
+            //recebe da activity anterior o workspace que vai ser adicionada ou removida uma tag
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
                 WorkspaceSeleccionado = extras.getString("WORKSPACE_ID");
@@ -58,14 +63,13 @@ public class Workspace_Tags_List extends ActionBarActivity {
 
             //get our helper
             helper=new List_Tags_Workspaces(this);
-            //manage the cursor, recebe todos os registos da base de dados
+            //manage the cursor, recebe todos os registos (tags do workspace) da base de dados, com o objectivo de popular a ListView
             dataset_cursor=helper.getAll(WorkspaceSeleccionado);
             //pass it to our adapter
             startManagingCursor(dataset_cursor);
             //set the adapter on our list
             adapter=new TagAdapter(dataset_cursor);
             list.setAdapter(adapter);
-
         }
         catch (Exception e){
             Log.e("ERROR", "ERROR IN CODE:" + e.toString());
@@ -78,28 +82,29 @@ public class Workspace_Tags_List extends ActionBarActivity {
         helper.close();
     }
 
+    //Função para adicionar uma nova Tag ou fazer update de um determinado valor da Tag
     private View.OnClickListener onSave=new View.OnClickListener(){
         public void onClick(View v){
             if (TagId==null){
-                helper.insert_User_Tag(editTag.getText().toString(),WorkspaceSeleccionado);
+                helper.insert_Workspace_Tag(editTag.getText().toString(),WorkspaceSeleccionado);
             }
             else{
-                helper.update_User_Tag(TagId, editTag.getText().toString());
+                helper.update_Workspace_Tag(TagId, editTag.getText().toString());
                 TagId=null;
             }
-
             dataset_cursor.requery();
             editTag.setText("");
         }
     };
 
+   //Função para eliminar a Tag seleccionada na ListView
     private View.OnClickListener onDelete=new View.OnClickListener(){
         public void onClick(View v){
             if (TagId==null){
                 return;
             }
             else{
-                helper.delete_User_Tag(TagId);
+                helper.delete_Workspace_Tag(TagId);
                 TagId=null;
             }
             dataset_cursor.requery();
@@ -107,6 +112,8 @@ public class Workspace_Tags_List extends ActionBarActivity {
         }
     };
 
+    //Quando uma determinada Tag é "carregada" na ListView vai ser preenchido o seu valor (nome) para o EditText
+    // para elaborar operações de update ou delete da mesma TAG
     private AdapterView.OnItemClickListener onListClick=new AdapterView.OnItemClickListener(){
         public void onItemClick(AdapterView<?> parent, View view, int position, long id){
             TagId=String.valueOf(id);
@@ -148,24 +155,4 @@ public class Workspace_Tags_List extends ActionBarActivity {
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

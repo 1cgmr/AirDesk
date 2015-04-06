@@ -15,18 +15,18 @@ public class List_Tags_Workspaces {
         dbHelper= new DataBaseAccess(context);
     }
 
-    public void insert_User_Tag(String Tag, String NomeWorkspace){
+    public void insert_Workspace_Tag(String Tag, String NomeWorkspace){
         ContentValues cv=new ContentValues();
         cv.put("Tag", Tag);
         cv.put("NomeWorkspace", NomeWorkspace);
         dbHelper.getWritableDatabase().insert("List_Tags_Workspaces", null, cv);
     }
 
-    public void delete_User_Tag(String id){
+    public void delete_Workspace_Tag(String id){
         dbHelper.getWritableDatabase().delete("List_Tags_Workspaces","_id=?", new String[] {id});
     }
 
-    public void update_User_Tag(String id, String Tag){
+    public void update_Workspace_Tag(String id, String Tag){
         ContentValues cv= new ContentValues();
         String[] args={id};
         cv.put("Tag", Tag);

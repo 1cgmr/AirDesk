@@ -21,27 +21,6 @@ public class Users {
         dbHelper.getWritableDatabase().insert("Users", "email", cv);
     }
 
-    public void delete_Users(String id){
-        dbHelper.getWritableDatabase().delete("Users", "_id=?", new String[]{id});
-    }
-
-    public void update_Users(String id, String email){
-        ContentValues cv= new ContentValues();
-        String[] args={id};
-        cv.put("email", email);
-        dbHelper.getWritableDatabase().update("Users", cv, "_id=?", args);
-    }
-
-    public Cursor getByIdUser(String id){
-        String[] args={id};
-        return(dbHelper.getReadableDatabase().rawQuery("SELECT _id, email FROM Users WHERE _id=?", args));
-    }
-
-    public Cursor getByEmailUser(String email){
-        String[] args={email};
-        return(dbHelper.getReadableDatabase().rawQuery("SELECT _id, email FROM Users WHERE email=?", args));
-    }
-
     public void close(){
         dbHelper.close();
     }

@@ -2,9 +2,15 @@ package pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses;
 
 import android.app.Application;
 import android.content.Context;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.Attributes;
@@ -165,6 +171,75 @@ public class AirDesk extends Application {
      */
     public void deleteWorkspaceFile(String FileName){
 
+    }
+
+
+    //FILESSYSTEM (Funções relacionadas com o file system)
+
+//Função para eliminar um determiando Workspace, elimiando primeiro todos os seus ficheiros de texto e logo depois a pasta do workspace;
+    public static boolean deleteDirectory(File path) {
+        if( path.exists() ) {
+            File[] files = path.listFiles();
+            if (files == null) {
+                return true;
+            }
+            for(int i=0; i<files.length; i++) {
+                if(files[i].isDirectory()) {
+                    deleteDirectory(files[i]);
+                }
+                else {
+                    files[i].delete();
+                }
+            }
+        }
+        return( path.delete() );
+    }
+
+    //funçao que percorre todos os ficheiros de um determinado workspace para verificar o seu tamanho (length)
+    public static long getFolderSize(File f) {
+        long size = 0;
+        if (f.isDirectory()) {
+            for (File file : f.listFiles()) {
+                size += getFolderSize(file);
+            }
+        } else {
+            size=f.length();
+        }
+        return size;
+    }
+
+    public void writeFile(File workspace, FileOutputStream out1, String valorEditText){
+        try {
+            out1 = new FileOutputStream(workspace);
+            String string = valorEditText;
+            byte[] b = string.getBytes();
+            out1.write(b);
+            out1.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public StringBuilder ReadFile(File WorkspaceDir, EditText editor){
+        StringBuilder builder = new StringBuilder("");
+
+        try {
+            BufferedReader leitor = new BufferedReader(new FileReader(WorkspaceDir));
+            // br= new BufferedReader(leitor);
+            String read;
+
+            while((read = leitor.readLine()) !=null){
+                builder.append(read+"\n");
+            }
+            editor.setText(builder.toString());
+            leitor.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return builder;
     }
 
 }

@@ -51,8 +51,6 @@ public class MainActivity extends ActionBarActivity {
             MainActivity.context = getApplicationContext();
 
             globals.setContext(context);
-
-
         }
         catch (Exception e){
             Log.e("ERROR", "ERROR IN CODE:" + e.toString());
