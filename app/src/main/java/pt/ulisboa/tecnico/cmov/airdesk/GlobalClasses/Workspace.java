@@ -54,4 +54,9 @@ public class Workspace {
     public String toString(){
         return name;
     }
+
+    public void addFileWorkspace(TextFile file){
+        Files.add(file);
+    }
+
 }

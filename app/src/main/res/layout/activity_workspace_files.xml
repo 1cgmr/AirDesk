@@ -19,9 +19,17 @@
         android:layout_height="wrap_content"
         android:text="Add File"
         android:id="@+id/btnCriarFile"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp"/>
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Max Quota Worspace (populate)"
+        android:id="@+id/btnPopulate"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp"/>
 
     <GridView
         android:layout_height="wrap_content"

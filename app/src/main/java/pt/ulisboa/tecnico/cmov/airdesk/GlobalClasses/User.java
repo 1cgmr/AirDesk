@@ -3,6 +3,8 @@ package pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses;
 import android.app.Application;
 import android.content.Context;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +29,11 @@ public class User {
 
     private static User instance;
     private String Username="";
+    AirDesk airDesk;
 
     private List<Workspace> ownedWorkspaces= new ArrayList<Workspace>();
     private List<Workspace> RemoteWorkspaces= new ArrayList<Workspace>();
+    private List<TextFile> RemoteFiles= new ArrayList<TextFile>();
 
     public User(){}
 
@@ -101,5 +105,36 @@ public class User {
         return this.Username.compareTo(user.getUserName())!=0;
     }
 
-}
 
+//REMOTE FILES (TEXT FILE)
+
+    public void addRemoteFile(TextFile textFile){
+        RemoteFiles.add(textFile);
+    }
+
+    public List<TextFile> getTextFile(){
+        return RemoteFiles;
+    }
+
+    public void newTextFile(String name, StringBuilder conteudo){
+        TextFile textFile= new TextFile(name, conteudo);
+        this.RemoteFiles.add(textFile);
+    }
+
+    public void listaFicheirosRemotos(File DirWorkspace){
+        StringBuilder aux;
+        for(final File fileEntry : DirWorkspace.listFiles()){
+            aux = airDesk.ReadFile(fileEntry);
+            newTextFile(fileEntry.getName(), aux);
+        }
+    }
+
+    public TextFile getTextFile(String textFile){
+        for(TextFile file : this.getTextFile()){
+            if(file.getNameFile().compareTo(textFile)==0){
+                return file;
+            }
+        }
+        return null;
+    }
+}

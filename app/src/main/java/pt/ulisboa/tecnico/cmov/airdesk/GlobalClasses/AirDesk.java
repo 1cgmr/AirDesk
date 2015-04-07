@@ -227,7 +227,7 @@ public class AirDesk extends Application {
         }
     }
 
-    public StringBuilder ReadFile(File WorkspaceDir, EditText editor){
+    public StringBuilder ReadFile(File WorkspaceDir){
         StringBuilder builder = new StringBuilder("");
 
         try {
@@ -238,7 +238,7 @@ public class AirDesk extends Application {
             while((read = leitor.readLine()) !=null){
                 builder.append(read+"\n");
             }
-            editor.setText(builder.toString());
+            //editor.setText(builder.toString());
             leitor.close();
 
         } catch (FileNotFoundException e) {

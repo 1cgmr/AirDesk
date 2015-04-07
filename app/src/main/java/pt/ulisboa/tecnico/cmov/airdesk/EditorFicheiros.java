@@ -77,7 +77,8 @@ public class EditorFicheiros extends ActionBarActivity {
         txtNomeFich.setText(name);
 
         // operação de leitura do conteudo do ficheiro de texto, carregando o seu conteudo para o editor (editText)
-        builder= globals.ReadFile(WorkspaceDir, editor);
+        builder= globals.ReadFile(WorkspaceDir);
+        editor.setText(builder.toString());
     }
 
     //Função que retorna o valor do editText
@@ -112,7 +113,7 @@ public class EditorFicheiros extends ActionBarActivity {
                 // será restaurado o conteudo anterior do ficheiro.
                 tamanhoWorkspace = globals.getFolderSize(fileWithinMyDir);
                 if (tamanhoWorkspace > tamanhomax) {
-                    Toast.makeText(getApplication(), "Não foi possivel criar o ficheiro, ultrapassou os limites do Workspace.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplication(), "Não foi possivel modificar o ficheiro, ultrapassou os limites do Workspace.", Toast.LENGTH_LONG).show();
                     globals.writeFile(WorkspaceDir, out1, builder.toString());
                 }
             }

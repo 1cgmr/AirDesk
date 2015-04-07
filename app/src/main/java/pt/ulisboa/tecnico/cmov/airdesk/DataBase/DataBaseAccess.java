@@ -24,6 +24,7 @@ public class DataBaseAccess extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE List_Tags_Users (_id INTEGER PRIMARY KEY AUTOINCREMENT, Tag TEXT, idUser TEXT);");
         db.execSQL("CREATE TABLE Table_Workspace (Nome TEXT,Owner TEXT, Publico BOOLEAN, Quota INTEGER, PRIMARY KEY(Nome, Owner));");
         db.execSQL("CREATE TABLE List_Tags_Workspaces (_id INTEGER PRIMARY KEY AUTOINCREMENT, Tag TEXT, NomeWorkspace TEXT);");
+        db.execSQL("CREATE TABLE Invite(NomeUser TEXT, Workspace TEXT, Owner TEXT, PRIMARY KEY(Nome, Owner));");
     }
 
     @Override
