@@ -1,15 +1,19 @@
 package pt.ulisboa.tecnico.cmov.airdesk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import pt.ulisboa.tecnico.cmov.airdesk.Adapters.ItemBean;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.*;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.Workspace;
 
@@ -31,7 +35,18 @@ public class Foreign_workspaces extends ActionBarActivity {
         final ListView foreignList = (ListView) findViewById(R.id.Foreign_workspaces_list);
         adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line, Foreign_Workspaces);
         foreignList.setAdapter(adapter);
+        foreignList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+                                    long arg3) {
 
+                Workspace NomeItemClicked = (Workspace) adapter.getItem(position);
+                Intent i = new Intent(getApplicationContext(), pt.ulisboa.tecnico.cmov.airdesk.Workspace.class);
+                i.putExtra("WORKSPACE_ID", NomeItemClicked.getName());
+                startActivity(i);
+            }
+        });
     }
 
 
