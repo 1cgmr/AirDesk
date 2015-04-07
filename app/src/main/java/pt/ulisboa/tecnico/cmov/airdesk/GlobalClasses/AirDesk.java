@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.Attributes;
 
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.List_Tags_Workspaces;
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Table_Workspace;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.User_Tag;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Users;
 
@@ -25,6 +27,9 @@ public class AirDesk extends Application {
 
     private Users UserDb = null;
     private User_Tag USerTagDb = null;
+    private List_Tags_Workspaces WorkspaceTagsDb= null;
+    private Table_Workspace WorkspaceDb = null;
+
     private Context context = null;
 
     private User LoggedUser;
@@ -35,7 +40,8 @@ public class AirDesk extends Application {
     public void setUsersTagDb(User_Tag db){
         USerTagDb=db;
     }
-
+    public void setListTagsdb(List_Tags_Workspaces WTDb){ WorkspaceTagsDb=WTDb; }
+    public void setWorkspaces(Table_Workspace TDB){ WorkspaceDb=TDB; }
     public void setUsersDb(Users db){
         UserDb=db;
     }
@@ -60,9 +66,10 @@ public class AirDesk extends Application {
             }
         }
 
-        User newUser = new User(userName,UserDb,USerTagDb,context);
+        User newUser = new User(userName,UserDb,USerTagDb,WorkspaceDb,WorkspaceTagsDb,context);
         ReachableUsers.add(newUser);
         LoggedUser = newUser;
+        this.populate();
     }
 
     /** funcao para criar um novo workspace
@@ -242,4 +249,14 @@ public class AirDesk extends Application {
         return builder;
     }
 
+    public void populate(){
+        //this.UserDb;
+        //this.USerTagDb;
+        //this.WorkspaceTagsDb;
+        //this.WorkspaceDb;
+
+        //this.WorkspaceDb.getAll(this.LoggedUser.getUserName());
+        //this.WorkspaceTagsDb.getAll();
+
+    }
 }

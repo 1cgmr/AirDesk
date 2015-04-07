@@ -41,4 +41,9 @@ public class Table_Workspace {
         return(c.getInt(0));
     }
 
+    public Cursor getAll(String id){
+        String[] args={id};
+        return(dbHelper.getReadableDatabase().rawQuery("SELECT Nome, Owner, Publico, Quota, FROM Table_Workspace WHERE Owner=?", args));
+    }
+
 }

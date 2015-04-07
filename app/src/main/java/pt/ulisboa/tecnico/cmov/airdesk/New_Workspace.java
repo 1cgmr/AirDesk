@@ -81,8 +81,8 @@ public class New_Workspace extends ActionBarActivity {
         AirDesk globals = (AirDesk) getApplicationContext();
         globals.NewWorkspace(publico.isChecked(),Tags,name.getText().toString(), Integer.parseInt(max_quota.getText().toString()));
 
-        helper.insert_Workspace(name.getText().toString(), g.getUserName(), publico.isChecked(), Integer.parseInt(max_quota.getText().toString()));
-        helper.close();
+        //helper.insert_Workspace(name.getText().toString(), g.getUserName(), publico.isChecked(), Integer.parseInt(max_quota.getText().toString()));
+        //helper.close();
         finish();
     }
 

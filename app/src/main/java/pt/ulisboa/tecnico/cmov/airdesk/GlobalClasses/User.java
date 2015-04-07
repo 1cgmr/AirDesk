@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pt.ulisboa.tecnico.cmov.airdesk.*;
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.List_Tags_Workspaces;
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Table_Workspace;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.User_Tag;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Users;
 
@@ -18,6 +20,8 @@ public class User {
 
     private Users DataBase = null;
     private User_Tag Tag_Db = null;
+    private Table_Workspace workspace_db=null;
+    private List_Tags_Workspaces workspace_tags_db=null;
 
     private File mydir = null;
 
@@ -29,10 +33,13 @@ public class User {
 
     public User(){}
 
-    public User(String username, Users db, User_Tag TagDb, Context context){
+    public User(String username, Users db, User_Tag TagDb,Table_Workspace workspace_db,List_Tags_Workspaces workspace_Tags_db, Context context){
         this.Username=username;
         this.DataBase=db;
         this.Tag_Db=TagDb;
+        this.workspace_db=workspace_db;
+        this.workspace_tags_db=workspace_Tags_db;
+
         db.insert_Users(username);
         this.mydir = context.getDir(username, Context.MODE_PRIVATE);
     }
@@ -50,7 +57,7 @@ public class User {
     }
 
     public void newWorkspace(Boolean publico, String workspaceName, List<String> Tags,int max_quota,Context context){
-        Workspace workspace= new Workspace(publico, workspaceName, Tags, max_quota, mydir);
+        Workspace workspace= new Workspace(this.getUserName(),publico, workspaceName, Tags, max_quota, mydir,this.workspace_db,this.workspace_tags_db);
         this.ownedWorkspaces.add(workspace);
     }
 

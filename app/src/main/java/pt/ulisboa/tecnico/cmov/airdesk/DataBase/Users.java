@@ -25,4 +25,9 @@ public class Users {
         dbHelper.close();
     }
 
+    public Cursor getById(String id){
+        String[] args={id};
+        return(dbHelper.getReadableDatabase().rawQuery("SELECT email FROM Users WHERE email=?", args));
+    }
+
 }
