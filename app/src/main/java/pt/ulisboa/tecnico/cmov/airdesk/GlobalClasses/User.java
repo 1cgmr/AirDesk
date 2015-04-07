@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses;
 
 import android.app.Application;
 import android.content.Context;
+import android.database.Cursor;
 
 import org.w3c.dom.Text;
 
@@ -48,8 +49,10 @@ public class User {
         this.workspace_db=workspace_db;
         this.workspace_tags_db=workspace_Tags_db;
         this.inviteTable=inviteTable;
-
-        db.insert_Users(username);
+        Cursor cursor=db.getById(username);
+        if(cursor.getCount()==0) {
+            db.insert_Users(username);
+        }
         this.mydir = context.getDir(username, Context.MODE_PRIVATE);
     }
 
@@ -104,7 +107,7 @@ public class User {
 
     public void addRemoteWorkspace(Workspace workspace){
         RemoteWorkspaces.add(workspace);
-        workspace.addInvitedUser(this); 
+        workspace.addInvitedUser(this);
     }
 
     public void removeRemoteWorkspace(Workspace workspace){

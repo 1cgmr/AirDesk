@@ -146,7 +146,8 @@ public class AirDesk extends Application {
      */
     public void invite(String UserName,String Workspace){
         Workspace InviteWorkspace = LoggedUser.getWorkspace(Workspace);
-        if(Workspace==null) return;
+
+        if(InviteWorkspace==null) return;
         for(User user : ReachableUsers){
             if(user.getUserName().equals(UserName)){
                 user.addRemoteWorkspace(InviteWorkspace);

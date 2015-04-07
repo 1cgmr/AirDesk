@@ -48,9 +48,11 @@ public class Workspace {
         mydir.mkdir();
 
         this.mydir=mydir;
-
-        workspace_db.insert_Workspace(workspaceName, Owner.getUserName(), publico, max_quota);
-        workspace_db.close();
+        Cursor cursor=workspace_db.getById(workspaceName, Owner.getUserName());
+        if(cursor.getCount()==0) {
+            workspace_db.insert_Workspace(workspaceName, Owner.getUserName(), publico, max_quota);
+            workspace_db.close();
+        }
         //this.Files
         for(final File fileEntry : this.mydir.listFiles()){
             //nome do ficheriro
