@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
             globals.setUsersTagDb(UserTagDb);
             globals.setListTagsdb(WorkspaceTagsDb);
             globals.setWorkspaces(WorkspaceDb);
-            globals. setInviteTable(inviteTable);
+            globals.setInviteTable(inviteTable);
 
             Button btnLogin = (Button) findViewById(R.id.btnLogin);
             btnLogin.setOnClickListener(Login);
