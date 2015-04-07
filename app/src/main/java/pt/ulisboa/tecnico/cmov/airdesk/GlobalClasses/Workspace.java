@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;

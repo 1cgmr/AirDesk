@@ -54,7 +54,7 @@ public class User {
     }
 
     public AirDesk getAirDesk(){
-        return this.airDesk;
+        return this.AirDesk;
     }
 
     public void addTag(String Tag){
@@ -104,7 +104,7 @@ public class User {
 
     public void addRemoteWorkspace(Workspace workspace){
         RemoteWorkspaces.add(workspace);
-        workspace.addInvitedUser(this);
+        workspace.addInvitedUser(this); 
     }
 
     public void removeRemoteWorkspace(Workspace workspace){
