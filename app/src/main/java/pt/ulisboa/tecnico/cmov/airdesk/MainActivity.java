@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import java.io.File;
 
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Invite;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.List_Tags_Workspaces;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Table_Workspace;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.User_Tag;
@@ -45,6 +46,7 @@ public class MainActivity extends ActionBarActivity {
             //
             List_Tags_Workspaces WorkspaceTagsDb= new List_Tags_Workspaces(this);
             Table_Workspace WorkspaceDb = new Table_Workspace(this);
+            Invite inviteTable = new Invite(this);
 
 
             // variaveis globais
@@ -53,6 +55,7 @@ public class MainActivity extends ActionBarActivity {
             globals.setUsersTagDb(UserTagDb);
             globals.setListTagsdb(WorkspaceTagsDb);
             globals.setWorkspaces(WorkspaceDb);
+            globals. setInviteTable(inviteTable);
 
             Button btnLogin = (Button) findViewById(R.id.btnLogin);
             btnLogin.setOnClickListener(Login);
