@@ -53,7 +53,6 @@ public class Invitation extends ActionBarActivity {
             helper=new Invite(this);
             //manage the cursor, recebe todos os registos da base de dados
 
-
       //      dataset_cursor=helper.getAll(, g.getUserName());
 
             //pass it to our adapter

@@ -73,7 +73,6 @@ public class Owned_workspaces extends Activity  {
                 NomeItemClicked=bean.getTitle();
                 Intent i = new Intent(getApplicationContext(), Workspace.class);
                 i.putExtra("WORKSPACE_ID", NomeItemClicked);
-                finish();
                 startActivity(i);
             }
         });
@@ -179,5 +178,7 @@ public class Owned_workspaces extends Activity  {
         ItemBean bean = (ItemBean) adapter.getItem(info.position);
         NomeItemClicked = bean.getTitle();
     }
+
+
 
 }
