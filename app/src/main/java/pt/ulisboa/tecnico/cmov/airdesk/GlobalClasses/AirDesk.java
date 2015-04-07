@@ -264,10 +264,12 @@ public class AirDesk extends Application {
             Cursor List_tags = this.WorkspaceTagsDb.getAll(Workspaces.getString(1));
             List<String> tagList = new ArrayList<String>();
             while(List_tags.moveToNext()){
-                tagList.add(List_tags.getString(2));
+                tagList.add(List_tags.getString(1));
             }
-            this.LoggedUser.newWorkspace(Workspaces.getInt(3)>0,Workspaces.getString(1),tagList,Workspaces.getInt(4),context);
+
+            this.LoggedUser.newWorkspace(Workspaces.getInt(2)>0,Workspaces.getString(0),tagList,Workspaces.getInt(3),context);
         }
+        //this.WorkspaceTagsDb.getAll();
 
     }
 }

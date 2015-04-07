@@ -58,12 +58,12 @@
             android:label="@string/title_activity_editor_ficheiros" >
         </activity>
         <activity
-            android:name=".Dialog_New_File"
-            android:label="@string/title_activity_dialog__new__file" >
-        </activity>
-        <activity
             android:name=".NewFile"
             android:label="@string/title_activity_new_file" >
+        </activity>
+        <activity
+            android:name=".Invitation"
+            android:label="@string/title_activity_invitation" >
         </activity>
     </application>
 

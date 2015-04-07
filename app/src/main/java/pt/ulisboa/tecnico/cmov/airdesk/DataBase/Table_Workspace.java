@@ -43,7 +43,7 @@ public class Table_Workspace {
 
     public Cursor getAll(String id){
         String[] args={id};
-        return(dbHelper.getReadableDatabase().rawQuery("SELECT Nome, Owner, Publico, Quota, FROM Table_Workspace WHERE Owner=?", args));
+        return(dbHelper.getReadableDatabase().rawQuery("SELECT Nome, Owner, Publico, Quota FROM Table_Workspace WHERE Owner=?", args));
     }
 
 }

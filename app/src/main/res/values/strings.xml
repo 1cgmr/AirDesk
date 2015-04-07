@@ -13,4 +13,5 @@
     <string name="title_activity_editor_ficheiros">EditorFicheiros</string>
     <string name="title_activity_dialog__new__file">Dialog_New_File</string>
     <string name="title_activity_new_file">NewFile</string>
+    <string name="title_activity_invitation">Invitation</string>
 </resources>

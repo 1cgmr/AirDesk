@@ -36,4 +36,18 @@ public class Invite {
         dbHelper.close();
     }
 
+    public Cursor getAll(String WorkspaceName, String Owner){
+        String [] args={WorkspaceName, Owner};
+        return (dbHelper.getReadableDatabase().rawQuery("SELECT NameUser, Workspace, Owner FROM Invite WHERE Workspace=? and Owner=?", args));
+    }
+
+    public String getNameUser(Cursor c){
+        return(c.getString(0));
+    }
+
+    public Cursor getByNameUser(String nameuser){
+        String[] args={nameuser};
+        return(dbHelper.getReadableDatabase().rawQuery("SELECT NameUser, Workspace, Owner FROM Invite WHERE NameUser=?", args));
+    }
+
 }

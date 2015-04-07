@@ -73,7 +73,6 @@ public class Owned_workspaces extends Activity  {
                 NomeItemClicked=bean.getTitle();
                 Intent i = new Intent(getApplicationContext(), Workspace.class);
                 i.putExtra("WORKSPACE_ID", NomeItemClicked);
-                finish();
                 startActivity(i);
             }
         });
@@ -146,12 +145,13 @@ public class Owned_workspaces extends Activity  {
                     }
                 }
             case R.id.convidar:
-                OnItemLongClickListener(itemList, item);
-                FragmentManager manager=getFragmentManager();
-                Dialog_Send_Invitation myDialog= new Dialog_Send_Invitation();
-                myDialog.setGlobals((AirDesk) getApplicationContext());
-                myDialog.setWorkspace(NomeItemClicked);
-                myDialog.show(manager, "MyDialog");
+
+                //OnItemLongClickListener(itemList, item);
+                //FragmentManager manager=getFragmentManager();
+                //Dialog_Send_Invitation myDialog= new Dialog_Send_Invitation();
+                //myDialog.setGlobals((AirDesk) getApplicationContext());
+                //myDialog.setWorkspace(NomeItemClicked);
+                //myDialog.show(manager, "MyDialog");
                 return true;
             case R.id.tamanho_folder:
                 ItemBean bean = (ItemBean) adapter.getItem(info.position);
@@ -178,5 +178,7 @@ public class Owned_workspaces extends Activity  {
         ItemBean bean = (ItemBean) adapter.getItem(info.position);
         NomeItemClicked = bean.getTitle();
     }
+
+
 
 }
