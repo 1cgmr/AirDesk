@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses;
 
 import android.app.Application;
 import android.content.Context;
+import android.database.Cursor;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -255,7 +256,16 @@ public class AirDesk extends Application {
         //this.WorkspaceTagsDb;
         //this.WorkspaceDb;
 
-        //this.WorkspaceDb.getAll(this.LoggedUser.getUserName());
+        Cursor Workspaces = this.WorkspaceDb.getAll(this.LoggedUser.getUserName());
+        while(Workspaces.moveToNext()){
+            Cursor List_tags = this.WorkspaceTagsDb.getAll(Workspaces.getString(1));
+            List<String> tagList = new ArrayList<String>();
+            while(List_tags.moveToNext()){
+                tagList.add(List_tags.getString(2));
+            }
+
+            this.LoggedUser.newWorkspace(Workspaces.getInt(3)>0,Workspaces.getString(1),tagList,Workspaces.getInt(4),context);
+        }
         //this.WorkspaceTagsDb.getAll();
 
     }
