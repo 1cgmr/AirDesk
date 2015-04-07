@@ -54,6 +54,7 @@ public class Workspace {
             workspace_db.close();
         }
         //this.Files
+
         for(final File fileEntry : this.mydir.listFiles()){
             //nome do ficheriro
             String nome = fileEntry.getName();

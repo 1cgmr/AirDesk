@@ -79,6 +79,7 @@ public class AirDesk extends Application {
             }
         }
 
+
         User newUser = new User(this,userName,UserDb,USerTagDb,WorkspaceDb,WorkspaceTagsDb,context,inviteTable);
         ReachableUsers.add(newUser);
         LoggedUser = newUser;
