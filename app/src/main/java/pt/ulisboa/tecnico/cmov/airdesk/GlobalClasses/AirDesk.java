@@ -165,15 +165,6 @@ public class AirDesk extends Application {
 
     }
 
-    /** função para apagar um ficheiro no workspace que está em activeWorkspace
-            input:
-                FileName:String nome do ficheiro a ser lido no workspace que está em activeWorkspace
-     */
-    public void deleteWorkspaceFile(String FileName){
-
-    }
-
-
     //FILESSYSTEM (Funções relacionadas com o file system)
 
 //Função para eliminar um determiando Workspace, elimiando primeiro todos os seus ficheiros de texto e logo depois a pasta do workspace;
@@ -220,9 +211,8 @@ public class AirDesk extends Application {
         }
     }
 
-    public StringBuilder ReadFile(File WorkspaceDir, EditText editor){
+    public StringBuilder ReadFile(File WorkspaceDir){
         StringBuilder builder = new StringBuilder("");
-
         try {
             BufferedReader leitor = new BufferedReader(new FileReader(WorkspaceDir));
             // br= new BufferedReader(leitor);
@@ -231,7 +221,7 @@ public class AirDesk extends Application {
             while((read = leitor.readLine()) !=null){
                 builder.append(read+"\n");
             }
-            editor.setText(builder.toString());
+            //editor.setText(builder.toString());
             leitor.close();
 
         } catch (FileNotFoundException e) {
@@ -241,5 +231,6 @@ public class AirDesk extends Application {
         }
         return builder;
     }
+
 
 }

@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -18,10 +19,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import pt.ulisboa.tecnico.cmov.airdesk.Adapters.GridviewAdapter;
 import pt.ulisboa.tecnico.cmov.airdesk.Adapters.ItemBean;
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Table_Workspace;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
@@ -38,6 +42,10 @@ public class Workspace extends ActionBarActivity {
     String nome;
     private String NomeItemClicked;
 
+    Table_Workspace helper=null;
+    AirDesk globals;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +54,13 @@ public class Workspace extends ActionBarActivity {
         Button btnCriarFile = (Button) findViewById(R.id.btnCriarFile);
         btnCriarFile.setOnClickListener(dialogFile);
 
+        Button btnPopulate = (Button) findViewById(R.id.btnPopulate);
+        btnPopulate.setOnClickListener(populate);
+
         // variaveis globais, para verificar qual o utilizador autenticado
-        AirDesk globals = (AirDesk) getApplicationContext();
+        globals = (AirDesk) getApplicationContext();
         user=globals.getLoggedUser();
+        helper=new Table_Workspace(this);
 
         // verificar qual o directorio do utilizador autenticado
         UserDir = globals.getLoggedUser().getMydir();
@@ -115,6 +127,7 @@ public class Workspace extends ActionBarActivity {
 
         switch (item.getItemId()) {
             case R.id.eliminar_file:
+                //chama a função OnItemLongClickListener para afectar a variavel NomeItemClicked, para verificar qual o ficheiro seleccionado.
                 OnItemLongClickListener(info.position);
                 for(final File fileEntry : WorkspaceDir.listFiles()){
                     //nome do ficheriro
@@ -144,6 +157,46 @@ public class Workspace extends ActionBarActivity {
             Intent i = new Intent(getApplicationContext(), NewFile.class);
             i.putExtra("WORKSPACE_PATH", WorkspaceDir.getPath());
             startActivity(i);
+        }
+
+    };
+
+    private View.OnClickListener populate=new View.OnClickListener(){
+        public void onClick(View v){
+            long tamanhoWorkspace;
+            Cursor c= helper.getByQuota(WorkspaceDir.getName(), user.getUserName());
+
+            if(c.moveToFirst() == false){
+                Toast.makeText(getApplication(), "Workspace não existe", Toast.LENGTH_LONG).show();
+            }
+            else {
+                c.moveToFirst();
+                // guardar apneas o valor da quota máxima presente no cursor (c).
+                Integer tamanhomax = helper.getQuota(c);
+                helper.close();
+
+                //criar um ficheiro
+                File file1 = new File(WorkspaceDir, "FileMaxSize.txt");
+                try {
+                    file1.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //função getFolderSiza retorna o tamanho global do workspace
+                long sizeWorkspace = globals.getFolderSize(WorkspaceDir);
+                FileOutputStream out1 = null;
+                String frase="";
+
+                while ((globals.getFolderSize(WorkspaceDir)) != tamanhomax){
+                    frase = frase+"a";
+                    globals.writeFile(file1, out1, frase);
+                }
+            }
+
+            //Preencher a ListVIew para reflectir a introdução do novo ficheiro de teste (MAX_QUOTA)
+            PreencherListView();
+            Toast.makeText(getApplication(), "Ficheiro de teste (MAX_Quota) criado!!!", Toast.LENGTH_LONG).show();
         }
 
     };

@@ -130,7 +130,6 @@ public class Owned_workspaces extends Activity  {
         switch (item.getItemId()) {
             case R.id.eliminar_workspace:
                 for (final File fileEntry : userDir.listFiles()) {
-
                     OnItemLongClickListener(itemList, item);
                     nome = fileEntry.getName();
                     //verificar se o workspace actual é o mesmo que foi carrgado "clicked"
