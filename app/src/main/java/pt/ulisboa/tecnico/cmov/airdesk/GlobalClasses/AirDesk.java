@@ -266,10 +266,8 @@ public class AirDesk extends Application {
             while(List_tags.moveToNext()){
                 tagList.add(List_tags.getString(2));
             }
-
             this.LoggedUser.newWorkspace(Workspaces.getInt(3)>0,Workspaces.getString(1),tagList,Workspaces.getInt(4),context);
         }
-        //this.WorkspaceTagsDb.getAll();
 
     }
 }
