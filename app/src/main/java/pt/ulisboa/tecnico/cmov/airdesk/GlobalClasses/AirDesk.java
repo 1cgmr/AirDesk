@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.Attributes;
 
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Invite;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.List_Tags_Workspaces;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Table_Workspace;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.User_Tag;
@@ -30,6 +31,7 @@ public class AirDesk extends Application {
     private User_Tag USerTagDb = null;
     private List_Tags_Workspaces WorkspaceTagsDb= null;
     private Table_Workspace WorkspaceDb = null;
+    private Invite inviteTable = null;
 
     private Context context = null;
 
@@ -52,6 +54,7 @@ public class AirDesk extends Application {
     }
     public void setListTagsdb(List_Tags_Workspaces WTDb){ WorkspaceTagsDb=WTDb; }
     public void setWorkspaces(Table_Workspace TDB){ WorkspaceDb=TDB; }
+    public void setInviteTable(Invite TDB){ inviteTable=TDB; }
     public void setUsersDb(Users db){
         UserDb=db;
     }
@@ -67,8 +70,6 @@ public class AirDesk extends Application {
         input:
             UserName:String nome do utilizador a logar-se
      */
-
-
     //tes
     public void logIn(String userName){
         for(User user : ReachableUsers){
@@ -78,7 +79,7 @@ public class AirDesk extends Application {
             }
         }
 
-        User newUser = new User(userName,UserDb,USerTagDb,WorkspaceDb,WorkspaceTagsDb,context);
+        User newUser = new User(this,userName,UserDb,USerTagDb,WorkspaceDb,WorkspaceTagsDb,context,inviteTable);
         ReachableUsers.add(newUser);
         LoggedUser = newUser;
         this.populate();

@@ -26,6 +26,12 @@ public class Invite {
         dbHelper.getWritableDatabase().delete("Invite", "NomeUser=? and Workspace=? and Owner=?", new String[]{NomeUser, WorkspaceName,Owner});
     }
 
+    public Cursor getById(String id){
+        String[] args={id};
+        return(dbHelper.getReadableDatabase().rawQuery("SELECT NomeUser, Workspace FROM Invite WHERE Owner=?", args));
+    }
+
+
     public void close(){
         dbHelper.close();
     }
