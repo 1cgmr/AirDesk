@@ -59,4 +59,7 @@ public class Workspace {
         Files.add(file);
     }
 
+    public File getMydir(){
+        return this.getMydir();
+    }
 }

@@ -35,6 +35,7 @@ public class Invitation extends ActionBarActivity {
     String InviteId=null;
     User g = User.getInstance();
     ListView list;
+    AirDesk globals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,9 @@ public class Invitation extends ActionBarActivity {
             //get our helper
             helper=new Invite(this);
             //manage the cursor, recebe todos os registos da base de dados
+
+            // variaveis globais
+            globals.getActiveWorkspace();
 
       //      dataset_cursor=helper.getAll(, g.getUserName());
 
