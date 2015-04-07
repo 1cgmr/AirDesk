@@ -43,8 +43,10 @@ public class Workspace {
         this.inviteTable=inviteTable;
         this.Owner=Owner;
 
-        File mydir = new File(myDir,workspaceName);
+        this.mydir = new File(myDir,workspaceName);
         mydir.mkdir();
+
+        this.mydir=mydir;
 
         workspace_db.insert_Workspace(workspaceName, Owner.getUserName(), publico, max_quota);
         workspace_db.close();
