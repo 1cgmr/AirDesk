@@ -38,6 +38,15 @@ public class AirDesk extends Application {
     private User LoggedUser;
     private List<User> ReachableUsers = new ArrayList<User>();
     private TextFile activeTextFile;
+
+    public Workspace getActiveWorkspace() {
+        return activeWorkspace;
+    }
+
+    public void setActiveWorkspace(Workspace activeWorkspace) {
+        this.activeWorkspace = activeWorkspace;
+    }
+
     private Workspace activeWorkspace;
 
     public void setUsersTagDb(User_Tag db){
@@ -83,7 +92,7 @@ public class AirDesk extends Application {
             workspaceName:String nome do novo workspace
     */
     public void NewWorkspace(Boolean publico, List<String> tags,String workspaceName,int max_quota){
-        LoggedUser.newWorkspace(publico,workspaceName,tags, max_quota,context);
+        LoggedUser.newWorkspace(publico, workspaceName, tags, max_quota, context);
     }
 
     /** funcao para obter a lista dos workspaces do loggedUser
