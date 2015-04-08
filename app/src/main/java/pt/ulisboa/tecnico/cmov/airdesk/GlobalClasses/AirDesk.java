@@ -37,7 +37,7 @@ public class AirDesk extends Application {
 
     private User LoggedUser;
     private List<User> ReachableUsers = new ArrayList<User>();
-    private TextFile activeTextFile;
+    private Workspace activeWorkspace;
 
     public Workspace getActiveWorkspace() {
         return activeWorkspace;
@@ -46,8 +46,6 @@ public class AirDesk extends Application {
     public void setActiveWorkspace(Workspace activeWorkspace) {
         this.activeWorkspace = activeWorkspace;
     }
-
-    private Workspace activeWorkspace;
 
     public void setUsersTagDb(User_Tag db){
         USerTagDb=db;
