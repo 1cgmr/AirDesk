@@ -58,4 +58,13 @@ abstract public class Workspace {
     }
 
     public abstract File getMydir();
+    //
+    public abstract void removeFile(String Name);
+
+    public abstract void newFile(String name);
+
+    public abstract void modifyFile(String name ,StringBuilder content);
+
+    public abstract StringBuilder readFile(String name);
+
 }
