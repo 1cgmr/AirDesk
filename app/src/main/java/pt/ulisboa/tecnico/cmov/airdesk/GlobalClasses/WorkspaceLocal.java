@@ -121,7 +121,6 @@ public class WorkspaceLocal extends Workspace {
 
     @Override
     public void removeFile(String Name) {
-
     }
 
     @Override
