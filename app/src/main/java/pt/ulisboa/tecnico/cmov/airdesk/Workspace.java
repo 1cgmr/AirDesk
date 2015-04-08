@@ -22,11 +22,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import pt.ulisboa.tecnico.cmov.airdesk.Adapters.GridviewAdapter;
 import pt.ulisboa.tecnico.cmov.airdesk.Adapters.ItemBean;
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Table_Workspace;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
+import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.TextFile;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
 public class Workspace extends ActionBarActivity {
@@ -36,11 +38,13 @@ public class Workspace extends ActionBarActivity {
     private File WorkspaceDir;
     private ItemBean bean;
     private String WorkspaceDirName;
-    private ArrayList<String> listFiles;
+    //private ArrayList<String> listFiles;
+    private List<TextFile> listFiles;
     private GridviewAdapter mAdapter;
     private GridView gridView;
     String nome;
     private String NomeItemClicked;
+    private pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.Workspace workspace;
 
     Table_Workspace helper=null;
     AirDesk globals;
@@ -60,6 +64,7 @@ public class Workspace extends ActionBarActivity {
         // variaveis globais, para verificar qual o utilizador autenticado
         globals = (AirDesk) getApplicationContext();
         user=globals.getLoggedUser();
+        workspace = globals.getActiveWorkspace();
         helper=new Table_Workspace(this);
 
         // verificar qual o directorio do utilizador autenticado
@@ -82,26 +87,41 @@ public class Workspace extends ActionBarActivity {
                                     long arg3) {
                NomeItemClicked = mAdapter.getItem(position);
                Intent i = new Intent(getApplicationContext(), EditorFicheiros.class);
-               i.putExtra("WORKSPACE_DIR", WorkspaceDir.getPath());
+               i.putExtra("WORKSPACE_DIR", workspace.getMydir());
                i.putExtra("NOME_FICHEIRO", NomeItemClicked);
                startActivity(i);
             }
         });
     }
 
-    public void PreencherListView(){
-        listFiles = new ArrayList<String>();
-        //ciclo que vai procurar qual o workspace seleccionado, e guardar num ficheiro.
-        for(final File fileEntry : UserDir.listFiles()){
-            if(fileEntry.getName().equals(WorkspaceDirName)){
-                WorkspaceDir = fileEntry;
-            }
-        }
+//    public void PreencherListView(){
+//        listFiles = new ArrayList<String>();
+//        //ciclo que vai procurar qual o workspace seleccionado, e guardar num ficheiro.
+//        for(final File fileEntry : UserDir.listFiles()){
+//            if(fileEntry.getName().equals(WorkspaceDirName)){
+//                WorkspaceDir = fileEntry;
+//            }
+//        }
+//
+//        //Preencher um ArrayList com todos os nomes dos ficheiros presentes no workspace seleccionado.
+//        for(final File fileEntry : WorkspaceDir.listFiles()){
+//            listFiles.add(fileEntry.getName());
+//        }
+//
+//        //Operações para preencher a GridView com os valores recolhidos anteriormente.
+//        mAdapter = new GridviewAdapter(this,listFiles);
+//        this.gridView = (GridView) findViewById(R.id.gridView);
+//        gridView.setAdapter(mAdapter);
+//
+//        //Afectar o TextView com o nome do Workspace actualmente seleccionado (Titulo do ecrã);
+//        TextView textViewName = (TextView) findViewById(R.id.textViewName);
+//        textViewName.setText(WorkspaceDirName);
+//    }
 
-        //Preencher um ArrayList com todos os nomes dos ficheiros presentes no workspace seleccionado.
-        for(final File fileEntry : WorkspaceDir.listFiles()){
-            listFiles.add(fileEntry.getName());
-        }
+    public void PreencherListView(){
+        listFiles = workspace.getListFiles();
+        //ciclo que vai procurar qual o workspace seleccionado, e guardar num ficheiro.
+
 
         //Operações para preencher a GridView com os valores recolhidos anteriormente.
         mAdapter = new GridviewAdapter(this,listFiles);
