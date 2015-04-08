@@ -104,6 +104,16 @@ public class Workspace {
         return name;
     }
 
+    public long getQuota(){
+        return max_quota;
+    }
+
+    public boolean getPublico(){
+        return publico;
+    }
+
+    public List<String> getTags(){ return Tags;}
+
     public void addTag(String Tag){
         Tags.add(Tag);
     }

@@ -145,7 +145,6 @@ public class Owned_workspaces extends Activity  {
                     }
                 }
             case R.id.convidar:
-
                 OnItemLongClickListener(itemList, item);
                 FragmentManager manager=getFragmentManager();
                 Dialog_Send_Invitation myDialog= new Dialog_Send_Invitation();
