@@ -31,7 +31,7 @@ public class WorkspaceLocal extends Workspace {
     private List<TextFile> Files = new ArrayList<TextFile>();
 
     public WorkspaceLocal(User Owner, Boolean publico, String workspaceName, List<String> Tags, int max_quota,File myDir,Table_Workspace workspace_db,List_Tags_Workspaces workspace_Tags_db,Invite inviteTable){
-        super(Owner,workspaceName);
+        super(Owner, workspaceName);
         this.publico=publico;
         this.Tags.addAll(Tags);
         this.max_quota=max_quota;
@@ -117,6 +117,26 @@ public class WorkspaceLocal extends Workspace {
             this.Files.add(file);
         }
         return this.Files;
+    }
+
+    @Override
+    public void removeFile(String Name) {
+
+    }
+
+    @Override
+    public boolean newFile(String name) {
+        return true;
+    }
+
+    @Override
+    public boolean modifyFile(String name, StringBuilder content) {
+        return true;
+    }
+
+    @Override
+    public StringBuilder readFile(String name) {
+        return null;
     }
 
 }

@@ -60,4 +60,13 @@ abstract public class Workspace {
     public abstract File getMydir();
 
     public abstract List<TextFile> getListFiles();
+    //
+    public abstract void removeFile(String Name);
+
+    public abstract boolean newFile(String name);
+
+    public abstract boolean modifyFile(String name ,StringBuilder content);
+
+    public abstract StringBuilder readFile(String name);
+
 }

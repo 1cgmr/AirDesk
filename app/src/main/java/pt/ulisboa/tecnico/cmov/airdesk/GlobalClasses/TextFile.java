@@ -14,6 +14,10 @@ public class TextFile {
         this.name=nome;
         this.conteudoFicheiro= conteudo;
     }
+    public TextFile(String nome){
+        this.name=nome;
+        this.conteudoFicheiro = new StringBuilder("");
+    }
 
     public String getNameFile(){
         return this.name;
