@@ -48,7 +48,7 @@ public class AirDesk extends Application {
     }
 
     public void setOwnedActiveWorkspace(String nome) {
-        List<Workspace> OwnedWorkspaces = this.getOwnedWorkspaces();
+        List<WorkspaceLocal> OwnedWorkspaces = this.getOwnedWorkspaces();
         Workspace activo = null;
         for(Workspace workspace : OwnedWorkspaces){
             if(workspace.getName().equals(nome)){
@@ -59,7 +59,7 @@ public class AirDesk extends Application {
     }
 
     public void setForeignActiveWorkspace(String nome) {
-        List<Workspace> OwnedWorkspaces = this.getForeignWorkspaces();
+        List<WorkspaceRemoto> OwnedWorkspaces = this.getForeignWorkspaces();
         Workspace activo = null;
         for(Workspace workspace : OwnedWorkspaces){
             if(workspace.getName().equals(nome)){
@@ -121,11 +121,11 @@ public class AirDesk extends Application {
      * @return lista dos Owned Workspaces
      */
 
-    public List<Workspace> getOwnedWorkspaces(){
+    public List<WorkspaceLocal> getOwnedWorkspaces(){
         return LoggedUser.getOwnedWorkspaces();
     }
 
-    public List<Workspace> getForeignWorkspaces(){
+    public List<WorkspaceRemoto> getForeignWorkspaces(){
         return LoggedUser.getForeignWorkspaces();
     }
 
@@ -167,7 +167,7 @@ public class AirDesk extends Application {
      */
 
     public void invite(String UserName,String Workspace){
-        Workspace InviteWorkspace = LoggedUser.getWorkspace(Workspace);
+        WorkspaceLocal InviteWorkspace = LoggedUser.getWorkspace(Workspace);
 
         //if(InviteWorkspace==null) return;
         for(User user : ReachableUsers){

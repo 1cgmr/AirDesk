@@ -28,6 +28,7 @@ public class WorkspaceLocal extends Workspace {
     private Table_Workspace workspace_db=null;
     private List_Tags_Workspaces workspace_tags_db=null;
     private Invite inviteTable = null;
+    private List<TextFile> Files = new ArrayList<TextFile>();
 
     public WorkspaceLocal(User Owner, Boolean publico, String workspaceName, List<String> Tags, int max_quota,File myDir,Table_Workspace workspace_db,List_Tags_Workspaces workspace_Tags_db,Invite inviteTable){
         super(Owner,workspaceName);
@@ -105,4 +106,17 @@ public class WorkspaceLocal extends Workspace {
     public File getMydir(){
         return this.mydir;
     }
+
+    public List<TextFile> getListFiles(){
+        Files.clear();
+       // =  new ArrayList<TextFile>();
+        for(final File fileEntry : mydir.listFiles()){
+            //nome do ficheriro
+            String nome = fileEntry.getName();
+            TextFile file = new TextFile(nome,this.ReadFile(fileEntry.getName()));
+            this.Files.add(file);
+        }
+        return this.Files;
+    }
+
 }
