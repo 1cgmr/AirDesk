@@ -49,10 +49,9 @@ public class AirDesk extends Application {
 
     public void setOwnedActiveWorkspace(String nome) {
         List<WorkspaceLocal> OwnedWorkspaces = this.getOwnedWorkspaces();
-        Workspace activo = null;
         for(Workspace workspace : OwnedWorkspaces){
             if(workspace.getName().equals(nome)){
-                this.activeWorkspace = activo;
+                this.activeWorkspace = workspace;
                 return;
             }
         }
