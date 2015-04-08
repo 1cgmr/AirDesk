@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -69,7 +70,10 @@ public class Workspace {
 
     public void addInvitedUser(User user){
         this.InvitedUsers.add(user);
-        this.inviteTable.insert_Invite(user.getUserName(),this.getName(),this.getOwner().getUserName());
+        Cursor cursor = this.inviteTable.getTuple(Owner.getUserName(),user.getUserName(),this.getName());
+        if(cursor.getCount()==0) {
+            this.inviteTable.insert_Invite(user.getUserName(), this.getName(), this.getOwner().getUserName());
+        }
     }
 
     public StringBuilder ReadFile(File WorkspaceDir){

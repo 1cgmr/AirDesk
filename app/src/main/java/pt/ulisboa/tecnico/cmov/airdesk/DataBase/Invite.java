@@ -31,6 +31,11 @@ public class Invite {
         return(dbHelper.getReadableDatabase().rawQuery("SELECT NomeUser, Workspace FROM Invite WHERE Owner=?", args));
     }
 
+    public Cursor getTuple(String Owner,String user,String Workspace){
+        String[] args={Owner,user,Workspace};
+        return(dbHelper.getReadableDatabase().rawQuery("SELECT NomeUser, Workspace FROM Invite WHERE Owner=? AND NomeUser=? AND Workspace=? ", args));
+    }
+
 
     public void close(){
         dbHelper.close();
