@@ -147,7 +147,7 @@ public class AirDesk extends Application {
     public void invite(String UserName,String Workspace){
         Workspace InviteWorkspace = LoggedUser.getWorkspace(Workspace);
 
-        if(InviteWorkspace==null) return;
+        //if(InviteWorkspace==null) return;
         for(User user : ReachableUsers){
             if(user.getUserName().equals(UserName)){
                 user.addRemoteWorkspace(InviteWorkspace);
@@ -278,6 +278,11 @@ public class AirDesk extends Application {
             }
 
             this.LoggedUser.newWorkspace(Workspaces.getInt(2)>0,Workspaces.getString(0),tagList,Workspaces.getInt(3),context);
+            // para cada utilizador convidado
+            Cursor invitedCursor = inviteTable.getById(this.getLoggedUser().getUserName());
+            while(invitedCursor.moveToNext()){
+                this.invite(invitedCursor.getString(0),invitedCursor.getString(1));
+            }
         }
         //this.WorkspaceTagsDb.getAll();
 

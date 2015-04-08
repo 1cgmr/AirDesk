@@ -60,11 +60,6 @@ public class Workspace {
             TextFile file = new TextFile(nome,this.ReadFile(fileEntry));
             this.Files.add(file);
         }
-        // para cada utilizador convidado
-        Cursor invitedCursor = inviteTable.getById(this.getOwner().getUserName());
-        while(invitedCursor.moveToNext()){
-            this.getOwner().getAirDesk().invite(invitedCursor.getString(0),invitedCursor.getString(1));
-        }
         //this.addInvitedUser(user);
     }
 
