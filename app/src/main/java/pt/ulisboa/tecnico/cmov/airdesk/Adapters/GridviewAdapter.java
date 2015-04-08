@@ -9,17 +9,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.TextFile;
 import pt.ulisboa.tecnico.cmov.airdesk.R;
 
 public class GridviewAdapter extends BaseAdapter
 {
-    private ArrayList<String> listFiles;
+    private ArrayList<TextFile> listFiles;
     private Activity activity;
 
-    public GridviewAdapter(Activity activity, ArrayList<String> listFiles) {
+    public GridviewAdapter(Activity activity, List<TextFile> listFiles) {
         super();
-        this.listFiles = listFiles;
+        this.listFiles = (ArrayList<TextFile>)listFiles;
         this.activity = activity;
     }
 
@@ -32,7 +34,7 @@ public class GridviewAdapter extends BaseAdapter
     @Override
     public String getItem(int position) {
         // TODO Auto-generated method stub
-        return listFiles.get(position);
+        return listFiles.get(position).getNameFile();
     }
 
     @Override
@@ -68,7 +70,7 @@ public class GridviewAdapter extends BaseAdapter
             view = (ViewHolder) convertView.getTag();
         }
 
-        view.txtViewTitle.setText(listFiles.get(position));
+        view.txtViewTitle.setText(listFiles.get(position).getNameFile());
         view.imgViewFlag.setImageResource(R.drawable.icon);
 
         return convertView;
