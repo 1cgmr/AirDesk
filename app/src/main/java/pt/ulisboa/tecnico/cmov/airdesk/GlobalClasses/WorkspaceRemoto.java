@@ -72,5 +72,38 @@ public class WorkspaceRemoto extends Workspace{
         return this.Files;
     }
 
+    @Override
+    public void removeFile(String Name) {
+        this.workspaceLocal.removeFile(Name);
+    }
+
+    @Override
+    public boolean newFile(String name) {
+        if(this.workspaceLocal.newFile(name)){
+            this.Files.add(new TextFile(name));
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean modifyFile(String name, StringBuilder content) {
+        if(this.workspaceLocal.modifyFile(name,content)){
+            for(TextFile file : this.Files){
+                if(file.getNameFile().equals(name)){
+                    this.Files.remove(file);
+                    this.Files.add(new TextFile(name,content));
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public StringBuilder readFile(String name) {
+        return this.workspaceLocal.readFile(name);
+    }
+
 
 }

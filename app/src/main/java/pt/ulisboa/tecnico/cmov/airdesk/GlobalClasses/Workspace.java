@@ -63,9 +63,9 @@ abstract public class Workspace {
     //
     public abstract void removeFile(String Name);
 
-    public abstract void newFile(String name);
+    public abstract boolean newFile(String name);
 
-    public abstract void modifyFile(String name ,StringBuilder content);
+    public abstract boolean modifyFile(String name ,StringBuilder content);
 
     public abstract StringBuilder readFile(String name);
 

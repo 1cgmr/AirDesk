@@ -149,6 +149,7 @@ public class Workspace extends ActionBarActivity {
             case R.id.eliminar_file:
                 //chama a função OnItemLongClickListener para afectar a variavel NomeItemClicked, para verificar qual o ficheiro seleccionado.
                 OnItemLongClickListener(info.position);
+
                 for(final File fileEntry : WorkspaceDir.listFiles()){
                     //nome do ficheriro
                     nome = fileEntry.getName();
@@ -160,6 +161,8 @@ public class Workspace extends ActionBarActivity {
                         fileEntry.delete();
                         return true;
                     }
+
+
                 }
             default:
                 return super.onContextItemSelected(item);
