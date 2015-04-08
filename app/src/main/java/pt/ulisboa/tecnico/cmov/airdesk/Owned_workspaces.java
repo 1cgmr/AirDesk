@@ -71,6 +71,11 @@ public class Owned_workspaces extends Activity  {
 
                 bean = (ItemBean) adapter.getItem(position);
                 NomeItemClicked=bean.getTitle();
+
+                // variaveis globais
+                AirDesk globals = (AirDesk) getApplicationContext();
+                globals.setOwnedActiveWorkspace(NomeItemClicked);
+
                 Intent i = new Intent(getApplicationContext(), Workspace.class);
                 i.putExtra("WORKSPACE_ID", NomeItemClicked);
                 startActivity(i);

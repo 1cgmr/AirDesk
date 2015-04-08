@@ -47,6 +47,28 @@ public class AirDesk extends Application {
         this.activeWorkspace = activeWorkspace;
     }
 
+    public void setOwnedActiveWorkspace(String nome) {
+        List<Workspace> OwnedWorkspaces = this.getOwnedWorkspaces();
+        Workspace activo = null;
+        for(Workspace workspace : OwnedWorkspaces){
+            if(workspace.getName().equals(nome)){
+                this.activeWorkspace = activo;
+                return;
+            }
+        }
+    }
+
+    public void setForeignActiveWorkspace(String nome) {
+        List<Workspace> OwnedWorkspaces = this.getForeignWorkspaces();
+        Workspace activo = null;
+        for(Workspace workspace : OwnedWorkspaces){
+            if(workspace.getName().equals(nome)){
+                this.activeWorkspace = activo;
+                return;
+            }
+        }
+    }
+
     public void setUsersTagDb(User_Tag db){
         USerTagDb=db;
     }

@@ -43,7 +43,10 @@ public class Foreign_workspaces extends ActionBarActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long arg3) {
 
-                Workspace NomeItemClicked = (Workspace) adapter.getItem(position);
+                Workspace NomeItemClicked = (Workspace) adapter.getItem(position);// variaveis globais
+                AirDesk globals = (AirDesk) getApplicationContext();
+                globals.setActiveWorkspace(NomeItemClicked);
+
                 Toast.makeText(getApplication(), "Tamanho: "+NomeItemClicked.getTags().size(), Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplication(), NomeItemClicked.getName(), Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplication(), "Privado? "+NomeItemClicked.getPublico(), Toast.LENGTH_LONG).show();

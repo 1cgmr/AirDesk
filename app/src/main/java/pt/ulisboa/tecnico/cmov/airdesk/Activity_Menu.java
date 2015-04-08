@@ -52,6 +52,8 @@ public class Activity_Menu extends ActionBarActivity {
 
     private View.OnClickListener OwnedWorkspaces=new View.OnClickListener(){
         public void onClick(View v){
+            // variaveis globais
+            AirDesk globals = (AirDesk) getApplicationContext();
             startActivity(new Intent(Activity_Menu.this, Owned_workspaces.class));
         }
     };
