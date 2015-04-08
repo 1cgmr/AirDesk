@@ -79,6 +79,7 @@ public class AirDesk extends Application {
             }
         }
 
+
         User newUser = new User(this,userName,UserDb,USerTagDb,WorkspaceDb,WorkspaceTagsDb,context,inviteTable);
         ReachableUsers.add(newUser);
         LoggedUser = newUser;
@@ -144,6 +145,7 @@ public class AirDesk extends Application {
             input:
                 Username:String utilizador a ser convidado a entrar no workspace
      */
+
     public void invite(String UserName,String Workspace){
         Workspace InviteWorkspace = LoggedUser.getWorkspace(Workspace);
 
@@ -271,8 +273,9 @@ public class AirDesk extends Application {
 
         Cursor Workspaces = this.WorkspaceDb.getAll(this.LoggedUser.getUserName());
         while(Workspaces.moveToNext()){
-            Cursor List_tags = this.WorkspaceTagsDb.getAll(Workspaces.getString(1));
+            Cursor List_tags = this.WorkspaceTagsDb.getAll(Workspaces.getString(0));
             List<String> tagList = new ArrayList<String>();
+
             while(List_tags.moveToNext()){
                 tagList.add(List_tags.getString(1));
             }

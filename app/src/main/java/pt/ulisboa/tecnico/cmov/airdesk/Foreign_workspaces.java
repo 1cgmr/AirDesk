@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class Foreign_workspaces extends ActionBarActivity {
         final ListView foreignList = (ListView) findViewById(R.id.Foreign_workspaces_list);
         adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line, Foreign_Workspaces);
         foreignList.setAdapter(adapter);
+
         foreignList.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -42,9 +44,13 @@ public class Foreign_workspaces extends ActionBarActivity {
                                     long arg3) {
 
                 Workspace NomeItemClicked = (Workspace) adapter.getItem(position);
-                Intent i = new Intent(getApplicationContext(), pt.ulisboa.tecnico.cmov.airdesk.Workspace.class);
-                i.putExtra("WORKSPACE_ID", NomeItemClicked.getName());
-                startActivity(i);
+                Toast.makeText(getApplication(), "Tamanho: "+NomeItemClicked.getTags().size(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), NomeItemClicked.getName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Privado? "+NomeItemClicked.getPublico(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Tamanho da quota: "+NomeItemClicked.getQuota(), Toast.LENGTH_LONG).show();
+             //   Intent i = new Intent(getApplicationContext(), pt.ulisboa.tecnico.cmov.airdesk.Workspace.class);
+             //   i.putExtra("WORKSPACE_ID", NomeItemClicked.getName());
+               // startActivity(i);
             }
         });
     }

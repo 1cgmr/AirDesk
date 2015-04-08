@@ -55,6 +55,7 @@ public class Workspace {
             workspace_db.close();
         }
         //this.Files
+
         for(final File fileEntry : this.mydir.listFiles()){
             //nome do ficheriro
             String nome = fileEntry.getName();
@@ -101,6 +102,16 @@ public class Workspace {
     public String getName(){
         return name;
     }
+
+    public long getQuota(){
+        return max_quota;
+    }
+
+    public boolean getPublico(){
+        return publico;
+    }
+
+    public List<String> getTags(){ return Tags;}
 
     public void addTag(String Tag){
         Tags.add(Tag);
