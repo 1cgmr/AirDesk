@@ -43,16 +43,16 @@ public class Foreign_workspaces extends ActionBarActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long arg3) {
 
-                WorkspaceRemoto NomeItemClicked = (WorkspaceRemoto) adapter.getItem(position);// variaveis globais
+                WorkspaceRemoto workspaceRemoto = (WorkspaceRemoto) adapter.getItem(position);// variaveis globais
                 AirDesk globals = (AirDesk) getApplicationContext();
-                globals.setActiveWorkspace(NomeItemClicked);
+                globals.setActiveWorkspace(workspaceRemoto);
 
-                Toast.makeText(getApplication(), "Tamanho: "+NomeItemClicked.getListFiles().size(), Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplication(), NomeItemClicked.getName(), Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplication(), "Privado? "+NomeItemClicked.getPublico(), Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplication(), "Tamanho da quota: "+NomeItemClicked.getQuota(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Tamanho: "+workspaceRemoto.getListFiles().size(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), workspaceRemoto.getName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Privado? "+workspaceRemoto.getPublico(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Tamanho da quota: "+workspaceRemoto.getQuota(), Toast.LENGTH_LONG).show();
                 Intent i = new Intent(getApplicationContext(), pt.ulisboa.tecnico.cmov.airdesk.Workspace.class);
-                i.putExtra("WORKSPACE_ID", NomeItemClicked.getName());
+                i.putExtra("WORKSPACE_ID", workspaceRemoto.getName());
                 startActivity(i);
             }
         });
