@@ -105,8 +105,18 @@ public class User {
         return null;
     }
 
+    public Workspace getForeignWorkspace(Workspace workspace){
+        for(Workspace ws : this.getForeignWorkspaces()){
+            if(ws.getName().equals(workspace.getName()) && ws.getOwner().getUserName().equals(workspace.getOwner().getUserName())){
+                return ws;
+            }
+        }
+        return null;
+    }
+
     public void addRemoteWorkspace(Workspace workspace){
-        if(workspace.addInvitedUser(this)){
+        Workspace ws = getForeignWorkspace(workspace);
+        if(ws==null){
             RemoteWorkspaces.add(new WorkspaceRemoto(workspace.getOwner(),workspace,workspace.getMydir()));
         }
     }
