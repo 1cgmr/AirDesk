@@ -48,9 +48,9 @@ public class Foreign_workspaces extends ActionBarActivity {
                 Toast.makeText(getApplication(), NomeItemClicked.getName(), Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplication(), "Privado? "+NomeItemClicked.getPublico(), Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplication(), "Tamanho da quota: "+NomeItemClicked.getQuota(), Toast.LENGTH_LONG).show();
-             //   Intent i = new Intent(getApplicationContext(), pt.ulisboa.tecnico.cmov.airdesk.Workspace.class);
-             //   i.putExtra("WORKSPACE_ID", NomeItemClicked.getName());
-               // startActivity(i);
+                Intent i = new Intent(getApplicationContext(), pt.ulisboa.tecnico.cmov.airdesk.Workspace.class);
+                i.putExtra("WORKSPACE_ID", NomeItemClicked.getName());
+                startActivity(i);
             }
         });
     }

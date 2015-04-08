@@ -73,7 +73,7 @@ public class User {
     }
 
     public void newWorkspace(Boolean publico, String workspaceName, List<String> Tags,int max_quota,Context context){
-        Workspace workspace = new Workspace(this,publico, workspaceName, Tags, max_quota, mydir,this.workspace_db,this.workspace_tags_db,this.inviteTable);
+        Workspace workspace = new WorkspaceLocal(this,publico, workspaceName, Tags, max_quota, mydir,this.workspace_db,this.workspace_tags_db,this.inviteTable);
         this.ownedWorkspaces.add(workspace);
     }
 
@@ -106,7 +106,7 @@ public class User {
     }
 
     public void addRemoteWorkspace(Workspace workspace){
-        RemoteWorkspaces.add(workspace);
+        RemoteWorkspaces.add(new WorkspaceRemoto(workspace.getOwner(),workspace,workspace.getMydir()));
         workspace.addInvitedUser(this);
     }
 

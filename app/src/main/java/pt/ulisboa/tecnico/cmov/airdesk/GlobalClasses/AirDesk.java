@@ -156,6 +156,8 @@ public class AirDesk extends Application {
                 return;
             }
         }
+
+
     }
 
     /** funcao para actualizar os workspaces que um utilizador pode aceder
