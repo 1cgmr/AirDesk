@@ -106,8 +106,9 @@ public class User {
     }
 
     public void addRemoteWorkspace(Workspace workspace){
-        RemoteWorkspaces.add(new WorkspaceRemoto(workspace.getOwner(),workspace,workspace.getMydir()));
-        workspace.addInvitedUser(this);
+        if(workspace.addInvitedUser(this)){
+            RemoteWorkspaces.add(new WorkspaceRemoto(workspace.getOwner(),workspace,workspace.getMydir()));
+        }
     }
 
     public void removeRemoteWorkspace(Workspace workspace){

@@ -35,7 +35,7 @@ abstract public class Workspace {
         return this.Owner;
     }
 
-    public abstract void addInvitedUser(User user);
+    public abstract boolean addInvitedUser(User user);
 
     public abstract StringBuilder ReadFile(String textFileName);
 

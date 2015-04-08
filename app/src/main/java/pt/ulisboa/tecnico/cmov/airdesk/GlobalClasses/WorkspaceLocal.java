@@ -51,12 +51,14 @@ public class WorkspaceLocal extends Workspace {
         //this.addInvitedUser(user);
     }
 
-    public void addInvitedUser(User user){
+    public boolean addInvitedUser(User user){
         this.InvitedUsers.add(user);
         Cursor cursor = this.inviteTable.getTuple(getOwner().getUserName(),user.getUserName(),this.getName());
         if(cursor.getCount()==0) {
             this.inviteTable.insert_Invite(user.getUserName(), this.getName(), this.getOwner().getUserName());
+            return true;
         }
+        return false;
     }
 
     public StringBuilder ReadFile(String textFileName){
