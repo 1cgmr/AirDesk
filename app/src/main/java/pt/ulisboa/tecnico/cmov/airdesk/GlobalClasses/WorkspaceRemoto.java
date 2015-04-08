@@ -17,19 +17,13 @@ import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Table_Workspace;
  */
 public class WorkspaceRemoto extends Workspace{
 
-    private Workspace workspaceLocal = null;
+    private WorkspaceLocal workspaceLocal = null;
     private List<TextFile> Files = new ArrayList<TextFile>();
 
-    public WorkspaceRemoto(User Owner, Workspace parent, File mydir){
+    public WorkspaceRemoto(User Owner, WorkspaceLocal parent){
         super(Owner,parent.getName());
         this.workspaceLocal=parent;
-
-        for(final File fileEntry : mydir.listFiles()){
-            //nome do ficheriro
-            String nome = fileEntry.getName();
-            TextFile file = new TextFile(nome,this.ReadFile(fileEntry.getName()));
-            this.Files.add(file);
-        }
+        Files.addAll(workspaceLocal.getListFiles());
 
     }
 
@@ -72,4 +66,11 @@ public class WorkspaceRemoto extends Workspace{
     public File getMydir() {
         return null;
     }
+
+    @Override
+    public List<TextFile> getListFiles() {
+        return this.Files;
+    }
+
+
 }

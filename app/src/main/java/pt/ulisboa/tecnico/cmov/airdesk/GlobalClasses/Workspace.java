@@ -58,4 +58,6 @@ abstract public class Workspace {
     }
 
     public abstract File getMydir();
+
+    public abstract List<TextFile> getListFiles();
 }

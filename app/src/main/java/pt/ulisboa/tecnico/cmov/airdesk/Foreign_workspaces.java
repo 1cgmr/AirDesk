@@ -23,7 +23,7 @@ public class Foreign_workspaces extends ActionBarActivity {
 
 
     private ArrayAdapter adapter;
-    private List<pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.Workspace> Foreign_Workspaces = new ArrayList<Workspace>();
+    private List<WorkspaceRemoto> Foreign_Workspaces = new ArrayList<WorkspaceRemoto>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +43,11 @@ public class Foreign_workspaces extends ActionBarActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long arg3) {
 
-                Workspace NomeItemClicked = (Workspace) adapter.getItem(position);// variaveis globais
+                WorkspaceRemoto NomeItemClicked = (WorkspaceRemoto) adapter.getItem(position);// variaveis globais
                 AirDesk globals = (AirDesk) getApplicationContext();
                 globals.setActiveWorkspace(NomeItemClicked);
 
-                Toast.makeText(getApplication(), "Tamanho: "+NomeItemClicked.getTags().size(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Tamanho: "+NomeItemClicked.getListFiles().size(), Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplication(), NomeItemClicked.getName(), Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplication(), "Privado? "+NomeItemClicked.getPublico(), Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplication(), "Tamanho da quota: "+NomeItemClicked.getQuota(), Toast.LENGTH_LONG).show();

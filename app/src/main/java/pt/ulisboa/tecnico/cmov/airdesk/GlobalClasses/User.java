@@ -35,8 +35,8 @@ public class User {
     private String Username="";
     AirDesk airDesk;
 
-    private List<Workspace> ownedWorkspaces= new ArrayList<Workspace>();
-    private List<Workspace> RemoteWorkspaces= new ArrayList<Workspace>();
+    private List<WorkspaceLocal> ownedWorkspaces= new ArrayList<WorkspaceLocal>();
+    private List<WorkspaceRemoto> RemoteWorkspaces= new ArrayList<WorkspaceRemoto>();
     private List<TextFile> RemoteFiles= new ArrayList<TextFile>();
 
     public User(){}
@@ -73,8 +73,8 @@ public class User {
     }
 
     public void newWorkspace(Boolean publico, String workspaceName, List<String> Tags,int max_quota,Context context){
-        Workspace workspace = new WorkspaceLocal(this,publico, workspaceName, Tags, max_quota, mydir,this.workspace_db,this.workspace_tags_db,this.inviteTable);
-        this.ownedWorkspaces.add(workspace);
+        WorkspaceLocal workspaceLocal = new WorkspaceLocal(this,publico, workspaceName, Tags, max_quota, mydir,this.workspace_db,this.workspace_tags_db,this.inviteTable);
+        this.ownedWorkspaces.add(workspaceLocal);
     }
 
     public String getUserName(){
@@ -88,16 +88,16 @@ public class User {
         return instance;
     }
 
-    public List<Workspace> getOwnedWorkspaces(){
+    public List<WorkspaceLocal> getOwnedWorkspaces(){
         return ownedWorkspaces;
     }
 
-    public List<Workspace> getForeignWorkspaces(){
+    public List<WorkspaceRemoto> getForeignWorkspaces(){
         return RemoteWorkspaces;
     }
 
-    public Workspace getWorkspace(String workspace){
-        for(Workspace work : this.getOwnedWorkspaces()){
+    public WorkspaceLocal getWorkspace(String workspace){
+        for(WorkspaceLocal work : this.getOwnedWorkspaces()){
             if(work.getName().compareTo(workspace)==0){
                 return work;
             }
@@ -105,8 +105,8 @@ public class User {
         return null;
     }
 
-    public Workspace getForeignWorkspace(Workspace workspace){
-        for(Workspace ws : this.getForeignWorkspaces()){
+    public WorkspaceRemoto getForeignWorkspace(Workspace workspace){
+        for(WorkspaceRemoto ws : this.getForeignWorkspaces()){
             if(ws.getName().equals(workspace.getName()) && ws.getOwner().getUserName().equals(workspace.getOwner().getUserName())){
                 return ws;
             }
@@ -114,10 +114,10 @@ public class User {
         return null;
     }
 
-    public void addRemoteWorkspace(Workspace workspace){
-        Workspace ws = getForeignWorkspace(workspace);
+    public void addRemoteWorkspace(WorkspaceLocal workspace){
+        WorkspaceRemoto ws = getForeignWorkspace(workspace);
         if(ws==null){
-            RemoteWorkspaces.add(new WorkspaceRemoto(workspace.getOwner(),workspace,workspace.getMydir()));
+            RemoteWorkspaces.add(new WorkspaceRemoto(workspace.getOwner(),workspace));
         }
     }
 
