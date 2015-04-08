@@ -66,6 +66,7 @@ public class Workspace extends ActionBarActivity {
         user=globals.getLoggedUser();
         workspace = globals.getActiveWorkspace();
         helper=new Table_Workspace(this);
+        WorkspaceDir= workspace.getMydir();
 
         // verificar qual o directorio do utilizador autenticado
         UserDir = globals.getLoggedUser().getMydir();
@@ -87,7 +88,7 @@ public class Workspace extends ActionBarActivity {
                                     long arg3) {
                NomeItemClicked = mAdapter.getItem(position);
                Intent i = new Intent(getApplicationContext(), EditorFicheiros.class);
-               i.putExtra("WORKSPACE_DIR", workspace.getMydir());
+               i.putExtra("WORKSPACE_DIR", workspace.getMydir().getPath());
                i.putExtra("NOME_FICHEIRO", NomeItemClicked);
                startActivity(i);
             }
@@ -178,7 +179,7 @@ public class Workspace extends ActionBarActivity {
     private View.OnClickListener dialogFile=new View.OnClickListener(){
         public void onClick(View v){
             Intent i = new Intent(getApplicationContext(), NewFile.class);
-            i.putExtra("WORKSPACE_PATH", WorkspaceDir.getPath());
+            i.putExtra("WORKSPACE_PATH", workspace.getMydir().getPath());
             startActivity(i);
         }
 
@@ -187,15 +188,8 @@ public class Workspace extends ActionBarActivity {
     private View.OnClickListener populate=new View.OnClickListener(){
         public void onClick(View v){
             long tamanhoWorkspace;
-            Cursor c= helper.getByQuota(WorkspaceDir.getName(), user.getUserName());
-
-            if(c.moveToFirst() == false){
-                Toast.makeText(getApplication(), "Workspace não existe", Toast.LENGTH_LONG).show();
-            }
-            else {
-                c.moveToFirst();
                 // guardar apneas o valor da quota máxima presente no cursor (c).
-                Integer tamanhomax = helper.getQuota(c);
+                Long tamanhomax = workspace.getQuota();
                 helper.close();
 
                 //criar um ficheiro
@@ -215,7 +209,7 @@ public class Workspace extends ActionBarActivity {
                     frase = frase+"a";
                     globals.writeFile(file1, out1, frase);
                 }
-            }
+
 
             //Preencher a ListVIew para reflectir a introdução do novo ficheiro de teste (MAX_QUOTA)
             PreencherListView();
