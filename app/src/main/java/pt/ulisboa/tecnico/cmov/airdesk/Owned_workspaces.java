@@ -68,7 +68,6 @@ public class Owned_workspaces extends Activity  {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long arg3) {
 
-
                 bean = (ItemBean) adapter.getItem(position);
                 NomeItemClicked=bean.getTitle();
 
@@ -130,11 +129,11 @@ public class Owned_workspaces extends Activity  {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        OnItemLongClickListener(itemList, item);
 
         switch (item.getItemId()) {
             case R.id.eliminar_workspace:
                 for (final File fileEntry : userDir.listFiles()) {
-                    OnItemLongClickListener(itemList, item);
                     nome = fileEntry.getName();
                     //verificar se o workspace actual é o mesmo que foi carrgado "clicked"
                     if(nome.equals(NomeItemClicked)){
@@ -150,7 +149,7 @@ public class Owned_workspaces extends Activity  {
                     }
                 }
             case R.id.convidar:
-                OnItemLongClickListener(itemList, item);
+        //        OnItemLongClickListener(itemList, item);
                 FragmentManager manager=getFragmentManager();
                 Dialog_Send_Invitation myDialog= new Dialog_Send_Invitation();
                 myDialog.setGlobals((AirDesk) getApplicationContext());
@@ -159,13 +158,13 @@ public class Owned_workspaces extends Activity  {
                 return true;
             case R.id.tamanho_folder:
                 ItemBean bean = (ItemBean) adapter.getItem(info.position);
-                NomeItemClicked=bean.getTitle();
+                //      NomeItemClicked=bean.getTitle();
                 File file = new File(userDir.getPath() + "/" + NomeItemClicked);
                 Toast.makeText(this, "Tamanho da folder: "+ globals.getFolderSize(file), Toast.LENGTH_LONG).show();
                 return true;
             case R.id.lista_tags:
                 bean = (ItemBean) adapter.getItem(info.position);
-                NomeItemClicked=bean.getTitle();
+               // NomeItemClicked=bean.getTitle();
                 Intent i = new Intent(getApplicationContext(), Workspace_Tags_List.class);
                 i.putExtra("WORKSPACE_ID", NomeItemClicked);
                 finish();

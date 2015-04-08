@@ -176,8 +176,6 @@ public class AirDesk extends Application {
                 return;
             }
         }
-
-
     }
 
     /** funcao para actualizar os workspaces que um utilizador pode aceder
@@ -310,6 +308,5 @@ public class AirDesk extends Application {
             this.invite(invitedCursor.getString(0),invitedCursor.getString(1));
         }
         //this.WorkspaceTagsDb.getAll();
-
     }
 }
