@@ -26,6 +26,7 @@ public class NewFile extends ActionBarActivity {
     Table_Workspace helper=null;
     User g;
     AirDesk globals;
+    pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.Workspace workspace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class NewFile extends ActionBarActivity {
 
         // variaveis globais
         globals = (AirDesk) getApplicationContext();
+        workspace = globals.getActiveWorkspace();
         g=globals.getLoggedUser();
         helper=new Table_Workspace(this);
 
@@ -56,10 +58,10 @@ public class NewFile extends ActionBarActivity {
            //Fich representa o ficheiro de texto a ser criado, com o nome preenchido no EditText (NomeFicheiro)
             String Fich = NomeFicheiro.getText().toString();
             //workspace é o workspace actual, onde vão ser criados os ficheiros de texto
-            File workspace = new File(workspace_path);
+            File workspaceFile = new File(workspace_path);
             //O cursor recebe todos os tuplos da base de dados que cumpram os requisitos definidos, ou seja, vai retornar
             // a quota máxima de um determinado workspace do utilizador (owner).
-            Cursor c= helper.getByQuota(workspace.getName(), g.getUserName());
+            Cursor c= helper.getByQuota(workspaceFile.getName(), g.getUserName());
 
             if(c.moveToFirst() == false){
                 Toast.makeText(getApplication(), "Workspace não existe", Toast.LENGTH_LONG).show();
@@ -71,15 +73,16 @@ public class NewFile extends ActionBarActivity {
                 helper.close();
 
                 //criar um ficheiro
-                File fileWithinMyDir1 = new File(workspace, Fich);
+                File fileWithinMyDir1 = new File(workspaceFile, Fich);
                 try {
                     fileWithinMyDir1.createNewFile();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                workspace.newFile(Fich);
 
                 //função getFolderSiza retorna o tamanho global do workspace
-                sizeWorkspace = globals.getFolderSize(workspace);
+                sizeWorkspace = globals.getFolderSize(workspaceFile);
 
                 //verificar se o utilizador ultrapassou os limites (quota) do workspace quando cria um determinado ficheiro
                 // se o utilizador ultrapassou os limites o ficheiro é removido para cumprir a quota definida

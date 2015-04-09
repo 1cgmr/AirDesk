@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses;
 import android.app.Application;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import org.w3c.dom.Text;
 
@@ -117,6 +118,7 @@ public class User {
     public void addRemoteWorkspace(WorkspaceLocal workspace){
         WorkspaceRemoto ws = getForeignWorkspace(workspace);
         if(ws==null){
+            Log.v("ABC", "Adicionou remote workspace");
             RemoteWorkspaces.add(new WorkspaceRemoto(workspace.getOwner(),workspace));
         }
     }

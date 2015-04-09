@@ -89,6 +89,8 @@ public class Workspace extends ActionBarActivity {
                NomeItemClicked = mAdapter.getItem(position);
                Intent i = new Intent(getApplicationContext(), EditorFicheiros.class);
                i.putExtra("WORKSPACE_DIR", workspace.getMydir().getPath());
+                if (workspace == null)
+                    Log.v("ABC", "workspace == null");
                i.putExtra("NOME_FICHEIRO", NomeItemClicked);
                startActivity(i);
             }

@@ -27,6 +27,10 @@ public class WorkspaceRemoto extends Workspace{
 
     }
 
+    public void update() {
+
+    }
+
     @Override
     public boolean addInvitedUser(User user) {
         return workspaceLocal.addInvitedUser(user);
@@ -64,12 +68,12 @@ public class WorkspaceRemoto extends Workspace{
 
     @Override
     public File getMydir() {
-        return null;
+        return workspaceLocal.getMydir();
     }
 
     @Override
     public List<TextFile> getListFiles() {
-        return this.Files;
+        return workspaceLocal.getListFiles();
     }
 
     @Override
