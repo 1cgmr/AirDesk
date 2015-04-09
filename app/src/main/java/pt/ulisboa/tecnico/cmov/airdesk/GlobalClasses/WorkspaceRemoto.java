@@ -27,10 +27,6 @@ public class WorkspaceRemoto extends Workspace{
 
     }
 
-    public void update() {
-
-    }
-
     @Override
     public boolean addInvitedUser(User user) {
         return workspaceLocal.addInvitedUser(user);
