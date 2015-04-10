@@ -65,6 +65,10 @@
             android:name=".Invitation"
             android:label="@string/title_activity_invitation" >
         </activity>
+        <activity
+            android:name=".ForeignWorkspaceFiles"
+            android:label="@string/title_activity_foreign_workspace_files" >
+        </activity>
     </application>
 
 </manifest>

@@ -48,7 +48,6 @@ public class MainActivity extends ActionBarActivity {
             Table_Workspace WorkspaceDb = new Table_Workspace(this);
             Invite inviteTable = new Invite(this);
 
-
             // variaveis globais
             AirDesk globals = (AirDesk) getApplicationContext();
             globals.setUsersDb(Db);
@@ -81,11 +80,6 @@ public class MainActivity extends ActionBarActivity {
             AirDesk globals = (AirDesk) getApplicationContext();
             globals.logIn(userEmail);
 
-           /* Cursor c=Db.getByEmailUser(userEmail);
-            if(!c.moveToFirst()){
-                Db.insert_Users(editUser.getText().toString());
-                mydir = context.getDir(userEmail, Context.MODE_PRIVATE);
-            }*/
             startActivity(new Intent(MainActivity.this, Activity_Menu.class));
         }
     };

@@ -69,12 +69,13 @@ public class WorkspaceRemoto extends Workspace{
 
     @Override
     public List<TextFile> getListFiles() {
-        return this.Files;
+        return this.workspaceLocal.getListFiles();
     }
 
     @Override
-    public void removeFile(String Name) {
+    public boolean removeFile(String Name) {
         this.workspaceLocal.removeFile(Name);
+        return true;
     }
 
     @Override
@@ -87,7 +88,8 @@ public class WorkspaceRemoto extends Workspace{
     }
 
     @Override
-    public boolean modifyFile(String name, StringBuilder content) {
+    public boolean modifyFile(String name, String content) {
+
         if(this.workspaceLocal.modifyFile(name,content)){
             for(TextFile file : this.Files){
                 if(file.getNameFile().equals(name)){
@@ -105,5 +107,9 @@ public class WorkspaceRemoto extends Workspace{
         return this.workspaceLocal.readFile(name);
     }
 
+    @Override
+    public boolean CreateBigFile(){
+        return this.workspaceLocal.CreateBigFile();
+    }
 
 }

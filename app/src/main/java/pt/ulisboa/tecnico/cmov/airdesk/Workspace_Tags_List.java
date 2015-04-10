@@ -24,7 +24,6 @@ import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
 public class Workspace_Tags_List extends ActionBarActivity {
-
     TagAdapter adapter=null;
     List_Tags_Workspaces helper=null;
     Cursor dataset_cursor=null;
@@ -32,8 +31,10 @@ public class Workspace_Tags_List extends ActionBarActivity {
 
     //this is how track which Tag we are working on
     String TagId=null;
+
     // O workspace seleccionado
-    String WorkspaceSeleccionado=null;
+    private pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.Workspace workspace;
+    AirDesk globals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,10 @@ public class Workspace_Tags_List extends ActionBarActivity {
         try
         {
             setContentView(R.layout.activity_workspace_tags_list);
+
+            globals = (AirDesk) getApplicationContext();
+            workspace = globals.getActiveWorkspace();
+
             ListView list = (ListView) findViewById(R.id.listTags);
             list.setOnItemClickListener(onListClick);
 
@@ -55,16 +60,10 @@ public class Workspace_Tags_List extends ActionBarActivity {
             //EdiText com o valor da Tag
             editTag = (EditText) findViewById(R.id.editTextTagsWorkspace);
 
-            //recebe da activity anterior o workspace que vai ser adicionada ou removida uma tag
-            Bundle extras = getIntent().getExtras();
-            if (extras != null) {
-                WorkspaceSeleccionado = extras.getString("WORKSPACE_ID");
-            }
-
             //get our helper
             helper=new List_Tags_Workspaces(this);
             //manage the cursor, recebe todos os registos (tags do workspace) da base de dados, com o objectivo de popular a ListView
-            dataset_cursor=helper.getAll(WorkspaceSeleccionado);
+            dataset_cursor=helper.getAll(workspace.getName());
             //pass it to our adapter
             startManagingCursor(dataset_cursor);
             //set the adapter on our list
@@ -82,18 +81,21 @@ public class Workspace_Tags_List extends ActionBarActivity {
         helper.close();
     }
 
+
     //Função para adicionar uma nova Tag ou fazer update de um determinado valor da Tag
     private View.OnClickListener onSave=new View.OnClickListener(){
         public void onClick(View v){
-            if (TagId==null){
-                helper.insert_Workspace_Tag(editTag.getText().toString(),WorkspaceSeleccionado);
+            if(!editTag.getText().toString().equals("")) {
+                if (TagId == null) {
+                    workspace.addTag(editTag.getText().toString());
+                    helper.insert_Workspace_Tag(editTag.getText().toString(), workspace.getName());
+                } else {
+                    helper.update_Workspace_Tag(TagId, editTag.getText().toString());
+                    TagId = null;
+                }
+                dataset_cursor.requery();
+                editTag.setText("");
             }
-            else{
-                helper.update_Workspace_Tag(TagId, editTag.getText().toString());
-                TagId=null;
-            }
-            dataset_cursor.requery();
-            editTag.setText("");
         }
     };
 
@@ -104,6 +106,7 @@ public class Workspace_Tags_List extends ActionBarActivity {
                 return;
             }
             else{
+                workspace.removeTag(editTag.getText().toString());
                 helper.delete_Workspace_Tag(TagId);
                 TagId=null;
             }

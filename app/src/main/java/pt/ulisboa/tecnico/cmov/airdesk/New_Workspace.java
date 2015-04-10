@@ -32,10 +32,6 @@ public class New_Workspace extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new__workspace);
 
-//        final ListView TagList= (ListView) findViewById(R.id.Tag_list);
- //       adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line, Tags);
-  //      TagList.setAdapter(adapter);
-
         helper=new Table_Workspace(this);
         AirDesk globals = (AirDesk) getApplicationContext();
         g=globals.getLoggedUser();
@@ -64,15 +60,6 @@ public class New_Workspace extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //   public void AddTag(View v){
-    //    final EditText editText = (EditText) findViewById(R.id.workspace_tag);
-    //    if(editText.getText().toString().compareTo("")!=0) {
-    //        Tags.add(0, editText.getText().toString());
-    //        editText.setText("");
-    //        adapter.notifyDataSetChanged();
-    //    }
-   // }
-
     public void NewWorkspace(View v){
         final EditText name = (EditText) findViewById(R.id.workspace_name);
         final CheckBox publico = (CheckBox) findViewById(R.id.publico);
@@ -81,8 +68,6 @@ public class New_Workspace extends ActionBarActivity {
         AirDesk globals = (AirDesk) getApplicationContext();
         globals.NewWorkspace(publico.isChecked(),Tags,name.getText().toString(), Integer.parseInt(max_quota.getText().toString()));
 
-        //helper.insert_Workspace(name.getText().toString(), g.getUserName(), publico.isChecked(), Integer.parseInt(max_quota.getText().toString()));
-        //helper.close();
         finish();
     }
 

@@ -8,30 +8,31 @@ import java.util.List;
  */
 public class TextFile {
     private String name;
-    private StringBuilder conteudoFicheiro;
+    private String conteudoFicheiro;
 
-    public TextFile(String nome, StringBuilder conteudo){
+    public TextFile(String nome, String conteudo){
         this.name=nome;
         this.conteudoFicheiro= conteudo;
     }
+
     public TextFile(String nome){
         this.name=nome;
-        this.conteudoFicheiro = new StringBuilder("");
+        this.conteudoFicheiro="";
     }
 
     public String getNameFile(){
         return this.name;
     }
 
-    public StringBuilder getConteudoFicheiro(){
+    public String getConteudoFicheiro(){
         return this.conteudoFicheiro;
     }
 
-    public void setNameFile(StringBuilder conteudo){
+    public void setNameFile(String conteudo){
         this.conteudoFicheiro = conteudo;
     }
 
-    public void setConteudoFicheiro(StringBuilder conteudo){
+    public void setConteudoFicheiro(String conteudo){
         this.conteudoFicheiro = conteudo;
     }
 

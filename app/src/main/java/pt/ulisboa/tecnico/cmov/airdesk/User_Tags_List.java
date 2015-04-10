@@ -16,6 +16,7 @@ import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import pt.ulisboa.tecnico.cmov.airdesk.DataBase.User_Tag;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
@@ -75,17 +76,17 @@ public class User_Tags_List extends ActionBarActivity {
 
     private View.OnClickListener onSave=new View.OnClickListener(){
         public void onClick(View v){
-            if (TagId==null){
-                //helper.insert_User_Tag(editTag.getText().toString(), g.getUserName());
-                g.addTag(editTag.getText().toString());
+            if(!editTag.getText().toString().equals("")){
+                if (TagId == null) {
+                    //helper.insert_User_Tag(editTag.getText().toString(), g.getUserName());
+                    g.addTag(editTag.getText().toString());
+                } else {
+                    helper.update_User_Tag(TagId, editTag.getText().toString());
+                    TagId = null;
+                }
+                dataset_cursor.requery();
+                editTag.setText("");
             }
-            else{
-                helper.update_User_Tag(TagId, editTag.getText().toString());
-                TagId=null;
-            }
-
-            dataset_cursor.requery();
-            editTag.setText("");
         }
     };
 

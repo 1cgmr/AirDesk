@@ -38,8 +38,8 @@ public class Workspace extends ActionBarActivity {
     private File WorkspaceDir;
     private ItemBean bean;
     private String WorkspaceDirName;
-    //private ArrayList<String> listFiles;
     private List<TextFile> listFiles;
+//    private List<TextFile> listFiles;
     private GridviewAdapter mAdapter;
     private GridView gridView;
     String nome;
@@ -48,7 +48,6 @@ public class Workspace extends ActionBarActivity {
 
     Table_Workspace helper=null;
     AirDesk globals;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,7 @@ public class Workspace extends ActionBarActivity {
         btnCriarFile.setOnClickListener(dialogFile);
 
         Button btnPopulate = (Button) findViewById(R.id.btnPopulate);
-        btnPopulate.setOnClickListener(populate);
+        btnPopulate.setOnClickListener(populateQuotaMax);
 
         // variaveis globais, para verificar qual o utilizador autenticado
         globals = (AirDesk) getApplicationContext();
@@ -68,19 +67,12 @@ public class Workspace extends ActionBarActivity {
         helper=new Table_Workspace(this);
         WorkspaceDir= workspace.getMydir();
 
-        // verificar qual o directorio do utilizador autenticado
-        UserDir = globals.getLoggedUser().getMydir();
-        // Recebe da actividade anterior o nome do Workspace que foi seleccionado
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            WorkspaceDirName = extras.getString("WORKSPACE_ID");
-        }
-
+        WorkspaceDirName = workspace.getName();
         PreencherListView();
 
         registerForContextMenu(gridView);
 
-        //Vai enviar para a activity "EditorFicheiro" o caminho do workspace e o nome do ficheiro que pretende fazer modificações
+        //Vai enviar para a activity "EditorFicheiro" o nome do ficheiro que pretende fazer modificações
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -88,41 +80,20 @@ public class Workspace extends ActionBarActivity {
                                     long arg3) {
                NomeItemClicked = mAdapter.getItem(position);
                Intent i = new Intent(getApplicationContext(), EditorFicheiros.class);
-               i.putExtra("WORKSPACE_DIR", workspace.getMydir().getPath());
                i.putExtra("NOME_FICHEIRO", NomeItemClicked);
                startActivity(i);
             }
         });
     }
 
-//    public void PreencherListView(){
+    public void PreencherListView(){
+        listFiles = workspace.getListFiles();
+
 //        listFiles = new ArrayList<String>();
-//        //ciclo que vai procurar qual o workspace seleccionado, e guardar num ficheiro.
-//        for(final File fileEntry : UserDir.listFiles()){
-//            if(fileEntry.getName().equals(WorkspaceDirName)){
-//                WorkspaceDir = fileEntry;
-//            }
-//        }
-//
-//        //Preencher um ArrayList com todos os nomes dos ficheiros presentes no workspace seleccionado.
+        //Preencher um ArrayList com todos os nomes dos ficheiros presentes no workspace seleccionado.
 //        for(final File fileEntry : WorkspaceDir.listFiles()){
 //            listFiles.add(fileEntry.getName());
 //        }
-//
-//        //Operações para preencher a GridView com os valores recolhidos anteriormente.
-//        mAdapter = new GridviewAdapter(this,listFiles);
-//        this.gridView = (GridView) findViewById(R.id.gridView);
-//        gridView.setAdapter(mAdapter);
-//
-//        //Afectar o TextView com o nome do Workspace actualmente seleccionado (Titulo do ecrã);
-//        TextView textViewName = (TextView) findViewById(R.id.textViewName);
-//        textViewName.setText(WorkspaceDirName);
-//    }
-
-    public void PreencherListView(){
-        listFiles = workspace.getListFiles();
-        //ciclo que vai procurar qual o workspace seleccionado, e guardar num ficheiro.
-
 
         //Operações para preencher a GridView com os valores recolhidos anteriormente.
         mAdapter = new GridviewAdapter(this,listFiles);
@@ -151,19 +122,13 @@ public class Workspace extends ActionBarActivity {
                 //chama a função OnItemLongClickListener para afectar a variavel NomeItemClicked, para verificar qual o ficheiro seleccionado.
                 OnItemLongClickListener(info.position);
 
-                for(final File fileEntry : WorkspaceDir.listFiles()){
-                    //nome do ficheriro
-                    nome = fileEntry.getName();
-                    // verificar se o presente ficheiro (fisico) é igual ao valor do nome do ficheiro seleccionado.
-                    // se sim, vai ser eliminado fisicamente (localmente), da lista de ficheiros e reflectido na GridView
-                    if(nome.equals(NomeItemClicked)){
-                        listFiles.remove(info.position);
-                        mAdapter.notifyDataSetChanged();
-                        fileEntry.delete();
-                        return true;
-                    }
-
-
+                if(workspace.removeFile(NomeItemClicked)==true){
+                    listFiles.remove(info.position);
+                    mAdapter.notifyDataSetChanged();
+                    Toast.makeText(this, "Ficheiro Removido", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(this, "Não foi possivel remover o ficheiro", Toast.LENGTH_LONG).show();
                 }
             default:
                 return super.onContextItemSelected(item);
@@ -175,46 +140,25 @@ public class Workspace extends ActionBarActivity {
        NomeItemClicked = mAdapter.getItem(position);
     }
 
-    // FUnção (onClick do botão AddFile) para chamar a actividade que vai criar um novo ficheiro. Passando o caminho (path) do workspace
+    // FUnção (onClick do botão AddFile) para chamar a actividade que vai criar um novo ficheiro.
     private View.OnClickListener dialogFile=new View.OnClickListener(){
         public void onClick(View v){
-            Intent i = new Intent(getApplicationContext(), NewFile.class);
-            i.putExtra("WORKSPACE_PATH", workspace.getMydir().getPath());
-            startActivity(i);
+            startActivity(new Intent(Workspace.this, NewFile.class));
         }
 
     };
 
-    private View.OnClickListener populate=new View.OnClickListener(){
+    private View.OnClickListener populateQuotaMax=new View.OnClickListener(){
         public void onClick(View v){
             long tamanhoWorkspace;
-                // guardar apneas o valor da quota máxima presente no cursor (c).
-                Long tamanhomax = workspace.getQuota();
-                helper.close();
-
-                //criar um ficheiro
-                File file1 = new File(WorkspaceDir, "FileMaxSize.txt");
-                try {
-                    file1.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                //função getFolderSiza retorna o tamanho global do workspace
-                long sizeWorkspace = globals.getFolderSize(WorkspaceDir);
-                FileOutputStream out1 = null;
-                String frase="";
-
-                while ((globals.getFolderSize(WorkspaceDir)) != tamanhomax){
-                    frase = frase+"a";
-                    globals.writeFile(file1, out1, frase);
-                }
-
-
-            //Preencher a ListVIew para reflectir a introdução do novo ficheiro de teste (MAX_QUOTA)
-            PreencherListView();
-            Toast.makeText(getApplication(), "Ficheiro de teste (MAX_Quota) criado!!!", Toast.LENGTH_LONG).show();
-        }
+            if (workspace.CreateBigFile()==true){
+                Toast.makeText(Workspace.this, "Ficheiro de teste (MAX Quota) criado!!!", Toast.LENGTH_LONG).show();
+                PreencherListView();
+            }
+            else{
+                Toast.makeText(Workspace.this, "O ficheiro já existe ou ultrapassou o limite máximo!!!", Toast.LENGTH_LONG).show();
+            }
+       }
 
     };
 

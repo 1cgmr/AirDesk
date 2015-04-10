@@ -180,6 +180,10 @@ public class Owned_workspaces extends Activity  {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         ItemBean bean = (ItemBean) adapter.getItem(info.position);
         NomeItemClicked = bean.getTitle();
+
+        AirDesk globals = (AirDesk) getApplicationContext();
+        globals.setOwnedActiveWorkspace(NomeItemClicked);
+
     }
 
 

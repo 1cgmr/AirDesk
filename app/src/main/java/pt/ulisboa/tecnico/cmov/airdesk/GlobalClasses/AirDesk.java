@@ -40,7 +40,7 @@ public class AirDesk extends Application {
     private Workspace activeWorkspace;
 
     public Workspace getActiveWorkspace() {
-        return activeWorkspace;
+        return this.activeWorkspace;
     }
 
     public void setActiveWorkspace(Workspace activeWorkspace) {
@@ -62,7 +62,7 @@ public class AirDesk extends Application {
         Workspace activo = null;
         for(Workspace workspace : OwnedWorkspaces){
             if(workspace.getName().equals(nome)){
-                this.activeWorkspace = activo;
+                this.activeWorkspace = workspace;
                 return;
             }
         }
@@ -302,6 +302,7 @@ public class AirDesk extends Application {
             this.LoggedUser.newWorkspace(Workspaces.getInt(2)>0,Workspaces.getString(0),tagList,Workspaces.getInt(3),context);
             // para cada utilizador convidado
         }
+
         Cursor invitedCursor = inviteTable.getById(this.getLoggedUser().getUserName());
         while(invitedCursor.moveToNext()){
             this.invite(invitedCursor.getString(0),invitedCursor.getString(1));

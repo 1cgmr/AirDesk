@@ -20,7 +20,6 @@ import java.io.IOException;
 
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
 
-
 public class Dialog_Send_Invitation extends DialogFragment {
     Button btnInvitation;
     EditText UserId;

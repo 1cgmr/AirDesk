@@ -21,16 +21,18 @@ import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.Workspace;
 
 public class Foreign_workspaces extends ActionBarActivity {
 
-
     private ArrayAdapter adapter;
     private List<WorkspaceRemoto> Foreign_Workspaces = new ArrayList<WorkspaceRemoto>();
+    AirDesk globals;
+    private pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.Workspace workspace;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foreign_workspaces);
 
-        AirDesk globals = (AirDesk) getApplicationContext();
+        globals = (AirDesk) getApplicationContext();
         Foreign_Workspaces.addAll(globals.getForeignWorkspaces());
 
         final ListView foreignList = (ListView) findViewById(R.id.Foreign_workspaces_list);
@@ -45,15 +47,24 @@ public class Foreign_workspaces extends ActionBarActivity {
 
                 WorkspaceRemoto workspaceRemoto = (WorkspaceRemoto) adapter.getItem(position);// variaveis globais
                 AirDesk globals = (AirDesk) getApplicationContext();
-                globals.setActiveWorkspace(workspaceRemoto);
 
-                Toast.makeText(getApplication(), "Tamanho: "+workspaceRemoto.getListFiles().size(), Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplication(), workspaceRemoto.getName(), Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplication(), "Privado? "+workspaceRemoto.getPublico(), Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplication(), "Tamanho da quota: "+workspaceRemoto.getQuota(), Toast.LENGTH_LONG).show();
-                Intent i = new Intent(getApplicationContext(), pt.ulisboa.tecnico.cmov.airdesk.Workspace.class);
-                i.putExtra("WORKSPACE_ID", workspaceRemoto.getName());
-                startActivity(i);
+              //  globals.setActiveWorkspace(workspaceRemoto);
+
+                globals.setForeignActiveWorkspace(workspaceRemoto.getName());
+
+             //  Toast.makeText(getApplication(), "ola "+globals.getActiveWorkspace().getName(), Toast.LENGTH_LONG).show();
+
+          //      Toast.makeText(getApplication(), "ola "+workspace.getListFiles().size(), Toast.LENGTH_LONG).show();
+
+                //    Toast.makeText(getApplication(), workspaceRemoto.getListFiles().get(0).getConteudoFicheiro(), Toast.LENGTH_LONG).show();
+            //    Toast.makeText(getApplication(), "ola "+workspaceRemoto.getListFiles().size(), Toast.LENGTH_LONG).show();
+
+//                startActivity(new Intent(Foreign_workspaces.this, ForeignWorkspaceFiles.class));
+                startActivity(new Intent(Foreign_workspaces.this, pt.ulisboa.tecnico.cmov.airdesk.Workspace.class));
+
+            //    Intent i = new Intent(getApplicationContext(), pt.ulisboa.tecnico.cmov.airdesk.Workspace.class);
+            //    i.putExtra("WORKSPACE_ID", workspaceRemoto.getName());
+            //    startActivity(i);
             }
         });
     }

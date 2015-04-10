@@ -140,15 +140,15 @@ public class User {
         return RemoteFiles;
     }
 
-    public void newTextFile(String name, StringBuilder conteudo){
+    public void newTextFile(String name, String conteudo){
         TextFile textFile= new TextFile(name, conteudo);
         this.RemoteFiles.add(textFile);
     }
 
     public void listaFicheirosRemotos(File DirWorkspace){
-        StringBuilder aux;
+        String aux;
         for(final File fileEntry : DirWorkspace.listFiles()){
-            aux = airDesk.ReadFile(fileEntry);
+            aux = airDesk.ReadFile(fileEntry).toString();
             newTextFile(fileEntry.getName(), aux);
         }
     }

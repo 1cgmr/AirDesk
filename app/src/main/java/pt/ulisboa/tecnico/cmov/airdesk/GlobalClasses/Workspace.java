@@ -44,7 +44,7 @@ abstract public class Workspace {
     public abstract void removeTag(String Tag);
 
     public String getName(){
-        return name;
+        return this.name;
     }
 
     public abstract long getQuota();
@@ -61,12 +61,14 @@ abstract public class Workspace {
 
     public abstract List<TextFile> getListFiles();
     //
-    public abstract void removeFile(String Name);
+    public abstract boolean removeFile(String Name);
 
     public abstract boolean newFile(String name);
 
-    public abstract boolean modifyFile(String name ,StringBuilder content);
+    public abstract boolean modifyFile(String name ,String content);
 
     public abstract StringBuilder readFile(String name);
+
+    public abstract boolean CreateBigFile();
 
 }

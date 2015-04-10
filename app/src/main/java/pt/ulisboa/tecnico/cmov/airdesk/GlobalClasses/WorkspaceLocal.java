@@ -1,10 +1,12 @@
 package pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses;
 
 import android.database.Cursor;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ public class WorkspaceLocal extends Workspace {
     private List_Tags_Workspaces workspace_tags_db=null;
     private Invite inviteTable = null;
     private List<TextFile> Files = new ArrayList<TextFile>();
+    AirDesk AD;
 
     public WorkspaceLocal(User Owner, Boolean publico, String workspaceName, List<String> Tags, int max_quota,File myDir,Table_Workspace workspace_db,List_Tags_Workspaces workspace_Tags_db,Invite inviteTable){
         super(Owner, workspaceName);
@@ -48,6 +51,7 @@ public class WorkspaceLocal extends Workspace {
             workspace_db.insert_Workspace(workspaceName, Owner.getUserName(), publico, max_quota);
             workspace_db.close();
         }
+
         //this.Files
         //this.addInvitedUser(user);
     }
@@ -113,29 +117,162 @@ public class WorkspaceLocal extends Workspace {
         for(final File fileEntry : mydir.listFiles()){
             //nome do ficheriro
             String nome = fileEntry.getName();
-            TextFile file = new TextFile(nome,this.ReadFile(fileEntry.getName()));
+            TextFile file = new TextFile(nome,this.ReadFile(fileEntry.getName()).toString());
             this.Files.add(file);
         }
         return this.Files;
     }
 
     @Override
-    public void removeFile(String Name) {
+    public boolean removeFile(String Name) {
+        File WorkspaceDir;
+        String nome;
+        WorkspaceDir= this.getMydir();
+
+        for(final File fileEntry: WorkspaceDir.listFiles()){
+            //nome do ficheriro
+            nome = fileEntry.getName();
+            if(nome.equals(Name)){
+                fileEntry.delete();
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean newFile(String name) {
-        return true;
+        File WorkspaceDir;
+        long sizeWorkspace;
+        WorkspaceDir= this.getMydir();
+
+            Integer tamanhomax = this.max_quota;
+            //criar um ficheiro
+            File fileWithinMyDir1 = new File(WorkspaceDir, name);
+            try {
+                fileWithinMyDir1.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            sizeWorkspace = AD.getFolderSize(WorkspaceDir);
+
+            if (sizeWorkspace >= tamanhomax) {
+                fileWithinMyDir1.delete();
+                return false;
+            }
+            else{
+                return true;
+            }
     }
 
     @Override
-    public boolean modifyFile(String name, StringBuilder content) {
-        return true;
+    public boolean modifyFile(String name, String content) {
+        StringBuilder builder = readFile(name);
+        File WorkspaceDir;
+        WorkspaceDir= this.getMydir();
+
+        String valorEditText = content.toString();
+        long tamanhoWorkspace;
+        Integer tamanhomax;
+
+        File file1 = new File(WorkspaceDir, name);
+        FileOutputStream out1 = null;
+
+        try {
+            out1 = new FileOutputStream(file1);
+            String string = valorEditText;
+            byte[] b = string.getBytes();
+            out1.write(b);
+            out1.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+       tamanhomax = this.max_quota;
+       tamanhoWorkspace = AD.getFolderSize(WorkspaceDir);
+
+       if (tamanhoWorkspace > tamanhomax) {
+           try {
+               out1 = new FileOutputStream(file1);
+               String string = builder.toString();
+               byte[] b = string.getBytes();
+               out1.write(b);
+               out1.close();
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+           return false;
+        }
+        else{
+           return true;
+       }
+
     }
 
     @Override
     public StringBuilder readFile(String name) {
-        return null;
+        File WorkspaceDir;
+        StringBuilder builder = new StringBuilder("");
+        WorkspaceDir= this.getMydir();
+        File file1 = new File(WorkspaceDir, name);
+
+        try {
+            BufferedReader leitor = new BufferedReader(new FileReader(file1));
+            String read;
+
+            while((read = leitor.readLine()) !=null){
+                builder.append(read+"\n");
+            }
+
+            leitor.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return builder;
+    }
+
+    @Override
+    public boolean CreateBigFile(){
+        File WorkspaceDir;
+        WorkspaceDir= this.getMydir();
+        Integer tamanhomax = this.max_quota;
+        long sizeWorkspace = AD.getFolderSize(WorkspaceDir);
+
+        if (sizeWorkspace <= tamanhomax) {
+            //criar um ficheiro
+            File file1 = new File(WorkspaceDir, "FileMaxSize.txt");
+            if(!file1.exists()) {
+
+                try {
+                    file1.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                sizeWorkspace = AD.getFolderSize(WorkspaceDir);
+                FileOutputStream out1 = null;
+                String frase = "";
+
+                while ((AD.getFolderSize(WorkspaceDir)) != tamanhomax) {
+                    frase = frase + "a";
+                    try {
+                        out1 = new FileOutputStream(file1);
+                        String string = frase;
+                        byte[] b = string.getBytes();
+                        out1.write(b);
+                        out1.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
 }
