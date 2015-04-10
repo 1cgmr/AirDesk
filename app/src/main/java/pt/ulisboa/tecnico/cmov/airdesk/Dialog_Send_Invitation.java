@@ -1,8 +1,10 @@
 package pt.ulisboa.tecnico.cmov.airdesk;
 
 import android.app.DialogFragment;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import pt.ulisboa.tecnico.cmov.airdesk.DataBase.Invite;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
 
 public class Dialog_Send_Invitation extends DialogFragment {
@@ -25,6 +28,8 @@ public class Dialog_Send_Invitation extends DialogFragment {
     EditText UserId;
     AirDesk context;
     String workspace;
+    Invite inviteTable = null;
+    Cursor convite;
 
     public Dialog_Send_Invitation(){}
 
@@ -47,6 +52,8 @@ public class Dialog_Send_Invitation extends DialogFragment {
         btnInvitation.setOnClickListener(Cancel);
 
         UserId = (EditText) view.findViewById(R.id.editTextInvitation);
+
+        inviteTable = context.getInviteTable();
         setCancelable(false);
         return view;
     }
@@ -55,7 +62,14 @@ public class Dialog_Send_Invitation extends DialogFragment {
     private View.OnClickListener Invitation=new View.OnClickListener(){
         public void onClick(View v) {
             Toast.makeText(getActivity(), "Utilizador convidado", Toast.LENGTH_LONG).show();//editTextInvitation
-            context.invite(UserId.getText().toString(),workspace);
+            convite = inviteTable.getTuple(UserId.getText().toString(), workspace, context.getLoggedUser().getUserName());
+            if(!convite.moveToFirst()) {
+
+                context.invite(UserId.getText().toString(), workspace);
+                inviteTable.insert_Invite(UserId.getText().toString(), workspace, context.getLoggedUser().getUserName());
+            }else {
+                Log.v("ABC", "O convite já existe");
+            }
             dismiss();
         }
     };

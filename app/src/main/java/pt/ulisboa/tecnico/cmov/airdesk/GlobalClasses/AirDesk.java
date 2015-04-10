@@ -31,6 +31,9 @@ public class AirDesk extends Application {
     private User_Tag USerTagDb = null;
     private List_Tags_Workspaces WorkspaceTagsDb= null;
     private Table_Workspace WorkspaceDb = null;
+
+
+
     private Invite inviteTable = null;
 
     private Context context = null;
@@ -83,6 +86,10 @@ public class AirDesk extends Application {
 
     public User getLoggedUser(){
         return this.LoggedUser;
+    }
+
+    public Invite getInviteTable() {
+        return inviteTable;
     }
 
     /** funcao para fazer o login do utilizador
@@ -167,7 +174,6 @@ public class AirDesk extends Application {
 
     public void invite(String UserName,String Workspace){
         WorkspaceLocal InviteWorkspace = LoggedUser.getWorkspace(Workspace);
-
         //if(InviteWorkspace==null) return;
         for(User user : ReachableUsers){
             if(user.getUserName().equals(UserName)){
