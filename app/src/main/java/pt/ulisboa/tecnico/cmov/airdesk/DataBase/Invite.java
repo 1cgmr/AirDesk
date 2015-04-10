@@ -22,8 +22,8 @@ public class Invite {
         dbHelper.getWritableDatabase().insert("Invite", null, cv);
     }
 
-    public void delete_Invite(String NomeUser, String WorkspaceName, String Owner){
-        dbHelper.getWritableDatabase().delete("Invite", "NomeUser=? and Workspace=? and Owner=?", new String[]{NomeUser, WorkspaceName,Owner});
+    public void delete_Invite(String WorkspaceName){
+        dbHelper.getWritableDatabase().delete("Invite", "Workspace=?", new String[]{WorkspaceName});
     }
 
     public Cursor getById(String id){

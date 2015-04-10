@@ -126,6 +126,7 @@ public class User {
         for(WorkspaceRemoto wsr : RemoteWorkspaces){
            if(wsr.getName().equals(workspaceName)){
                RemoteWorkspaces.remove(wsr);
+               inviteTable.delete_Invite(wsr.getName());
            }
         }
     }
