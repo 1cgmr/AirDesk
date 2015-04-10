@@ -145,6 +145,9 @@ public class Owned_workspaces extends Activity  {
                         adapter.notifyDataSetChanged();
                         //eliminar o workspace da base de dados
                         helper.delete_Workspace(NomeItemClicked, user.getUserName());
+
+                        user.removeRemoteWorkspace(NomeItemClicked);
+
                         return true;
                     }
                 }
