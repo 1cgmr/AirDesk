@@ -47,7 +47,6 @@ public class NewFile extends ActionBarActivity {
         Criar.setOnClickListener(CreateFile);
         //EditText que permitirá escolher o nome do ficheiro a ser criado
         NomeFicheiro = (EditText) findViewById(R.id.editTextNameFile);
-
     }
 
     private View.OnClickListener CreateFile=new View.OnClickListener(){

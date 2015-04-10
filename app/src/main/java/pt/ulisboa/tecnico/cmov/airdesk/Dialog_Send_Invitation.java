@@ -61,14 +61,13 @@ public class Dialog_Send_Invitation extends DialogFragment {
 
     private View.OnClickListener Invitation=new View.OnClickListener(){
         public void onClick(View v) {
-            Toast.makeText(getActivity(), "Utilizador convidado", Toast.LENGTH_LONG).show();//editTextInvitation
-            convite = inviteTable.getTuple(UserId.getText().toString(), workspace, context.getLoggedUser().getUserName());
-            if(!convite.moveToFirst()) {
-
+            convite = inviteTable.getTuple(context.getLoggedUser().getUserName(), UserId.getText().toString(), workspace);
+            if(convite.getCount()==0) {
+                Toast.makeText(getActivity(), "Utilizador convidado", Toast.LENGTH_LONG).show();//editTextInvitation
                 context.invite(UserId.getText().toString(), workspace);
                 inviteTable.insert_Invite(UserId.getText().toString(), workspace, context.getLoggedUser().getUserName());
             }else {
-                Log.v("ABC", "O convite já existe");
+                Toast.makeText(getActivity(), "Utilizador já está convidado!!", Toast.LENGTH_LONG).show();
             }
             dismiss();
         }
