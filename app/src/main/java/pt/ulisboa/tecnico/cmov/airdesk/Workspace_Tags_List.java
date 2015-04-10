@@ -32,7 +32,6 @@ public class Workspace_Tags_List extends ActionBarActivity {
     //this is how track which Tag we are working on
     String TagId=null;
 
-    // O workspace seleccionado
     private pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.Workspace workspace;
     AirDesk globals;
 
@@ -44,6 +43,7 @@ public class Workspace_Tags_List extends ActionBarActivity {
             setContentView(R.layout.activity_workspace_tags_list);
 
             globals = (AirDesk) getApplicationContext();
+            //Workspace actualmente seleccionado
             workspace = globals.getActiveWorkspace();
 
             ListView list = (ListView) findViewById(R.id.listTags);
@@ -53,11 +53,11 @@ public class Workspace_Tags_List extends ActionBarActivity {
             Button btnSimples = (Button) findViewById(R.id.btnAddTagWorkspace);
             btnSimples.setOnClickListener(onSave);
 
-            //Botão delete, para eliminar uma determinada Tag pertencente ao workspace
+            //Botão delete para eliminar uma determinada Tag pertencente ao workspace
             Button btnDelete = (Button) findViewById(R.id.btnDeleteTagWorkspace);
             btnDelete.setOnClickListener(onDelete);
 
-            //EdiText com o valor da Tag
+            //EdiText com o valor da Tag (nome)
             editTag = (EditText) findViewById(R.id.editTextTagsWorkspace);
 
             //get our helper
@@ -81,8 +81,7 @@ public class Workspace_Tags_List extends ActionBarActivity {
         helper.close();
     }
 
-
-    //Função para adicionar uma nova Tag ou fazer update de um determinado valor da Tag
+    //Função para adicionar uma nova Tag ou fazer update de um determinado valor (nome) da Tag
     private View.OnClickListener onSave=new View.OnClickListener(){
         public void onClick(View v){
             if(!editTag.getText().toString().equals("")) {
@@ -115,8 +114,8 @@ public class Workspace_Tags_List extends ActionBarActivity {
         }
     };
 
-    //Quando uma determinada Tag é "carregada" na ListView vai ser preenchido o seu valor (nome) para o EditText
-    // para elaborar operações de update ou delete da mesma TAG
+    //Quando uma determinada Tag é clicked vai ser preenchido o seu valor (nome) para o EditText
+    // para elaborar operações de update ou delete da respectiva TAG
     private AdapterView.OnItemClickListener onListClick=new AdapterView.OnItemClickListener(){
         public void onItemClick(AdapterView<?> parent, View view, int position, long id){
             TagId=String.valueOf(id);

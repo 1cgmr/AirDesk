@@ -35,12 +35,8 @@ public class NewFile extends ActionBarActivity {
 
         // variaveis globais
         globals = (AirDesk) getApplicationContext();
-      //  g=globals.getLoggedUser();
-       // helper=new Table_Workspace(this);
 
         workspace = globals.getActiveWorkspace();
-     //   WorkspaceDir= workspace.getMydir();
-      //  workspace_path=WorkspaceDir.getPath();
 
         //Botão para criar o ficheiro
         Criar= (Button) findViewById(R.id.btnConfirmarFile);

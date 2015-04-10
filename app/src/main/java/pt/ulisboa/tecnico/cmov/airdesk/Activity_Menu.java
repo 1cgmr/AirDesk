@@ -98,6 +98,7 @@ public class Activity_Menu extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Função de teste, neste momento não está a ser utilizada.
     public void inicializaWorkspaceFalsos(){
         //=============CRIA PASTAS PARA WORKSPACES=============//
         Context context = this.getApplicationContext();

@@ -55,9 +55,11 @@ public class User_Tags_List extends ActionBarActivity {
             adapter=new TagAdapter(dataset_cursor);
             list.setAdapter(adapter);
 
+            //Botão para criar uma nova Tag do utilizador
             Button btnSimples = (Button) findViewById(R.id.btnAddTag);
             btnSimples.setOnClickListener(onSave);
 
+            //Botão para eliminar uma determinada Tag do Utilizador
             Button btnDelete = (Button) findViewById(R.id.btnDeleteTag);
             btnDelete.setOnClickListener(onDelete);
 
@@ -78,7 +80,6 @@ public class User_Tags_List extends ActionBarActivity {
         public void onClick(View v){
             if(!editTag.getText().toString().equals("")){
                 if (TagId == null) {
-                    //helper.insert_User_Tag(editTag.getText().toString(), g.getUserName());
                     g.addTag(editTag.getText().toString());
                 } else {
                     helper.update_User_Tag(TagId, editTag.getText().toString());
@@ -96,7 +97,6 @@ public class User_Tags_List extends ActionBarActivity {
                 return;
             }
             else{
-                //helper.delete_User_Tag(TagId);
                 g.removeTag(TagId);
                 TagId=null;
             }

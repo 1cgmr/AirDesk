@@ -122,11 +122,11 @@ public class User {
     }
 
     public void removeRemoteWorkspace(String workspaceName){
-
         for(WorkspaceRemoto wsr : RemoteWorkspaces){
            if(wsr.getName().equals(workspaceName)){
                RemoteWorkspaces.remove(wsr);
                inviteTable.delete_Invite(wsr.getName());
+               return;
            }
         }
     }

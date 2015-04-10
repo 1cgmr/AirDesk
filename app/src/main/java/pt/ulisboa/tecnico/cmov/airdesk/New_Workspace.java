@@ -22,7 +22,7 @@ import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
 public class New_Workspace extends ActionBarActivity {
 
-//    private ArrayAdapter adapter;
+    // private ArrayAdapter adapter;
     private List<String> Tags = new ArrayList<String>();
     Table_Workspace helper=null;
     User g;
@@ -36,7 +36,6 @@ public class New_Workspace extends ActionBarActivity {
         AirDesk globals = (AirDesk) getApplicationContext();
         g=globals.getLoggedUser();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

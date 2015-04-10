@@ -58,10 +58,10 @@ public class Dialog_Send_Invitation extends DialogFragment {
         return view;
     }
 
-
     private View.OnClickListener Invitation=new View.OnClickListener(){
         public void onClick(View v) {
             convite = inviteTable.getTuple(context.getLoggedUser().getUserName(), UserId.getText().toString(), workspace);
+            //evitar que o mesmo utilizador seja convidado duas vezes para o mesmo workspace.
             if(convite.getCount()==0) {
                 Toast.makeText(getActivity(), "Utilizador convidado", Toast.LENGTH_LONG).show();//editTextInvitation
                 context.invite(UserId.getText().toString(), workspace);
@@ -69,10 +69,12 @@ public class Dialog_Send_Invitation extends DialogFragment {
             }else {
                 Toast.makeText(getActivity(), "Utilizador já está convidado!!", Toast.LENGTH_LONG).show();
             }
+
             dismiss();
         }
     };
 
+    //botão cancel, para sair do dialog.
     private View.OnClickListener Cancel=new View.OnClickListener(){
         public void onClick(View v) {
             dismiss();

@@ -25,11 +25,8 @@ import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
 
 public class MainActivity extends ActionBarActivity {
 
-    private static final int REQUEST_CODE = 1;
     private static Context context;
-    File mydir;
     Users Db=null;
-    Cursor dataset_cursor=null;
     EditText editUser=null;
     String userEmail="";
 
@@ -72,6 +69,7 @@ public class MainActivity extends ActionBarActivity {
         Db.close();
     }
 
+    //Verificar se o utilizador já se encontra registado na base de dados.
     private View.OnClickListener Login=new View.OnClickListener(){
         public void onClick(View v){
             userEmail=editUser.getText().toString();

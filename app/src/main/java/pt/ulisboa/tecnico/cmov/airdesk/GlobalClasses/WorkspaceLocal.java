@@ -51,11 +51,9 @@ public class WorkspaceLocal extends Workspace {
             workspace_db.insert_Workspace(workspaceName, Owner.getUserName(), publico, max_quota);
             workspace_db.close();
         }
-
-        //this.Files
-        //this.addInvitedUser(user);
     }
 
+    //Função para convidar um utilizador, para aceder ao seu workspace.
     public boolean addInvitedUser(User user){
         this.InvitedUsers.add(user);
         Cursor cursor = this.inviteTable.getTuple(getOwner().getUserName(),user.getUserName(),this.getName());
@@ -66,19 +64,19 @@ public class WorkspaceLocal extends Workspace {
         return false;
     }
 
+//Função para ler o conteudo de um determinado ficheiro, retornando uma StringBuilder para preencher o editor.
     public StringBuilder ReadFile(String textFileName){
         StringBuilder builder = new StringBuilder("");
         File WorkspaceDir = new File(this.mydir.getPath()+"/"+textFileName);
 
         try {
             BufferedReader leitor = new BufferedReader(new FileReader(WorkspaceDir));
-            // br= new BufferedReader(leitor);
             String read;
 
             while((read = leitor.readLine()) !=null){
                 builder.append(read+"\n");
             }
-            //editor.setText(builder.toString());
+
             leitor.close();
 
         } catch (FileNotFoundException e) {
@@ -113,7 +111,6 @@ public class WorkspaceLocal extends Workspace {
 
     public List<TextFile> getListFiles(){
         Files.clear();
-       // =  new ArrayList<TextFile>();
         for(final File fileEntry : mydir.listFiles()){
             //nome do ficheriro
             String nome = fileEntry.getName();
@@ -123,6 +120,7 @@ public class WorkspaceLocal extends Workspace {
         return this.Files;
     }
 
+    //Função para remover o ficheiro.
     @Override
     public boolean removeFile(String Name) {
         File WorkspaceDir;
@@ -140,6 +138,7 @@ public class WorkspaceLocal extends Workspace {
         return false;
     }
 
+    //Função para criar um novo ficheiro
     @Override
     public boolean newFile(String name) {
         File WorkspaceDir;
@@ -157,6 +156,7 @@ public class WorkspaceLocal extends Workspace {
 
             sizeWorkspace = AD.getFolderSize(WorkspaceDir);
 
+            // se com a criação do ficheiro, ultrapassou os limites (quota) do workspace o ficheiro será eliminado.
             if (sizeWorkspace >= tamanhomax) {
                 fileWithinMyDir1.delete();
                 return false;
@@ -166,6 +166,7 @@ public class WorkspaceLocal extends Workspace {
             }
     }
 
+    //Função para modificar o conteudo de um ficheiro.
     @Override
     public boolean modifyFile(String name, String content) {
         StringBuilder builder = readFile(name);
@@ -179,6 +180,7 @@ public class WorkspaceLocal extends Workspace {
         File file1 = new File(WorkspaceDir, name);
         FileOutputStream out1 = null;
 
+        //escreve todas as alterações que o utilizador pretender...
         try {
             out1 = new FileOutputStream(file1);
             String string = valorEditText;
@@ -192,6 +194,8 @@ public class WorkspaceLocal extends Workspace {
        tamanhomax = this.max_quota;
        tamanhoWorkspace = AD.getFolderSize(WorkspaceDir);
 
+        // ... e neste momento verifica se é possivel guardar definitivamente as alterações,
+        // caso não respeite a quota do workspace, é restaurada a versão anterior do ficheiro.
        if (tamanhoWorkspace > tamanhomax) {
            try {
                out1 = new FileOutputStream(file1);
@@ -210,6 +214,7 @@ public class WorkspaceLocal extends Workspace {
 
     }
 
+    //Função ler um ficheiro num Owned Workspace.
     @Override
     public StringBuilder readFile(String name) {
         File WorkspaceDir;
@@ -235,6 +240,7 @@ public class WorkspaceLocal extends Workspace {
         return builder;
     }
 
+    //Função para testar o limite da Quota do Workspace, criando um file com o limite restante do workspace.
     @Override
     public boolean CreateBigFile(){
         File WorkspaceDir;
@@ -242,6 +248,7 @@ public class WorkspaceLocal extends Workspace {
         Integer tamanhomax = this.max_quota;
         long sizeWorkspace = AD.getFolderSize(WorkspaceDir);
 
+        //Verifica se ainda tem espaço para criar o ficheiro de teste.
         if (sizeWorkspace <= tamanhomax) {
             //criar um ficheiro
             File file1 = new File(WorkspaceDir, "FileMaxSize.txt");
@@ -257,6 +264,7 @@ public class WorkspaceLocal extends Workspace {
                 FileOutputStream out1 = null;
                 String frase = "";
 
+                //Escreve no file até atingir o limite definido na quota do workspace.
                 while ((AD.getFolderSize(WorkspaceDir)) != tamanhomax) {
                     frase = frase + "a";
                     try {

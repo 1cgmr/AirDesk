@@ -32,8 +32,6 @@ public class AirDesk extends Application {
     private List_Tags_Workspaces WorkspaceTagsDb= null;
     private Table_Workspace WorkspaceDb = null;
 
-
-
     private Invite inviteTable = null;
 
     private Context context = null;
@@ -222,7 +220,7 @@ public class AirDesk extends Application {
     }
 
 
-    //FILESSYSTEM (Funções relacionadas com o file system)
+//FILESSYSTEM (Funções relacionadas com o file system)
 
 //Função para eliminar um determiando Workspace, elimiando primeiro todos os seus ficheiros de texto e logo depois a pasta do workspace;
     public static boolean deleteDirectory(File path) {
@@ -273,13 +271,11 @@ public class AirDesk extends Application {
 
         try {
             BufferedReader leitor = new BufferedReader(new FileReader(WorkspaceDir));
-            // br= new BufferedReader(leitor);
             String read;
 
             while((read = leitor.readLine()) !=null){
                 builder.append(read+"\n");
             }
-            //editor.setText(builder.toString());
             leitor.close();
 
         } catch (FileNotFoundException e) {
@@ -291,10 +287,6 @@ public class AirDesk extends Application {
     }
 
     public void populate(){
-        //this.UserDb;
-        //this.USerTagDb;
-        //this.WorkspaceTagsDb;
-        //this.WorkspaceDb;
 
         Cursor Workspaces = this.WorkspaceDb.getAll(this.LoggedUser.getUserName());
         while(Workspaces.moveToNext()){
@@ -313,6 +305,6 @@ public class AirDesk extends Application {
         while(invitedCursor.moveToNext()){
             this.invite(invitedCursor.getString(0),invitedCursor.getString(1));
         }
-        //this.WorkspaceTagsDb.getAll();
     }
+
 }

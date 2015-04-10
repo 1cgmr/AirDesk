@@ -39,10 +39,8 @@ public class Workspace extends ActionBarActivity {
     private ItemBean bean;
     private String WorkspaceDirName;
     private List<TextFile> listFiles;
-//    private List<TextFile> listFiles;
     private GridviewAdapter mAdapter;
     private GridView gridView;
-    String nome;
     private String NomeItemClicked;
     private pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.Workspace workspace;
 
@@ -54,9 +52,11 @@ public class Workspace extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workspace_files);
 
+        //Botão para criar um novo ficheiro, neste caso vai chamar o Dialog para inserir o nome do ficheiro a ser criado.
         Button btnCriarFile = (Button) findViewById(R.id.btnCriarFile);
         btnCriarFile.setOnClickListener(dialogFile);
 
+        //Botão para gerar um ficheiro que ocupe restante ou total da quota máxima do workspace
         Button btnPopulate = (Button) findViewById(R.id.btnPopulate);
         btnPopulate.setOnClickListener(populateQuotaMax);
 
@@ -70,6 +70,7 @@ public class Workspace extends ActionBarActivity {
         WorkspaceDirName = workspace.getName();
         PreencherListView();
 
+        //Apresenta um menu para eliminar um determinado ficheiro quando o utilizador faz LongClick sobre o nome do workspace;
         registerForContextMenu(gridView);
 
         //Vai enviar para a activity "EditorFicheiro" o nome do ficheiro que pretende fazer modificações
@@ -88,12 +89,6 @@ public class Workspace extends ActionBarActivity {
 
     public void PreencherListView(){
         listFiles = workspace.getListFiles();
-
-//        listFiles = new ArrayList<String>();
-        //Preencher um ArrayList com todos os nomes dos ficheiros presentes no workspace seleccionado.
-//        for(final File fileEntry : WorkspaceDir.listFiles()){
-//            listFiles.add(fileEntry.getName());
-//        }
 
         //Operações para preencher a GridView com os valores recolhidos anteriormente.
         mAdapter = new GridviewAdapter(this,listFiles);
@@ -148,6 +143,7 @@ public class Workspace extends ActionBarActivity {
 
     };
 
+    //Função que vai criar um ficheiro com a quota máxima do workspace.
     private View.OnClickListener populateQuotaMax=new View.OnClickListener(){
         public void onClick(View v){
             long tamanhoWorkspace;

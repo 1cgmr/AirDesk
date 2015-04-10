@@ -75,6 +75,4 @@ public class GridviewAdapter extends BaseAdapter
 
         return convertView;
     }
-
-
 }

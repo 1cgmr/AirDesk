@@ -52,7 +52,6 @@ public class EditorFicheiros extends ActionBarActivity {
         g=globals.getLoggedUser();
         helper=new Table_Workspace(this);
 
-
         workspace = globals.getActiveWorkspace();
 
         //Botão Gravar alterações
@@ -63,7 +62,7 @@ public class EditorFicheiros extends ActionBarActivity {
         editor=(EditText)findViewById(R.id.editor);
         editor.setRawInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 
-        //recebe da activity anterior, o directorio do workspace e o nome do ficheiro a modificar ou ler;
+        //recebe da activity anterior, o nome do ficheiro a modificar ou ler;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             name = extras.getString("NOME_FICHEIRO");
@@ -86,7 +85,7 @@ public class EditorFicheiros extends ActionBarActivity {
         public void onClick(View v){
 
             String valorEditText = getValueEditor();
-
+            // se as alterações propostas cumprem o limite (quota) do workspace o conteudo vai ser modificado.
             if(workspace.modifyFile(name, valorEditText.toString()) == true){
                 Toast.makeText(getApplication(), "Ficheiro modificado", Toast.LENGTH_LONG).show();
             }

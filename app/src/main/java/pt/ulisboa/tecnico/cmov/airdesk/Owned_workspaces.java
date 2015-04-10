@@ -55,11 +55,14 @@ public class Owned_workspaces extends Activity  {
 
         userDir =  globals.getLoggedUser().getMydir();
 
+        //Botão para criar um novo workspace
         Button btnSimples = (Button) findViewById(R.id.btnAddWorkspace);
         btnSimples.setOnClickListener(AddWorkspace);
 
+        //Preecher a list View com os nomes dos workspaces
         PreencherListView();
 
+        //criar um menu com as operações de manutenção dos workspaces (LongClick)
         registerForContextMenu(lview3);
 
         lview3.setOnItemClickListener(new AdapterView.OnItemClickListener()
