@@ -19,7 +19,7 @@
 
         <Button
             android:id="@+id/btnOwnedWorkspaces"
-            android:layout_width="100pt"
+            android:layout_width="277dp"
             android:layout_height="30pt"
             android:textStyle="bold"
             android:text="Owned Workspaces"
@@ -29,7 +29,7 @@
 
         <Button
             android:id="@+id/btnForeignWorkspaces"
-            android:layout_width="100pt"
+            android:layout_width="277dp"
             android:layout_height="30pt"
             android:textStyle="bold"
             android:text="Foreign Workspaces"
@@ -38,7 +38,7 @@
 
         <Button
             android:id="@+id/btnNewWorkspaces"
-            android:layout_width="100pt"
+            android:layout_width="277dp"
             android:layout_height="30pt"
             android:textStyle="bold"
             android:text="New Workspaces"
@@ -47,7 +47,7 @@
 
         <Button
             android:id="@+id/btnListTags"
-            android:layout_width="100pt"
+            android:layout_width="277dp"
             android:layout_height="30pt"
             android:textStyle="bold"
             android:text="Lista de Tags"

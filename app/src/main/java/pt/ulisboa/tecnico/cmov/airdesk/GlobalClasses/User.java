@@ -121,8 +121,13 @@ public class User {
         }
     }
 
-    public void removeRemoteWorkspace(Workspace workspace){
-        RemoteWorkspaces.remove(workspace);
+    public void removeRemoteWorkspace(String workspaceName){
+
+        for(WorkspaceRemoto wsr : RemoteWorkspaces){
+           if(wsr.getName().equals(workspaceName)){
+               RemoteWorkspaces.remove(wsr);
+           }
+        }
     }
 
     public boolean equals(User user){
