@@ -59,7 +59,7 @@ public class SocketServer extends AsyncTask<Void, SimWifiP2pSocket, Void> {
 
         try {
             BufferedReader InFromClient = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            BufferedWriter OutFromClient= new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+            BufferedWriter OutToClient= new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
             String st;
 
             while ((st = InFromClient.readLine()) != null) {
