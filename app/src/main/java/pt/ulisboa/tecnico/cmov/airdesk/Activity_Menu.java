@@ -27,15 +27,21 @@ import android.net.wifi.p2p.WifiP2pManager.ActionListener;
 import android.net.wifi.p2p.WifiP2pManager.Channel;
 import android.net.wifi.p2p.WifiP2pManager.ChannelListener;
 
+import pt.inesc.termite.wifidirect.SimWifiP2pDeviceList;
+import pt.inesc.termite.wifidirect.SimWifiP2pInfo;
+import pt.inesc.termite.wifidirect.SimWifiP2pManager.PeerListListener;
+import pt.inesc.termite.wifidirect.SimWifiP2pManager.GroupInfoListener;
+
 import pt.inesc.termite.wifidirect.SimWifiP2pBroadcast;
 import pt.inesc.termite.wifidirect.SimWifiP2pManager;
 import pt.inesc.termite.wifidirect.service.SimWifiP2pService;
 import pt.inesc.termite.wifidirect.sockets.SimWifiP2pSocketManager;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
+import pt.ulisboa.tecnico.cmov.airdesk.Sockets.NetworkService;
 import pt.ulisboa.tecnico.cmov.airdesk.Sockets.SimWifiP2pBroadcastReceiver;
 
-public class Activity_Menu extends ActionBarActivity implements ChannelListener{
+public class Activity_Menu extends ActionBarActivity implements ChannelListener, PeerListListener, GroupInfoListener{
 
     User g;
 
@@ -45,19 +51,9 @@ public class Activity_Menu extends ActionBarActivity implements ChannelListener{
         setContentView(R.layout.activity_activity_menu);
 
         //TODO Termite
-        SimWifiP2pSocketManager.Init(getApplicationContext());
+        NetworkService mService = new NetworkService();
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_STATE_CHANGED_ACTION);
-        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_PEERS_CHANGED_ACTION);
-        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_NETWORK_MEMBERSHIP_CHANGED_ACTION);
-        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_GROUP_OWNERSHIP_CHANGED_ACTION);
-        //SimWifiP2pBroadcastReceiver receiver = new SimWifiP2pBroadcastReceiver(this);
-        //registerReceiver(receiver, filter);
-/*
-        Intent intent = new Intent(v.getContext(), SimWifiP2pService.class);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-*/
+
         //Todo termite
         // variaveis globais
         AirDesk globals = (AirDesk) getApplicationContext();
@@ -176,6 +172,16 @@ public class Activity_Menu extends ActionBarActivity implements ChannelListener{
 
     @Override
     public void onChannelDisconnected() {
+
+    }
+
+    @Override
+    public void onGroupInfoAvailable(SimWifiP2pDeviceList simWifiP2pDeviceList, SimWifiP2pInfo simWifiP2pInfo) {
+
+    }
+
+    @Override
+    public void onPeersAvailable(SimWifiP2pDeviceList simWifiP2pDeviceList) {
 
     }
 }

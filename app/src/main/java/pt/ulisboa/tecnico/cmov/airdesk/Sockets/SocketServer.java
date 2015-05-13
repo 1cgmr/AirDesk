@@ -43,6 +43,8 @@ public class SocketServer extends AsyncTask<Void, SimWifiP2pSocket, Void> {
         this.aplication=aplication;
     }
 
+    public SocketServer(){}
+
     @Override
     protected void onPreExecute() {
         try {
@@ -105,12 +107,8 @@ public class SocketServer extends AsyncTask<Void, SimWifiP2pSocket, Void> {
 
     private void entry_process(String entry,SimWifiP2pSocket writerSocket){
         String[] Parsed_Entry = entry.split(" ");
-        //Cliente pede para ler ficheiro
-        if(Parsed_Entry[0].equals("Read_File")){
-            //TODO readFile
-        }
-        // Cliente pede para remover um ficheiro de um Workspace
-        else if(Parsed_Entry[0].equals("Remove_File")){
+        //Cliente pede para remover um ficheiro
+        if(Parsed_Entry[0].equals("Remove_File")){
             //TODO Remove_File
         }
         // Cliente pede para ser criado um novo ficheiro

@@ -8,6 +8,14 @@ import pt.inesc.termite.wifidirect.SimWifiP2pBroadcast;
 import pt.inesc.termite.wifidirect.SimWifiP2pInfo;
 
 public class SimWifiP2pBroadcastReceiver extends BroadcastReceiver {
+
+    private NetworkService mActivity;
+
+    public SimWifiP2pBroadcastReceiver(NetworkService activity){
+        super();
+        this.mActivity=activity;
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
