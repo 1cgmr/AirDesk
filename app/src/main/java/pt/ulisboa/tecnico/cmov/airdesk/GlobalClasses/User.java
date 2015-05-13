@@ -41,6 +41,10 @@ public class User {
 
     public User(){}
 
+    public User(String username){
+        this.setUserName(username);
+    }
+
     public User(AirDesk airdesk,String username, Users db, User_Tag TagDb,Table_Workspace workspace_db,List_Tags_Workspaces workspace_Tags_db, Context context,Invite inviteTable){
         this.AirDesk=airdesk;
         this.Username=username;
@@ -80,6 +84,8 @@ public class User {
     public String getUserName(){
         return this.Username;
     }
+
+    public void setUserName(String userName){this.Username=userName;}
 
     public static synchronized User getInstance(){
         if(instance==null){

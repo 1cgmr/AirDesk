@@ -283,4 +283,14 @@ public class WorkspaceLocal extends Workspace {
         return false;
     }
 
+    public String toString(){
+        String str="";
+        str=str+this.getOwner()+" "+this.getName()+" ";
+        //TODO concatenar aqui os nomes do ficheiros do workspace
+        for(TextFile tx : this.getListFiles()){
+            str=str+this.toString();
+        }
+        return str;
+    }
+
 }

@@ -19,6 +19,16 @@ public class WorkspaceRemoto extends Workspace{
 
     private WorkspaceLocal workspaceLocal = null;
     private List<TextFile> Files = new ArrayList<TextFile>();
+    //TODO para ter acesso a lista remotamente
+    private List<String> File_Names= new ArrayList<String>();
+
+    public WorkspaceRemoto(String Owner, String name, List<String> fn){
+        super(new User(Owner),name);
+        for(String st : fn){
+            this.File_Names.add(st);
+        }
+    }
+    //TODO !para ter acesso a lista remotamente
 
     public WorkspaceRemoto(User Owner, WorkspaceLocal parent){
         super(Owner,parent.getName());

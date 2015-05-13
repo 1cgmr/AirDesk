@@ -8,6 +8,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <service android:name="pt.inesc.termite.wifidirect.service.SimWifiP2pService" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >

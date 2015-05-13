@@ -36,4 +36,7 @@ public class TextFile {
         this.conteudoFicheiro = conteudo;
     }
 
+    public String toString(){
+        return this.getNameFile();
+    }
 }

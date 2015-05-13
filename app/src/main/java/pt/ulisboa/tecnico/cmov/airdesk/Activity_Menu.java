@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.cmov.airdesk;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,15 +13,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import android.net.wifi.p2p.WifiP2pManager.ActionListener;
+import android.net.wifi.p2p.WifiP2pManager.Channel;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import android.net.wifi.p2p.WifiP2pConfig;
+import android.net.wifi.p2p.WifiP2pDevice;
+import android.net.wifi.p2p.WifiP2pManager;
+import android.net.wifi.p2p.WifiP2pManager.ActionListener;
+import android.net.wifi.p2p.WifiP2pManager.Channel;
+import android.net.wifi.p2p.WifiP2pManager.ChannelListener;
 
+import pt.inesc.termite.wifidirect.SimWifiP2pBroadcast;
+import pt.inesc.termite.wifidirect.SimWifiP2pManager;
+import pt.inesc.termite.wifidirect.service.SimWifiP2pService;
+import pt.inesc.termite.wifidirect.sockets.SimWifiP2pSocketManager;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.AirDesk;
 import pt.ulisboa.tecnico.cmov.airdesk.GlobalClasses.User;
+import pt.ulisboa.tecnico.cmov.airdesk.Sockets.SimWifiP2pBroadcastReceiver;
 
-public class Activity_Menu extends ActionBarActivity {
+public class Activity_Menu extends ActionBarActivity implements ChannelListener{
 
     User g;
 
@@ -28,6 +44,21 @@ public class Activity_Menu extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_menu);
 
+        //TODO Termite
+        SimWifiP2pSocketManager.Init(getApplicationContext());
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_STATE_CHANGED_ACTION);
+        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_PEERS_CHANGED_ACTION);
+        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_NETWORK_MEMBERSHIP_CHANGED_ACTION);
+        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_GROUP_OWNERSHIP_CHANGED_ACTION);
+        //SimWifiP2pBroadcastReceiver receiver = new SimWifiP2pBroadcastReceiver(this);
+        registerReceiver(receiver, filter);
+/*
+        Intent intent = new Intent(v.getContext(), SimWifiP2pService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+*/
+        //Todo termite
         // variaveis globais
         AirDesk globals = (AirDesk) getApplicationContext();
         g=globals.getLoggedUser();
@@ -140,5 +171,11 @@ public class Activity_Menu extends ActionBarActivity {
             e.printStackTrace();
         }
         //=================================================//
+    }
+
+
+    @Override
+    public void onChannelDisconnected() {
+
     }
 }
